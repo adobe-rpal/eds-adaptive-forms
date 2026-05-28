@@ -1,9 +1,8 @@
 {
   "mappings": [
-    "/:/"
+    "/content/eds-adaptive-forms/:/"
   ],
   "includes": [
-    "/content/",
-    "/content/dam/"
+    "/content/eds-adaptive-forms/**"
   ]
 }
