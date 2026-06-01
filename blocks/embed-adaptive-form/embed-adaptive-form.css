@@ -1,5 +1,5 @@
 /* Content width */
-main > .section > div {
+main .section > div {
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
@@ -8,31 +8,58 @@ main > .section > div {
 }
 
 /* Base section styling */
-main > .section {
-  background: #fff;
+main .section {
   position: relative;
 }
 
+/* Only apply card-like styling to the primary form containers */
+main .section.form-container,
+main .section.embed-adaptive-form-container {
+  background: #fff;
+}
+
+/* Reset styles for nested sections to avoid double borders/padding */
+main .section .section {
+  background: transparent;
+  border-radius: 0;
+}
+
 /* First visible form */
-main > .section.form-container.active-step,
-main > .section.embed-adaptive-form-container.active-step {
+main .section.form-container.active-step,
+main .section.embed-adaptive-form-container.active-step {
   display: block;
 }
 
-/* Hidden forms */
-main > .section.form-container:not(.active-step),
-main > .section.embed-adaptive-form-container:not(.active-step) {
+/* Hidden forms - only hide if it's a step that isn't active */
+main .section.form-container:not(.active-step),
+main .section.embed-adaptive-form-container:not(.active-step) {
   display: none;
 }
 
-/* Rounded container */
-main > .section.form-container.active-step,
-main > .section.embed-adaptive-form-container.active-step {
+/* Remove redundant internal padding for nested sections */
+main .section .section > div {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* 
+   Handle Nested Visibility:
+   If a section contains the active step, it must be displayed 
+   even if it's not the "primary" active-step itself.
+*/
+.embedded-form-wrapper:has(.active-step),
+.embed-adaptive-form-container:has(.active-step) {
+  display: block !important;
+}
+
+/* Rounded container - applied to whichever section is currently the visible step */
+main .section.form-container.active-step,
+main .section.embed-adaptive-form-container.active-step {
   border-radius: 32px;
   overflow: hidden;
 }
 
 /* Optional spacing */
-main > .section.embed-adaptive-form-container {
+main .section.embed-adaptive-form-container {
   margin-bottom: 24px;
 }

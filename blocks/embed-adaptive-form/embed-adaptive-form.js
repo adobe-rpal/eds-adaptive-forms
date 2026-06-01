@@ -9,7 +9,7 @@ function initializeStepper() {
   // Hide all except first, only if no section is already active
   if (!sections.some((s) => s.classList.contains('active-step'))) {
     sections.forEach((section, index) => {
-      section.classList.toggle('active-step', index === 0);
+      if (index === 0) section.classList.add('active-step');
     });
   }
 
@@ -36,8 +36,17 @@ function initializeStepper() {
           }
         }
 
+        // Hide the current step
         section.classList.remove('active-step');
+        // Show the next step
         nextSection.classList.add('active-step');
+
+        // Ensure all ancestor sections are visible to support the nested structure
+        let parent = nextSection.parentElement?.closest('.section');
+        while (parent) {
+          parent.style.display = 'block';
+          parent = parent.parentElement?.closest('.section');
+        }
       });
     });
   });
@@ -63,7 +72,12 @@ export default async function decorate(block) {
     const wrapper = document.createElement('div');
     wrapper.className = 'embedded-form-wrapper';
 
-    wrapper.append(...fragment.children);
+    [...fragment.children].forEach((child) => {
+      if (child.classList.contains('section')) {
+        child.classList.add('form-container');
+      }
+      wrapper.append(child);
+    });
 
     block.append(wrapper);
   });
