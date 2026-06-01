@@ -1,23 +1,35 @@
-/** css goes here */
-/* Normalize the width of all content containers within sections */
+/* Content width */
 main .section > div {
   max-width: 100%;
-  margin: 0 auto;
   width: 100%;
+  margin: 0 auto;
   box-sizing: border-box;
-  padding: 0 24px; /* Default side padding for mobile */
+  padding: 0 24px;
 }
 
-/* Ensure all sections have a consistent background and behavior to match the first section */
+/* Base section styling */
 main .section {
-  background-color: #fff;
+  background: #fff;
   position: relative;
 }
 
-/* Styling for the first section to create the rounded-top overlay effect */
-main .section:first-child {
-  border-radius: 32px 32px 0 0;
-  z-index: 10;
-  /* Pull the section up to overlay the hero/background if necessary */
-  margin-top: -32px;
+/* First visible form */
+main .embed-adaptive-form-container.active-step {
+  display: block;
+}
+
+/* Hidden forms */
+main .embed-adaptive-form-container:not(.active-step) {
+  display: none;
+}
+
+/* Rounded container */
+main .embed-adaptive-form-container.active-step {
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+/* Optional spacing */
+main .embed-adaptive-form-container {
+  margin-bottom: 24px;
 }
