@@ -1,11 +1,15 @@
 mountpoints:
   /:
 <<<<<<< HEAD
+<<<<<<< HEAD
     url: "https://author-p130360-e1272151.adobeaemcloud.com/bin/franklin.delivery/adobe-rnd/aem-boilerplate-xwalk/main"
     type: "markup"
     suffix: ".html"
 =======
     url: https://author-p96753-e1523920.adobeaemcloud.com/bin/franklin.delivery/adobe-rpal/forms/main
+=======
+    url: https://author-p96753-e1523920.adobeaemcloud.com/bin/franklin.delivery/adobe-rpal/eds-adaptive-forms/main
+>>>>>>> de3fd82 (Fix EDS author connection)
     type: markup
     suffix: .html
 >>>>>>> c9e0b72 (Fix EDS author connection)
