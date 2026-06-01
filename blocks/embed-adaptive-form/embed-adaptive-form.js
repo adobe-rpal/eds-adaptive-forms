@@ -8,11 +8,18 @@ export default function decorate(block) {
       // Disconnect observer after loading to prevent multiple loads
       observer.disconnect();
 
-      const container = block.querySelector('a[href]');
-      // get the pathname from the href
-      const { pathname } = new URL(container.href);
-      const form = await loadFragment(pathname);
-      block.replaceChildren(form.children[0]);
+      const links = [...block.querySelectorAll('a[href]')];
+      const fragments = await Promise.all(links.map(async (link) => {
+        const url = new URL(link.href);
+        return loadFragment(url.pathname);
+      }));
+
+      block.textContent = '';
+      fragments.forEach((fragment) => {
+        if (fragment) {
+          block.append(...fragment.children);
+        }
+      });
     }
   });
 
