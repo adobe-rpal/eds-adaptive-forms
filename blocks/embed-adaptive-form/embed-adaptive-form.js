@@ -17,7 +17,10 @@ export default function decorate(block) {
       block.textContent = '';
       fragments.forEach((fragment) => {
         if (fragment) {
-          block.append(...fragment.children);
+          const wrapper = document.createElement('div');
+          wrapper.className = 'embedded-form-wrapper';
+          wrapper.append(...fragment.children);
+          block.append(wrapper);
         }
       });
     }

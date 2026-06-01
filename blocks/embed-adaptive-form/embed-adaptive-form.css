@@ -1,1 +1,23 @@
 /** css goes here */
+/* Normalize the width of all content containers within sections */
+main .section > div {
+  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 24px; /* Default side padding for mobile */
+}
+
+/* Ensure all sections have a consistent background and behavior to match the first section */
+main .section {
+  background-color: #fff;
+  position: relative;
+}
+
+/* Styling for the first section to create the rounded-top overlay effect */
+main .section:first-child {
+  border-radius: 32px 32px 0 0;
+  z-index: 10;
+  /* Pull the section up to overlay the hero/background if necessary */
+  margin-top: -32px;
+}
