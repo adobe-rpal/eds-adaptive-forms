@@ -1,5 +1,5 @@
 /* Content width */
-main .section > div {
+main > .section > div {
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
@@ -8,28 +8,31 @@ main .section > div {
 }
 
 /* Base section styling */
-main .section {
+main > .section {
   background: #fff;
   position: relative;
 }
 
 /* First visible form */
-main .embed-adaptive-form-container.active-step {
+main > .section.form-container.active-step,
+main > .section.embed-adaptive-form-container.active-step {
   display: block;
 }
 
 /* Hidden forms */
-main .embed-adaptive-form-container:not(.active-step) {
+main > .section.form-container:not(.active-step),
+main > .section.embed-adaptive-form-container:not(.active-step) {
   display: none;
 }
 
 /* Rounded container */
-main .embed-adaptive-form-container.active-step {
+main > .section.form-container.active-step,
+main > .section.embed-adaptive-form-container.active-step {
   border-radius: 32px;
   overflow: hidden;
 }
 
 /* Optional spacing */
-main .embed-adaptive-form-container {
+main > .section.embed-adaptive-form-container {
   margin-bottom: 24px;
 }

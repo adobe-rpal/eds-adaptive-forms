@@ -1,36 +1,43 @@
 import { loadFragment } from '../fragment/fragment.js';
 
 function initializeStepper() {
-  const sections = document.querySelectorAll(
-    'main .embed-adaptive-form-container, main .form-container',
-  );
+  const getSections = () => [...document.querySelectorAll('main .embed-adaptive-form-container, main .form-container')];
+  const sections = getSections();
 
   if (!sections.length) return;
 
-  // Hide all except first
-  sections.forEach((section, index) => {
-    section.classList.toggle('active-step', index === 0);
-  });
+  // Hide all except first, only if no section is already active
+  if (!sections.some((s) => s.classList.contains('active-step'))) {
+    sections.forEach((section, index) => {
+      section.classList.toggle('active-step', index === 0);
+    });
+  }
 
-  sections.forEach((section, index) => {
-    const buttons = section.querySelectorAll('button');
+  sections.forEach((section) => {
+    const buttons = section.querySelectorAll('button:not([data-stepper-init])');
 
     buttons.forEach((button) => {
+      button.dataset.stepperInit = 'true';
       button.addEventListener('click', async () => {
-        const nextSection = sections[index + 1];
+        const currentSections = getSections();
+        const currentIndex = currentSections.indexOf(section);
+        const nextSection = currentSections[currentIndex + 1];
+
         if (!nextSection) return;
 
         if (button.name === 'view_loan_eligibility') {
-          await fetch('https://mocki.io/v1/52531fa2-1899-4761-9e96-58fda44733c8');
+          try {
+            const response = await fetch('https://mocki.io/v1/52531fa2-1899-4761-9e96-58fda44733c8');
+            if (!response.ok) {
+              throw new Error('Eligibility check failed');
+            }
+          } catch (error) {
+            return; // Stop the transition if the API call is not successful
+          }
         }
 
         section.classList.remove('active-step');
         nextSection.classList.add('active-step');
-
-        nextSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
       });
     });
   });
