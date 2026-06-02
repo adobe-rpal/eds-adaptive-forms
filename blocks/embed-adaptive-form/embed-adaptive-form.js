@@ -124,6 +124,20 @@ export default async function decorate(block) {
       '.field-step-pan-card',
       '.field-step-date-of-birth',
       '.field-step-cheque-bank-details',
+      '.field-full-name',
+      '.field-mobile-number',
+      '.field-date-of-birth',
+      '.field-pan',
+      '.field-current-address',
+      '.field-residence-type',
+      '.field-loan-amount',
+      '.field-emi-amount',
+      '.field-tenure',
+      '.field-processing-fee',
+      '.field-rate-of-interest',
+      '.field-employer-name',
+      '.field-schedule-of-charges',
+      '.field-type-of-loan',
     ];
     journeySelectors.forEach((sel) => {
       block.querySelectorAll(sel).forEach((field) => field.classList.remove('col-3'));
@@ -133,7 +147,10 @@ export default async function decorate(block) {
       '.field-income-source',
       '.field-date-of-birth',
       '.field-mobile-number',
-      'field-salary-bank-dropdown',
+      '.field-salary-bank-dropdown',
+      '.field-salary-ac-number',
+      '.field-ifsc',
+      '.field-bank-name',
     ];
     col4Selectors.forEach((sel) => {
       block.querySelectorAll(sel).forEach((field) => field.classList.replace('col-4', 'col-12'));
@@ -150,6 +167,13 @@ export default async function decorate(block) {
       '[class*="field-ongoing-emis-if-any"]',
       '.field-gender',
       '.field-pan-number',
+      '.field-primary-email-panel',
+      '.field-work-email-panel',
+      '.field-loan-application-number',
+      '.field-loan-application-number-value',
+      '.field-contact-note',
+      '.field-xpress-personal-loan-summary-panel',
+      
     ];
     stackSelectors.forEach((sel) => {
       block.querySelectorAll(sel).forEach((field) => {

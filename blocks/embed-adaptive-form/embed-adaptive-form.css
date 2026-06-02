@@ -132,6 +132,12 @@ main .section.embed-adaptive-form-container {
   main div.form-wrapper {
     padding-top: 0 !important;
   }
+  main .form form .field-salary-bank-quick-select .radio-wrapper {
+    width: 40% !important;
+  }
+  main .form form .field-salary-bank-quick-select .radio-wrapper label { 
+    font-size: 12px !important;
+  }
 
 }
 
