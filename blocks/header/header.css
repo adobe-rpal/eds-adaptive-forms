@@ -1,4 +1,8 @@
-header {}
+header {
+  z-index: 11;
+  display: block;
+  position: relative;
+}
 
 main {
   position: relative;
