@@ -88,6 +88,35 @@ export default async function decorate(block) {
     block.append(wrapper);
   });
 
+  // Decorate Income Verification field cards
+  const ivField = block.querySelector('.field-income-verification-method');
+  if (ivField && ivField.dataset.description) {
+    const descriptions = ivField.dataset.description.split('|').map((s) => s.trim());
+
+    ivField.querySelectorAll('.radio-wrapper').forEach((wrapper, index) => {
+      const input = wrapper.querySelector('input');
+      const label = wrapper.querySelector('label');
+      const descText = descriptions[index];
+
+      const header = document.createElement('div');
+      header.className = 'iv-card-header';
+      input.name = 'income_verification_method'; // Normalize name as per request
+      header.append(input, label);
+
+      const desc = document.createElement('p');
+      desc.className = 'iv-card-desc';
+      desc.textContent = descText || '';
+
+      wrapper.replaceChildren(header, desc);
+      if (index === 0) {
+        const badge = document.createElement('span');
+        badge.className = 'iv-recommended';
+        badge.textContent = 'Recommended';
+        wrapper.append(badge);
+      }
+    });
+  }
+
   // Ensure the stepper is initialized after the fragments are added to the DOM
   requestAnimationFrame(() => {
     initializeStepper();
