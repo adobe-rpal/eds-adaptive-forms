@@ -1,7 +1,7 @@
 import { loadFragment } from '../fragment/fragment.js';
 
 function initializeStepper() {
-  const getSections = () => [...document.querySelectorAll('main .embed-adaptive-form-container, main .form-container')];
+  const getSections = () => [...document.querySelectorAll('main > .embed-adaptive-form-container, main > .form-container')];
   const sections = getSections();
 
   if (!sections.length) return;
@@ -21,9 +21,13 @@ function initializeStepper() {
       button.addEventListener('click', async () => {
         const currentSections = getSections();
         const currentIndex = currentSections.indexOf(section);
-        const nextSection = currentSections[currentIndex + 1];
+        const isBack = ['back_button', 'Back', 'Back_button'].includes(button.name);
+        const targetSection = isBack ? currentSections[currentIndex - 1] : currentSections[currentIndex + 1];
 
-        if (!nextSection) return;
+        if (!targetSection || currentIndex === -1) return;
+
+        const navButtons = ['view_loan_eligibility', 'confirm_cutomer_details_button', 'continue', 'Continue', 'proceed', 'proceed_button', 'confirm_button', 'Confirm', 'back_button', 'Back', 'Back_button', 'submit_otp'];
+        if (!navButtons.includes(button.name)) return;
 
         if (button.name === 'view_loan_eligibility') {
           try {
@@ -36,16 +40,18 @@ function initializeStepper() {
           }
         }
 
-        // Hide the current step
-        section.classList.remove('active-step');
-        // Show the next step
-        nextSection.classList.add('active-step');
+        // Remove active-step from current section and its ancestors
+        [section, ...currentSections].forEach((s) => s.classList.remove('active-step'));
 
-        // Ensure all ancestor sections are visible to support the nested structure
-        let parent = nextSection.parentElement?.closest('.section');
-        while (parent) {
-          parent.style.display = 'block';
-          parent = parent.parentElement?.closest('.section');
+        // Add active-step to target section
+        targetSection.classList.add('active-step');
+
+        // Propagate active-step to all ancestor sections to ensure visibility
+        let ancestor = targetSection.parentElement?.closest('.section');
+        while (ancestor) {
+          ancestor.classList.add('active-step');
+          ancestor.style.display = 'block';
+          ancestor = ancestor.parentElement?.closest('.section');
         }
       });
     });

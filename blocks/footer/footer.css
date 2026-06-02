@@ -1,14 +1,22 @@
 footer {
-  background: #0C1738;
+    background: #03164a;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    padding: 24px 16px;
+    line-height: 1.6;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
 }
 
-footer .footer-wrapper {
-  height: 36px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+footer .footer-wrapper {}
 
 footer p {
   margin: 0;

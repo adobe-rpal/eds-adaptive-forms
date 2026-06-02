@@ -52,6 +52,15 @@ main .section .section > div {
   display: block !important;
 }
 
+/* 
+   Ensure nested form containers are always visible when 
+   wrapped inside an active adaptive form container 
+*/
+main .section.embed-adaptive-form-container.active-step .section.form-container,
+main .section.embed-adaptive-form-container:has(.active-step) .section.form-container {
+  display: block !important;
+}
+
 /* Rounded container - applied to whichever section is currently the visible step */
 main .section.form-container.active-step,
 main .section.embed-adaptive-form-container.active-step {

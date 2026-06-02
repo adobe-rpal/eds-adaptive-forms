@@ -1,10 +1,6 @@
-header {
-  min-height: 200px;
-  background: #0C1738;
-}
+header {}
 
 main {
-  margin-top: -20px;
   position: relative;
   z-index: 10;
 
@@ -13,7 +9,6 @@ main {
 
 main .section:first-child {
   position: relative;
-  margin-top: -20px;
   margin-left: 20px;
 
   max-width: 1200px;
@@ -29,27 +24,28 @@ main .section:first-child {
 }
 
 header .nav-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 120px;
-
+  background: #03164a;
+  height: 72px;
+  padding: 0 48px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
-
-  padding: 18px 32px 0;
+  width: 100%;
   box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  z-index: 3;
 }
 
 header .nav-logo img {
-  height: 38px;
-  width: auto;
+  height: 30px;
+  width: 120px;
   display: block;
 }
 
 header .nav-secure img {
-  height: 48px;
-  width: auto;
+  height: 30px;
+  width: 120px;
   display: block;
 }
 
