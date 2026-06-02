@@ -133,6 +133,7 @@ export default async function decorate(block) {
       '.field-income-source',
       '.field-date-of-birth',
       '.field-mobile-number',
+      'field-salary-bank-dropdown',
     ];
     col4Selectors.forEach((sel) => {
       block.querySelectorAll(sel).forEach((field) => field.classList.replace('col-4', 'col-12'));
@@ -142,6 +143,11 @@ export default async function decorate(block) {
       '[class*="field-first-name"]',
       '[class*="field-middle-name"]',
       '[class*="field-last-name"]',
+      '[class*="field-employer-company-name-dropdown"]',
+      '[class*="field-employer-company-name-text"]',
+      '[class*="field-industry-type"]',
+      '[class*="field-monthly-net-income-salary"]',
+      '[class*="field-ongoing-emis-if-any"]',
       '.field-gender',
       '.field-pan-number',
     ];

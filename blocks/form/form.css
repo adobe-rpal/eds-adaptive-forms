@@ -1762,12 +1762,12 @@ main .form form .field-personal-details-panel .field-email-id > label {
 }
 
 main .form form .field-personal-details-panel .field-email-id input[type="email"] {
-    border: none !important;
-    border-radius: 0 !important;
-    height: 52px !important;
-    flex: 1;
-    padding: 0 14px !important;
-    margin: 0 !important;
+    border: none; 
+    border-radius: 0;
+    height: 52px;
+    /* flex: 1; */
+    padding: 0 14px;
+    margin: 0;
     background: transparent !important;
     box-shadow: none !important;
     outline: none !important;
@@ -1780,7 +1780,7 @@ main .form form .field-personal-details-panel .field-email-id input[type="email"
 
 main .form form .field-personal-details-panel .field-email-id > button {
     border: none !important;
-    border-left: 1.5px solid #d0d5dd !important;
+    border-left: 1.5px solid #d0d5dd;
     border-radius: 0 !important;
     background: transparent !important;
     color: #3d52d5 !important;
@@ -3043,11 +3043,11 @@ main .form form .wizard-button-next button:disabled {
 
 /* Confirm (submit) button — same style as Proceed */
 main .form form .field-confirm-button {
-    margin-top: 20px;
     grid-column: span 12;
 }
 
-main .form form .field-confirm-button button {
+main .form form .field-confirm-button button,
+main .form form .field-back-button button {
     background: #1e3a8a;
     color: #fff;
     border: none;
@@ -3069,11 +3069,19 @@ main .form form .field-confirm-button button::after {
     line-height: 1;
 }
 
-main .form form .field-confirm-button button:hover {
+main .form form .field-back-button button::after {
+    content: "";
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+main .form form .field-confirm-button button:hover,
+main .form form .field-back-button button:hover {
     background: #1e40af;
 }
 
-main .form form .field-confirm-button button:disabled {
+main .form form .field-confirm-button button:disabled,
+main .form form .field-back-button button:disabled  {
     background: #b0b8d1;
     color: #fff;
     cursor: not-allowed;
@@ -4023,12 +4031,12 @@ main .form form .field-work-email-id-panel .field-work-email-id > label {
 }
 
 main .form form .field-work-email-id-panel .field-work-email-id input[type="email"] {
-    border: none !important;
-    border-radius: 0 !important;
+    border: none;
+    border-radius: 0;
     height: 52px !important;
     flex: 1;
     padding: 0 14px !important;
-    margin: 0 !important;
+    margin: 0;
     background: transparent !important;
     box-shadow: none !important;
     outline: none !important;
@@ -4041,7 +4049,7 @@ main .form form .field-work-email-id-panel .field-work-email-id input[type="emai
 
 main .form form .field-work-email-id-panel .field-work-email-id > button {
     border: none !important;
-    border-left: 1.5px solid #d0d5dd !important;
+    border-left: 1.5px solid #d0d5dd;
     border-radius: 0 !important;
     background: transparent !important;
     color: #3d52d5 !important;

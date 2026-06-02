@@ -101,6 +101,38 @@ main .section.embed-adaptive-form-container {
   main .form .email-domain-suggestions button {
     border-radius: 16px !important;
   }
+  main .form form .field-personal-details-panel .field-email-id > button {
+    border-left: none;
+  }
+  main .form form .field-address-details .field-aadhaar-address-type {
+    grid-column: span 3 !important;
+  }
+  main .form form .field-address-details .field-aadhaar-address-type .radio-wrapper {
+    width: 80%;
+  }
+  main .form form .field-work-email-id-panel .field-work-email-id {
+    flex-direction: column;
+  }
+  main .form form .field-work-email-id-panel .field-work-email-id input[type="email"] {
+    flex: none !important;
+    border-radius: 8px !important;
+    border: 1.5px solid #d0d5dd !important;
+    margin: 10px !important;
+    width: 90% !important;
+    border-left: none;
+  }
+  main .form form .field-loan-type-selection {
+    padding: 0 !important;
+  }
+  main .form form p,
+  main .form form .repeat-wrapper,
+  main .form form .field-wrapper {
+    margin: 5px !important;
+  }
+  main div.form-wrapper {
+    padding-top: 0 !important;
+  }
+
 }
 
 /* Mobile adjustments */
