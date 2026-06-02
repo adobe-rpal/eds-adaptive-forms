@@ -91,6 +91,16 @@ main .section.embed-adaptive-form-container {
   .email-domain-suggestions{
         padding: 0 10px !important;
   }
+  main .form form .field-personal-details-panel .field-email-id input[type="email"] {
+    flex: none !important;
+    border-radius: 8px !important;
+    border: 1.5px solid #d0d5dd !important;
+    margin: 10px !important;
+    width: 90% !important;
+  }
+  main .form .email-domain-suggestions button {
+    border-radius: 16px !important;
+  }
 }
 
 /* Mobile adjustments */
