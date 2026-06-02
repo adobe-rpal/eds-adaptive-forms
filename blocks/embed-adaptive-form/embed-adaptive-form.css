@@ -78,6 +78,19 @@ main .section.embed-adaptive-form-container {
   main .section > div {
     padding: 0 20px;
   }
+  main .section.form-container.active-step,
+  main .section.embed-adaptive-form-container.active-step {
+    border-radius: 16px;
+  }
+  main .form form .field-personal-loan-offer-panel .radio-group-wrapper {
+    grid-column: span 12 !important;
+  }
+  main .form form .field-personal-details-panel .field-email-id {
+    flex-direction: column !important;
+  }
+  .email-domain-suggestions{
+        padding: 0 10px !important;
+  }
 }
 
 /* Mobile adjustments */
@@ -89,5 +102,8 @@ main .section.embed-adaptive-form-container {
   main .section.form-container.active-step,
   main .section.embed-adaptive-form-container.active-step {
     border-radius: 16px;
+  }
+  main .form form .field-personal-loan-offer-panel .radio-group-wrapper {
+    grid-column: span 12 !important;
   }
 }

@@ -117,6 +117,43 @@ export default async function decorate(block) {
     });
   }
 
+  // Remove column classes on mobile to ensure they stack correctly
+  if (window.matchMedia('(width <= 900px)').matches) {
+    const journeySelectors = [
+      '.field-step-mobile-phone',
+      '.field-step-pan-card',
+      '.field-step-date-of-birth',
+      '.field-step-cheque-bank-details',
+    ];
+    journeySelectors.forEach((sel) => {
+      block.querySelectorAll(sel).forEach((field) => field.classList.remove('col-3'));
+    });
+
+    const col4Selectors = [
+      '.field-income-source',
+      '.field-date-of-birth',
+      '.field-mobile-number',
+    ];
+    col4Selectors.forEach((sel) => {
+      block.querySelectorAll(sel).forEach((field) => field.classList.replace('col-4', 'col-12'));
+    });
+
+    const stackSelectors = [
+      '[class*="field-first-name"]',
+      '[class*="field-middle-name"]',
+      '[class*="field-last-name"]',
+      '.field-gender',
+      '.field-pan-number',
+    ];
+    stackSelectors.forEach((sel) => {
+      block.querySelectorAll(sel).forEach((field) => {
+        const colClass = [...field.classList].find((c) => c.startsWith('col-'));
+        if (colClass) field.classList.remove(colClass);
+      });
+    });
+
+  }
+
   // Ensure the stepper is initialized after the fragments are added to the DOM
   requestAnimationFrame(() => {
     initializeStepper();
