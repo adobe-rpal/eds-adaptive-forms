@@ -64,3 +64,39 @@ main .section:first-child {
   box-sizing: border-box;
   z-index: 10;
 }
+
+/* Tablet adjustments */
+@media (width <= 900px) {
+  header .nav-wrapper {
+    padding: 0 24px;
+  }
+
+  main {
+    padding-left: 0;
+  }
+
+  main .section:first-child {
+    margin-left: 0;
+    width: 100%;
+    padding: 0;
+  }
+}
+
+/* Mobile adjustments */
+@media (width <= 600px) {
+  header .nav-wrapper {
+    padding: 0 16px;
+    height: 60px;
+  }
+
+  header .nav-logo img,
+  header .nav-secure img {
+    height: 24px;
+    width: auto;
+  }
+
+  main .section:first-child {
+    border-radius: 0;
+    padding: 0;
+  }
+}
