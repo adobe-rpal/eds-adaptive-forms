@@ -18,12 +18,13 @@ function initializeStepper() {
 
     buttons.forEach((button) => {
       button.dataset.stepperInit = 'true';
-      button.addEventListener('click', async () => {
+      button.addEventListener('click', async (e) => {
         const currentSections = getSections();
         const currentIndex = currentSections.indexOf(section);
 
         // Handle Requirement 1: view_loan_eligibility internal panel switch
         if (button.name === 'view_loan_eligibility') {
+          e.preventDefault();
           try {
             const response = await fetch('https://mocki.io/v1/52531fa2-1899-4761-9e96-58fda44733c8');
             if (!response.ok) throw new Error('Eligibility check failed');
@@ -44,6 +45,7 @@ function initializeStepper() {
 
         // Handle Requirement 2: Back button inside OTP panel (internal switch)
         if (button.name === 'Back' && button.closest('.field-enter-otp-panel')) {
+          e.preventDefault();
           const otpPanel = section.querySelector('.field-enter-otp-panel');
           const personalPanel = section.querySelector('.field-personal-loan-offer-panel');
           if (otpPanel && personalPanel) {
@@ -64,6 +66,8 @@ function initializeStepper() {
 
         const navButtons = ['confirm_cutomer_details_button', 'continue', 'Continue', 'proceed', 'proceed_button', 'confirm_button', 'Confirm', 'back_button', 'Back', 'Back_button', 'submit_otp', 'submit_otp_button'];
         if (!navButtons.includes(button.name)) return;
+
+        e.preventDefault();
 
         // Remove active-step from current section and its ancestors
         [section, ...currentSections].forEach((s) => s.classList.remove('active-step'));
