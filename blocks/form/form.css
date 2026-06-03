@@ -978,7 +978,7 @@ main .form form .radio-group-wrapper.horizontal,
 main .form form .checkbox-group-wrapper.horizontal {
     display: flex;
     flex-flow: row wrap;
-    gap: inherit;
+    /* gap: inherit; */
 }
 
 main .form form .radio-group-wrapper.horizontal .field-description,
