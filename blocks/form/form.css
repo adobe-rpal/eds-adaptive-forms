@@ -211,6 +211,10 @@ main .form form {
     display: grid;
     grid-template-columns: repeat(var(--form-columns), minmax(0, 1fr));
     gap: var(--form-field-vert-gap) var(--form-field-horz-gap);
+    margin-left: 32px;
+    margin-right: 32px;
+    padding-top: 32px;
+    padding-bottom: 32px;
 }
 
 main .form form fieldset {
@@ -352,7 +356,7 @@ main .form label.required::after {
 main .form form p,
 main .form form .repeat-wrapper,
 main .form form .field-wrapper {
-    margin: var(--form-field-gap);
+    /* margin: var(--form-field-gap); */
     color: var(--form-label-color);
     grid-column: span 12;
 }
@@ -972,7 +976,7 @@ main .form form .checkbox-group-wrapper.horizontal .field-description {
 
 main div.form-wrapper {
     background: white;
-    padding: 40px;
+    /* padding: 40px; */
     border-radius: 12px;
     box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
 }
@@ -3664,10 +3668,10 @@ main .form form .field-income-verification-method .radio-wrapper:has(.iv-recomme
 /* ── Bank Selector Panel ────────────────────────────────── */
 main .form form .field-loan-type-selection {
     background: #fff;
-    border: 1px solid #dde2ec;
+    /* border: 1px solid #dde2ec; */
     border-radius: 12px;
-    padding: 0 24px 24px;
-    box-shadow: 0 1px 8px rgb(0 0 0 / 6%);
+    /* padding: 0 24px 24px;
+    box-shadow: 0 1px 8px rgb(0 0 0 / 6%); */
     overflow: hidden;
 }
 
