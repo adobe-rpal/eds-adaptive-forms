@@ -99,9 +99,6 @@ main .form form .field-income-verification-method .radio-wrapper:has(.iv-recomme
   margin-bottom: 20px !important;
 }
 
-main .form form .field-personal-loan-offer-panel input[type="text"], main .form form .field-personal-loan-offer-panel .date-wrapper input {
-  padding-left: 10px !important;
-}
 /* Tablet adjustments */
 @media (width <=900px) {
   main .section>div {
