@@ -85,6 +85,13 @@ main .section.embed-adaptive-form-container {
   main .form form .field-personal-loan-offer-panel .radio-group-wrapper {
     grid-column: span 12 !important;
   }
+  main .form form .field-personal-loan-offer-panel {
+    padding: 24px 0 32px !important;
+  }
+
+  main .form form {
+    padding: 10px !important;
+  }
   main .form form .field-personal-details-panel .field-email-id {
     flex-direction: column !important;
   }
@@ -123,11 +130,13 @@ main .section.embed-adaptive-form-container {
   }
   main .form form .field-loan-type-selection {
     padding: 0 !important;
+    box-shadow: none !important;
+    border: 0 !important;
   }
   main .form form p,
   main .form form .repeat-wrapper,
   main .form form .field-wrapper {
-    margin: 5px !important;
+    margin: 0 !important;
   }
   main div.form-wrapper {
     padding-top: 0 !important;
@@ -137,6 +146,10 @@ main .section.embed-adaptive-form-container {
   }
   main .form form .field-salary-bank-quick-select .radio-wrapper label { 
     font-size: 12px !important;
+  }
+
+  main .form form .field-loan-offer-declared-income {
+    display: flex !important;
   }
 
 }
