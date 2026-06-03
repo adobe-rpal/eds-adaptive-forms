@@ -1770,7 +1770,7 @@ main .form form .field-personal-details-panel .field-email-id input[type="email"
     border: none; 
     border-radius: 0;
     height: 52px;
-    /* flex: 1; */
+    flex: 1;
     padding: 0 14px;
     margin: 0;
     background: transparent !important;

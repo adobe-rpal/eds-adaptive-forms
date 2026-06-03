@@ -1,5 +1,5 @@
 /* Content width */
-main .section > div {
+main .section>div {
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
@@ -37,7 +37,7 @@ main .section.embed-adaptive-form-container:not(.active-step) {
 }
 
 /* Remove redundant internal padding for nested sections */
-main .section .section > div {
+main .section .section>div {
   padding-left: 0;
   padding-right: 0;
 }
@@ -73,23 +73,43 @@ main .section.embed-adaptive-form-container {
   margin-bottom: 24px;
 }
 
-main .section.form-container.active-step, main .section.embed-adaptive-form-container.active-step {
-    margin-top: 32px !important;
-    margin-bottom: 32px !important;
+main .section.form-container.active-step,
+main .section.embed-adaptive-form-container.active-step {
+  margin-top: 32px !important;
+  margin-bottom: 32px !important;
+}
+
+main .form form .field-personal-details-panel .field-email-id {
+  align-items: center !important;
+  padding-left: 10px !important;
+}
+
+main .form form .field-work-email-id-panel .field-work-email-id {
+  align-items: center !important;
+  padding-left: 10px !important;
+  border: inherit !important;
+  border-radius: inherit !important;
+}
+
+main .form form .field-salary-bank-quick-select .radio-wrapper label {
+  font-size: 12px !important;
 }
 
 /* Tablet adjustments */
-@media (width <= 900px) {
-  main .section > div {
+@media (width <=900px) {
+  main .section>div {
     /* padding: 0 20px; */
   }
+
   main .section.form-container.active-step,
   main .section.embed-adaptive-form-container.active-step {
     border-radius: 16px;
   }
+
   main .form form .field-personal-loan-offer-panel .radio-group-wrapper {
     grid-column: span 12 !important;
   }
+
   main .form form .field-personal-loan-offer-panel {
     padding: 24px 0 32px !important;
   }
@@ -97,12 +117,15 @@ main .section.form-container.active-step, main .section.embed-adaptive-form-cont
   main .form form {
     padding: 10px !important;
   }
+
   main .form form .field-personal-details-panel .field-email-id {
     flex-direction: column !important;
   }
-  .email-domain-suggestions{
-        padding: 0 10px !important;
+
+  .email-domain-suggestions {
+    padding: 0 10px !important;
   }
+
   main .form form .field-personal-details-panel .field-email-id input[type="email"] {
     flex: none !important;
     border-radius: 8px !important;
@@ -110,21 +133,27 @@ main .section.form-container.active-step, main .section.embed-adaptive-form-cont
     margin: 10px !important;
     width: 90% !important;
   }
+
   main .form .email-domain-suggestions button {
     border-radius: 16px !important;
   }
-  main .form form .field-personal-details-panel .field-email-id > button {
+
+  main .form form .field-personal-details-panel .field-email-id>button {
     border-left: none;
   }
+
   main .form form .field-address-details .field-aadhaar-address-type {
     grid-column: span 3 !important;
   }
+
   main .form form .field-address-details .field-aadhaar-address-type .radio-wrapper {
     width: 80%;
   }
+
   main .form form .field-work-email-id-panel .field-work-email-id {
     flex-direction: column;
   }
+
   main .form form .field-work-email-id-panel .field-work-email-id input[type="email"] {
     flex: none !important;
     border-radius: 8px !important;
@@ -133,42 +162,46 @@ main .section.form-container.active-step, main .section.embed-adaptive-form-cont
     width: 90% !important;
     border-left: none;
   }
+
   main .form form .field-loan-type-selection {
     padding: 0 !important;
     box-shadow: none !important;
     border: 0 !important;
   }
+
   main .form form p,
   main .form form .repeat-wrapper,
   main .form form .field-wrapper {
     margin: 0 !important;
   }
+
   main div.form-wrapper {
     padding-top: 0 !important;
   }
+
   main .form form .field-salary-bank-quick-select .radio-wrapper {
     width: 40% !important;
-  }
-  main .form form .field-salary-bank-quick-select .radio-wrapper label { 
-    font-size: 12px !important;
   }
 
   main .form form .field-loan-offer-declared-income {
     display: flex !important;
   }
+
   main .form form {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-  main .section.form-container.active-step, main .section.embed-adaptive-form-container.active-step {
+
+  main .section.form-container.active-step,
+  main .section.embed-adaptive-form-container.active-step {
     margin-top: 16px !important;
     margin-bottom: 16px !important;
   }
 }
 
 /* Mobile adjustments */
-@media (width <= 600px) {
-  main .section > div {
+@media (width <=600px) {
+  main .section>div {
     /* padding: 0 16px; */
   }
 
@@ -176,6 +209,7 @@ main .section.form-container.active-step, main .section.embed-adaptive-form-cont
   main .section.embed-adaptive-form-container.active-step {
     border-radius: 16px;
   }
+
   main .form form .field-personal-loan-offer-panel .radio-group-wrapper {
     grid-column: span 12 !important;
   }
