@@ -34,7 +34,7 @@ function initializeStepper() {
               personalPanel.dataset.visible = 'false';
               personalPanel.style.display = 'none';
               otpPanel.dataset.visible = 'true';
-              otpPanel.style.display = 'block';
+              otpPanel.style.display = 'grid';
               return; // Prevent top-level section transition
             }
           } catch (error) {
@@ -50,7 +50,7 @@ function initializeStepper() {
             otpPanel.dataset.visible = 'false';
             otpPanel.style.display = 'none';
             personalPanel.dataset.visible = 'true';
-            personalPanel.style.display = 'block';
+            personalPanel.style.display = 'grid';
             return; // Prevent top-level section transition
           }
         }
