@@ -1,7 +1,7 @@
 import { loadFragment } from '../fragment/fragment.js';
 
 function initializeStepper() {
-  const getSections = () => [...document.querySelectorAll('main > .embed-adaptive-form-container, main > .form-container')];
+  const getSections = () => [...document.querySelectorAll('main > .embed-adaptive-form-container')];
   const sections = getSections();
 
   if (!sections.length) return;
@@ -173,7 +173,7 @@ export default async function decorate(block) {
       '.field-loan-application-number-value',
       '.field-contact-note',
       '.field-xpress-personal-loan-summary-panel',
-      
+
     ];
     stackSelectors.forEach((sel) => {
       block.querySelectorAll(sel).forEach((field) => {
