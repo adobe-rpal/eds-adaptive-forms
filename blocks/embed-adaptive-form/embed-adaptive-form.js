@@ -1,7 +1,7 @@
 import { loadFragment } from '../fragment/fragment.js';
 
 function initializeStepper() {
-  const getSections = () => [...document.querySelectorAll('main > .embed-adaptive-form-container')];
+  const getSections = () => [...document.querySelectorAll('main > .embed-adaptive-form-container, main > .form-container')];
   const sections = getSections();
 
   if (!sections.length) return;
@@ -21,30 +21,67 @@ function initializeStepper() {
       button.addEventListener('click', async () => {
         const currentSections = getSections();
         const currentIndex = currentSections.indexOf(section);
+
+        // Handle Requirement 1: view_loan_eligibility internal panel switch
+        if (button.name === 'view_loan_eligibility') {
+          try {
+            const response = await fetch('https://mocki.io/v1/52531fa2-1899-4761-9e96-58fda44733c8');
+            if (!response.ok) throw new Error('Eligibility check failed');
+
+            const personalPanel = section.querySelector('.field-personal-loan-offer-panel');
+            const otpPanel = section.querySelector('.field-enter-otp-panel');
+            if (personalPanel && otpPanel) {
+              personalPanel.dataset.visible = 'false';
+              personalPanel.style.display = 'none';
+              otpPanel.dataset.visible = 'true';
+              otpPanel.style.display = 'block';
+              return; // Prevent top-level section transition
+            }
+          } catch (error) {
+            return;
+          }
+        }
+
+        // Handle Requirement 2: Back button inside OTP panel (internal switch)
+        if (button.name === 'Back' && button.closest('.field-enter-otp-panel')) {
+          const otpPanel = section.querySelector('.field-enter-otp-panel');
+          const personalPanel = section.querySelector('.field-personal-loan-offer-panel');
+          if (otpPanel && personalPanel) {
+            otpPanel.dataset.visible = 'false';
+            otpPanel.style.display = 'none';
+            personalPanel.dataset.visible = 'true';
+            personalPanel.style.display = 'block';
+            return; // Prevent top-level section transition
+          }
+        }
+
+        // Handle Requirements 3, 4, and 5: Top-level section navigation
+        // Note: Req 3 (submit_otp) is added to isBack to trigger previous section navigation
         const isBack = ['back_button', 'Back', 'Back_button'].includes(button.name);
         const targetSection = isBack ? currentSections[currentIndex - 1] : currentSections[currentIndex + 1];
 
         if (!targetSection || currentIndex === -1) return;
 
-        const navButtons = ['view_loan_eligibility', 'confirm_cutomer_details_button', 'continue', 'Continue', 'proceed', 'proceed_button', 'confirm_button', 'Confirm', 'back_button', 'Back', 'Back_button', 'submit_otp'];
+        const navButtons = ['confirm_cutomer_details_button', 'continue', 'Continue', 'proceed', 'proceed_button', 'confirm_button', 'Confirm', 'back_button', 'Back', 'Back_button', 'submit_otp', 'submit_otp_button'];
         if (!navButtons.includes(button.name)) return;
-
-        if (button.name === 'view_loan_eligibility') {
-          try {
-            const response = await fetch('https://mocki.io/v1/52531fa2-1899-4761-9e96-58fda44733c8');
-            if (!response.ok) {
-              throw new Error('Eligibility check failed');
-            }
-          } catch (error) {
-            return; // Stop the transition if the API call is not successful
-          }
-        }
 
         // Remove active-step from current section and its ancestors
         [section, ...currentSections].forEach((s) => s.classList.remove('active-step'));
 
         // Add active-step to target section
         targetSection.classList.add('active-step');
+
+        // Handle specific requirement: When going back to the first container, show the OTP panel
+        if (isBack && currentSections.indexOf(targetSection) === 0) {
+          const personalPanel = targetSection.querySelector('.field-personal-loan-offer-panel');
+          const otpPanel = targetSection.querySelector('.field-enter-otp-panel');
+          if (personalPanel && otpPanel) {
+            personalPanel.dataset.visible = 'false';
+            personalPanel.style.display = 'none';
+            otpPanel.dataset.visible = 'true';
+            otpPanel.style.display = 'block';
+          }
+        }
 
         // Propagate active-step to all ancestor sections to ensure visibility
         let ancestor = targetSection.parentElement?.closest('.section');

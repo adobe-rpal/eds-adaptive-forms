@@ -189,9 +189,9 @@ form output {
     font-size: 1.625rem;
 }
 
-form:not(.edit-mode) [data-visible="false"] {
+/* form:not(.edit-mode) [data-visible="false"] {
     display: none !important;
-}
+} */
 
 main .form-container {
     background-color: var(--form-background-color);
@@ -1191,6 +1191,7 @@ main .form form .field-enter-otp-panel {
     padding: 0;
     row-gap: 12px;
     column-gap: 16px;
+    display: none;
 }
 
 /* "Enter OTP" heading */
