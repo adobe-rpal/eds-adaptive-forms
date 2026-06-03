@@ -95,6 +95,10 @@ main .form form .field-salary-bank-quick-select .radio-wrapper label {
   font-size: 12px !important;
 }
 
+.field-income-verification-method .iv-card:has(.iv-recommended) .iv-card-desc {
+  margin-bottom: 20px !important;
+}
+
 /* Tablet adjustments */
 @media (width <=900px) {
   main .section>div {

@@ -2,6 +2,7 @@ header {
   z-index: 11;
   display: block;
   position: relative;
+  height: 60px;
 }
 
 main {
