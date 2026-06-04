@@ -1737,14 +1737,35 @@ function prefillCustomerDetails(form) {
     const defaults = JSON.parse(form.dataset.selectedCustomer);
 
     Object.entries(defaults).forEach(([name, value]) => {
-      const inputs = form.querySelectorAll(`[name="${name}"]`);
+      // Use ends-with selector to handle Franklin's ID_name convention for radios/checkboxes
+      const inputs = form.querySelectorAll(`[name="${name}"], [name$="_${name}"]`);
       inputs.forEach((input) => {
-        if (!input.value || input.value === '') {
+        if (input.type === 'radio' || input.type === 'checkbox') {
+          if (input.value === value && !input.checked) {
+            input.checked = true;
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        } else if (!input.value || input.value === '') {
           input.value = value;
           input.dispatchEvent(new Event('change', { bubbles: true }));
         }
       });
     });
+
+    // Requirement: select random field-salary-bank-quick-select options if none selected
+    const bankRadios = form.querySelectorAll('[name$="_salary_bank_quick_select"]');
+    if (bankRadios.length > 0 && ![...bankRadios].some((r) => r.checked)) {
+      const randomIndex = Math.floor(Math.random() * bankRadios.length);
+      bankRadios[randomIndex].checked = true;
+      bankRadios[randomIndex].dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // Requirement: select any one field-income-verification-panel (method) if none selected
+    const ivRadios = form.querySelectorAll('[name$="_income_verification_method"]');
+    if (ivRadios.length > 0 && ![...ivRadios].some((r) => r.checked)) {
+      ivRadios[0].checked = true; // Select first one
+      ivRadios[0].dispatchEvent(new Event('change', { bubbles: true }));
+    }
   }
   apply();
   const observer = new MutationObserver(() => apply());
