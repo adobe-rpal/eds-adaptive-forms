@@ -1379,7 +1379,7 @@ main .form form input[name="Resend OTP in:"] {
 
 /* Attempts info — right side of same row */
 main .form form .field-otp-attempts-info {
-    grid-column: 7 / -1;
+    /* grid-column: 7 / -1; */
     display: flex;
     justify-content: flex-start;
     align-items: center;

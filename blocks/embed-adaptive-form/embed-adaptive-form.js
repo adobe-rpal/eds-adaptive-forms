@@ -179,6 +179,10 @@ export default async function decorate(block) {
       '.field-employer-name',
       '.field-schedule-of-charges',
       '.field-type-of-loan',
+      '.field-otp-attempts-info',
+      '.field-submit-otp',
+      '.field-resend',
+      '.field-back'
     ];
     journeySelectors.forEach((sel) => {
       block.querySelectorAll(sel).forEach((field) => field.classList.remove('col-3'));
