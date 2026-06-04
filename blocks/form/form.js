@@ -1583,57 +1583,116 @@ function decorateOtpInput(form) {
 
 const CUSTOMER_DATA = [
   {
-    fullName: 'Ankit Shah',
-    panNumber: 'ABCDE1234F',
-    currentAddress: 'Mumbai, Maharashtra',
-    residenceType: 'Owned',
-    employerName: 'Infosys',
-    typeOfLoan: 'Personal Loan',
+    full_name_as_per_aadhaar: 'Ankit Shah',
+    first_name: 'Ankit',
+    last_name: 'Shah',
+    email_id: 'ankit.shah@gmail.com',
+    mobile_number: '9876543210',
+    pan_number: 'ABCDE1234F',
+    gender: 'male',
+    monthly_net_income_salary: '50000',
+    type_of_loan: 'personal_loan',
+    current_address: 'Mumbai, Maharashtra',
+    residence_type: 'Owned',
+    employer_name: 'Infosys',
+    employer_company_name_dropdown: 'Adobe',
+    employer_company_name_text: 'Adobe Systems',
+    industry_type: 'IT',
+    ongoing_emis_if_any: '0',
+    work_email_id: 'ankit@adobe.com',
   },
   {
-    fullName: 'Rahul Mehta',
-    panNumber: 'PQRSX5678K',
-    currentAddress: 'Pune, Maharashtra',
-    residenceType: 'Rented',
-    employerName: 'Self Employed',
-    typeOfLoan: 'Business Loan',
+    full_name_as_per_aadhaar: 'Rahul Mehta',
+    first_name: 'Rahul',
+    last_name: 'Mehta',
+    email_id: 'rahul.mehta@gmail.com',
+    mobile_number: '9812345678',
+    pan_number: 'PQRSX5678K',
+    gender: 'male',
+    monthly_net_income_salary: '75000',
+    type_of_loan: 'business_loan',
+    current_address: 'Pune, Maharashtra',
+    residence_type: 'Rented',
+    employer_name: 'Self Employed',
+    employer_company_name_dropdown: 'others',
+    employer_company_name_text: 'Self Employed',
+    industry_type: 'Business',
+    ongoing_emis_if_any: '5000',
+    work_email_id: 'rahul@mehtabiz.com',
   },
   {
-    fullName: 'Priya Sharma',
-    panNumber: 'LMNOP4321Q',
-    currentAddress: 'Delhi, India',
-    residenceType: 'Owned',
-    employerName: 'TCS',
-    typeOfLoan: 'Personal Loan',
+    full_name_as_per_aadhaar: 'Priya Sharma',
+    first_name: 'Priya',
+    last_name: 'Sharma',
+    email_id: 'priya.sharma@gmail.com',
+    mobile_number: '9765432109',
+    pan_number: 'LMNOP4321Q',
+    gender: 'female',
+    monthly_net_income_salary: '60000',
+    type_of_loan: 'personal_loan',
+    current_address: 'Delhi, India',
+    residence_type: 'Owned',
+    employer_name: 'TCS',
+    employer_company_name_dropdown: 'Adobe',
+    employer_company_name_text: 'Adobe',
+    industry_type: 'IT',
+    ongoing_emis_if_any: '2000',
+    work_email_id: 'priya@adobe.com',
   },
   {
-    fullName: 'Sneha Reddy',
-    panNumber: 'ZXCVB1234L',
-    currentAddress: 'Hyderabad, Telangana',
-    residenceType: 'Rented',
-    employerName: 'Wipro',
-    typeOfLoan: 'Home Loan',
+    full_name_as_per_aadhaar: 'Sneha Reddy',
+    first_name: 'Sneha',
+    last_name: 'Reddy',
+    email_id: 'sneha.reddy@gmail.com',
+    mobile_number: '9123456789',
+    pan_number: 'ZXCVB1234L',
+    gender: 'female',
+    monthly_net_income_salary: '90000',
+    type_of_loan: 'home_loan',
+    current_address: 'Hyderabad, Telangana',
+    residence_type: 'Rented',
+    employer_name: 'Wipro',
+    employer_company_name_dropdown: 'Google',
+    employer_company_name_text: 'Google',
+    industry_type: 'IT',
+    ongoing_emis_if_any: '0',
+    work_email_id: 'sneha@google.com',
   },
   {
-    fullName: 'Arjun Kumar',
-    panNumber: 'QWERT5678P',
-    currentAddress: 'Bangalore, Karnataka',
-    residenceType: 'Owned',
-    employerName: 'Accenture',
-    typeOfLoan: 'Car Loan',
+    full_name_as_per_aadhaar: 'Arjun Kumar',
+    first_name: 'Arjun',
+    last_name: 'Kumar',
+    email_id: 'arjun.kumar@gmail.com',
+    mobile_number: '9001234567',
+    pan_number: 'QWERT5678P',
+    gender: 'male',
+    monthly_net_income_salary: '120000',
+    type_of_loan: 'car_loan',
+    current_address: 'Bangalore, Karnataka',
+    residence_type: 'Owned',
+    employer_name: 'Accenture',
+    employer_company_name_dropdown: 'Adobe',
+    employer_company_name_text: 'Adobe',
+    industry_type: 'IT',
+    ongoing_emis_if_any: '10000',
+    work_email_id: 'arjun@adobe.com',
   },
 ];
 
 function decorateRandomCustomerData(form) {
-  const customer = CUSTOMER_DATA[Math.floor(Math.random() * CUSTOMER_DATA.length)];
+  if (!form.dataset.selectedCustomer) {
+    const customer = CUSTOMER_DATA[Math.floor(Math.random() * CUSTOMER_DATA.length)];
+    form.dataset.selectedCustomer = JSON.stringify(customer);
+  }
+  const customer = JSON.parse(form.dataset.selectedCustomer);
 
   const LABEL_MAP = [
-    { match: 'full name', value: customer.fullName },
+    { match: 'full name', value: customer.full_name_as_per_aadhaar },
     // PAN number excluded from pre-fill - user must enter manually
-    { match: 'current address', value: customer.currentAddress },
-    { match: 'residence type', value: customer.residenceType },
+    { match: 'current address', value: customer.current_address },
+    { match: 'residence type', value: customer.residence_type },
     // Employer/Company name excluded from pre-fill - user must enter manually
-    { match: 'type of loan', value: customer.typeOfLoan },
+    { match: 'type of loan', value: customer.type_of_loan },
   ];
 
   function fillField(wrapper) {
@@ -1667,6 +1726,26 @@ function decorateRandomCustomerData(form) {
     form.querySelectorAll('.text-wrapper, .drop-down-wrapper, .multiline-wrapper').forEach(fillField);
   }
 
+  apply();
+  const observer = new MutationObserver(() => apply());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+function prefillCustomerDetails(form) {
+  function apply() {
+    if (!form.dataset.selectedCustomer) return;
+    const defaults = JSON.parse(form.dataset.selectedCustomer);
+
+    Object.entries(defaults).forEach(([name, value]) => {
+      const inputs = form.querySelectorAll(`[name="${name}"]`);
+      inputs.forEach((input) => {
+        if (!input.value || input.value === '') {
+          input.value = value;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
+  }
   apply();
   const observer = new MutationObserver(() => apply());
   observer.observe(form, { childList: true, subtree: true });
@@ -2660,6 +2739,7 @@ export default async function decorate(block) {
     decorateIncomeVerification(form);
     decorateLoanApplicationNumber(form);
     decorateRandomCustomerData(form);
+    prefillCustomerDetails(form);
     decoratePanNumberSync(form);
     decoratePanValidation(form);
     decorateEmailVerification(form);
