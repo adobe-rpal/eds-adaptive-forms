@@ -651,15 +651,20 @@ function decorateLoanSliders(form) {
   }
 
   function buildSlider(fieldWrapper, config) {
-    if (fieldWrapper.querySelector('.loan-range-slider')) return;
     const numInput = fieldWrapper.querySelector('input[type="number"]');
-    if (!numInput) return;
+    // Use a dataset flag as a reliable guard to prevent infinite loops
+    if (!numInput || numInput.dataset.sliderWired) return;
+    numInput.dataset.sliderWired = 'true';
+
+    const initialValue = numInput.value || config.defaultVal;
 
     const display = document.createElement('input');
     display.type = 'text';
     display.readOnly = true;
     display.className = 'loan-amount-display';
-    numInput.replaceWith(display);
+    // Hide the input instead of replacing it to keep the data binding alive
+    numInput.style.display = 'none';
+    fieldWrapper.append(display);
 
     const sliderWrap = document.createElement('div');
     sliderWrap.className = 'loan-range-slider';
@@ -669,7 +674,7 @@ function decorateLoanSliders(form) {
     range.min = config.min;
     range.max = config.max;
     range.step = config.step;
-    range.value = config.defaultVal;
+    range.value = initialValue;
 
     const labelsDiv = document.createElement('div');
     labelsDiv.className = 'loan-range-labels';
@@ -1592,6 +1597,9 @@ const CUSTOMER_DATA = [
     gender: 'male',
     monthly_net_income_salary: '50000',
     type_of_loan: 'personal_loan',
+    date_of_birth: '1995-01-01',
+    loan_amount_inr: '1500000',
+    loan_tenure_months: '84',
     current_address: 'Mumbai, Maharashtra',
     residence_type: 'Owned',
     employer_name: 'Infosys',
@@ -1601,6 +1609,7 @@ const CUSTOMER_DATA = [
     employer_company_name_text: 'Adobe Systems',
     industry_type: 'IT',
     ongoing_emis_if_any: '0',
+    current_employer_address: 'B6-1, M30 Diatex, Naveen Nagar, P&C Tirahe, Muzaffarpur, Uttar Pradesh 200972',
     work_email_id: 'ankit@adobe.com',
   },
   {
@@ -1613,6 +1622,9 @@ const CUSTOMER_DATA = [
     gender: 'male',
     monthly_net_income_salary: '75000',
     type_of_loan: 'business_loan',
+    date_of_birth: '1990-05-15',
+    loan_amount_inr: '1000000',
+    loan_tenure_months: '60',
     current_address: 'Pune, Maharashtra',
     residence_type: 'Rented',
     employer_name: 'Self Employed',
@@ -1622,6 +1634,7 @@ const CUSTOMER_DATA = [
     employer_company_name_text: 'Self Employed',
     industry_type: 'Business',
     ongoing_emis_if_any: '5000',
+    current_employer_address: '123 Business Hub, Senapati Bapat Road, Pune, Maharashtra 411016',
     work_email_id: 'rahul@mehtabiz.com',
   },
   {
@@ -1634,6 +1647,9 @@ const CUSTOMER_DATA = [
     gender: 'female',
     monthly_net_income_salary: '60000',
     type_of_loan: 'personal_loan',
+    date_of_birth: '1998-08-20',
+    loan_amount_inr: '500000',
+    loan_tenure_months: '36',
     current_address: 'Delhi, India',
     residence_type: 'Owned',
     employer_name: 'TCS',
@@ -1643,6 +1659,7 @@ const CUSTOMER_DATA = [
     employer_company_name_text: 'Adobe',
     industry_type: 'IT',
     ongoing_emis_if_any: '2000',
+    current_employer_address: 'Tower A, DLF Cyber City, Phase III, Gurgaon, Haryana 122002',
     work_email_id: 'priya@adobe.com',
   },
   {
@@ -1655,6 +1672,9 @@ const CUSTOMER_DATA = [
     gender: 'female',
     monthly_net_income_salary: '90000',
     type_of_loan: 'home_loan',
+    date_of_birth: '1992-11-30',
+    loan_amount_inr: '1200000',
+    loan_tenure_months: '48',
     current_address: 'Hyderabad, Telangana',
     residence_type: 'Rented',
     employer_name: 'Wipro',
@@ -1664,6 +1684,7 @@ const CUSTOMER_DATA = [
     employer_company_name_text: 'Google',
     industry_type: 'IT',
     ongoing_emis_if_any: '0',
+    current_employer_address: 'Survey No. 13, Google Office, Kondapur, Hyderabad, Telangana 500084',
     work_email_id: 'sneha@google.com',
   },
   {
@@ -1676,6 +1697,9 @@ const CUSTOMER_DATA = [
     gender: 'male',
     monthly_net_income_salary: '120000',
     type_of_loan: 'car_loan',
+    date_of_birth: '1988-03-10',
+    loan_amount_inr: '800000',
+    loan_tenure_months: '72',
     current_address: 'Bangalore, Karnataka',
     residence_type: 'Owned',
     employer_name: 'Accenture',
@@ -1685,16 +1709,18 @@ const CUSTOMER_DATA = [
     employer_company_name_text: 'Adobe',
     industry_type: 'IT',
     ongoing_emis_if_any: '10000',
+    current_employer_address: 'Bagmane World Technology Center, Mahadevapura, Bangalore, Karnataka 560048',
     work_email_id: 'arjun@adobe.com',
   },
 ];
 
 function decorateRandomCustomerData(form) {
-  if (!form.dataset.selectedCustomer) {
+  if (!window.selectedCustomer) {
     const customer = CUSTOMER_DATA[Math.floor(Math.random() * CUSTOMER_DATA.length)];
-    form.dataset.selectedCustomer = JSON.stringify(customer);
+    window.selectedCustomer = customer;
   }
-  const customer = JSON.parse(form.dataset.selectedCustomer);
+  const customer = window.selectedCustomer;
+  form.dataset.selectedCustomer = JSON.stringify(customer);
 
   const LABEL_MAP = [
     { match: 'full name', value: customer.full_name_as_per_aadhaar },
@@ -1742,37 +1768,122 @@ function decorateRandomCustomerData(form) {
 }
 
 function prefillCustomerDetails(form) {
-  function apply() {
-    if (!form.dataset.selectedCustomer) return;
-    const defaults = JSON.parse(form.dataset.selectedCustomer);
+  if (form.dataset.prefillInitialized) return;
+  form.dataset.prefillInitialized = 'true';
 
-    Object.entries(defaults).forEach(([name, value]) => {
+  function apply() {
+    // Ensure fragments inherit the same customer identity as the host form
+    if (!form.dataset.selectedCustomer && window.selectedCustomer) {
+      form.dataset.selectedCustomer = JSON.stringify(window.selectedCustomer);
+    }
+
+    if (!form.dataset.selectedCustomer) return;
+    const customer = JSON.parse(form.dataset.selectedCustomer);
+    const lastCustomer = form.dataset.lastPrefilledCustomer;
+
+    // Map customer object keys to various field names used across fragments (Preview, etc.)
+    const aliases = {
+      full_name: customer.full_name_as_per_aadhaar,
+      pan: customer.pan_number,
+      loan_amount: customer.loan_amount_inr ? `₹${Number(customer.loan_amount_inr).toLocaleString('en-IN')}` : '',
+      tenure: customer.loan_tenure_months ? `${customer.loan_tenure_months} months` : '',
+      primary_email_id: customer.email_id,
+    };
+
+    // Add bank details if bank selection is present
+    if (customer.salary_bank_quick_select) {
+      const BANK_DETAILS = {
+        hdfc: { bankName: 'HDFC Bank', ifsc: 'HDFC0001234', accountNumber: '50100123456789' },
+        icici_bank: { bankName: 'ICICI Bank', ifsc: 'ICIC0001234', accountNumber: '012345678901' },
+        axis: { bankName: 'Axis Bank', ifsc: 'UTIB0001234', accountNumber: '912345678901234' },
+        kotak: { bankName: 'Kotak Mahindra Bank', ifsc: 'KKBK0001234', accountNumber: '1234567890' },
+        sbi: { bankName: 'State Bank of India', ifsc: 'SBIN0001234', accountNumber: '12345678901234' },
+      };
+      const details = BANK_DETAILS[customer.salary_bank_quick_select];
+      if (details) {
+        aliases.bank_name = details.bankName;
+        aliases.ifsc = details.ifsc;
+        aliases.salary_ac_number = details.accountNumber;
+      }
+    }
+
+    // Calculate loan offer details for Preview if not provided
+    if (customer.loan_amount_inr && !customer.emi_amount) {
+      const P = Number(customer.loan_amount_inr);
+      const n = Number(customer.loan_tenure_months || 84);
+      const RATE_TIERS = [{ upTo: 200000, rate: 14.50 }, { upTo: 400000, rate: 13.50 }, { upTo: 600000, rate: 12.75 }, { upTo: 900000, rate: 12.00 }, { upTo: 1200000, rate: 11.25 }, { upTo: 1500000, rate: 10.97 }];
+      const annualRate = (RATE_TIERS.find((t) => P <= t.upTo) || RATE_TIERS[5]).rate;
+      const r = annualRate / (12 * 100);
+      const emi = Math.round((P * r * ((1 + r) ** n)) / (((1 + r) ** n) - 1));
+      const fee = Math.min(Math.round(P * 0.015), 6500);
+      const taxes = Math.round(fee * 0.18);
+      const soc = fee + taxes;
+      aliases.emi_amount = `₹${emi.toLocaleString('en-IN')}`;
+      aliases.rate_of_interest = `${annualRate.toFixed(2)}% p.a.`;
+      aliases.processing_fee = `₹${fee.toLocaleString('en-IN')}`;
+      aliases.schedule_of_charges = `₹${soc.toLocaleString('en-IN')}`;
+    }
+
+    const combined = { ...customer, ...aliases };
+
+    Object.entries(combined).forEach(([name, value]) => {
       // Use ends-with selector to handle Franklin's ID_name convention for radios/checkboxes
       const inputs = form.querySelectorAll(`[name="${name}"], [name$="_${name}"]`);
+      const isSliderField = name.includes('loan_amount_inr') || name.includes('loan_tenure_months');
+
       inputs.forEach((input) => {
         if (input.type === 'radio' || input.type === 'checkbox') {
           if (input.value === value && !input.checked) {
             input.checked = true;
             input.dispatchEvent(new Event('change', { bubbles: true }));
           }
-        } else if (!input.value || input.value === '') {
+        } else if ((!input.value || input.value === '' || (isSliderField && customer.full_name_as_per_aadhaar !== lastCustomer)) && input.value !== String(value)) {
           input.value = value;
+          if (input.type === 'date' || name === 'date_of_birth') {
+            input.setAttribute('edit-value', value);
+          }
+          if (isSliderField) {
+            const wrapper = input.closest('.field-loan-amount-inr, .field-loan-tenure-months');
+            const slider = wrapper?.nextElementSibling?.querySelector('input[type="range"]');
+            if (slider) {
+              slider.value = value;
+              slider.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+          }
           input.dispatchEvent(new Event('change', { bubbles: true }));
         }
       });
+
+      // Special case for Schedule of Charges display (not a standard input)
+      if (name === 'schedule_of_charges') {
+        const socWrappers = form.querySelectorAll('.field-schedule-of-charges');
+        socWrappers.forEach((wrapper) => {
+          let valueEl = wrapper.querySelector('.soc-value');
+          if (!valueEl) {
+            valueEl = document.createElement('span');
+            valueEl.className = 'soc-value';
+            wrapper.appendChild(valueEl);
+          }
+          if (valueEl.textContent !== value) {
+            valueEl.textContent = value;
+          }
+        });
+      }
     });
 
-    // Requirement: select random field-salary-bank-quick-select options if none selected
+    form.dataset.lastPrefilledCustomer = customer.full_name_as_per_aadhaar;
+
+    // Fallback: select random bank only if none provided in customer data and none selected
     const bankRadios = form.querySelectorAll('[name$="_salary_bank_quick_select"]');
-    if (bankRadios.length > 0 && ![...bankRadios].some((r) => r.checked)) {
+    if (bankRadios.length > 0 && !customer.salary_bank_quick_select && ![...bankRadios].some((r) => r.checked)) {
       const randomIndex = Math.floor(Math.random() * bankRadios.length);
       bankRadios[randomIndex].checked = true;
       bankRadios[randomIndex].dispatchEvent(new Event('change', { bubbles: true }));
     }
 
-    // Requirement: select any one field-income-verification-panel (method) if none selected
+    // Fallback: select first income method only if none provided in customer data and none selected
     const ivRadios = form.querySelectorAll('[name$="_income_verification_method"]');
-    if (ivRadios.length > 0 && ![...ivRadios].some((r) => r.checked)) {
+    if (ivRadios.length > 0 && !customer.income_verification_method && ![...ivRadios].some((r) => r.checked)) {
       ivRadios[0].checked = true; // Select first one
       ivRadios[0].dispatchEvent(new Event('change', { bubbles: true }));
     }

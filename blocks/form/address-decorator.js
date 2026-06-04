@@ -12,23 +12,24 @@ const MOCK_ADDRESS_DATA = {
 };
 
 export default function decorateAadhaarAddressDetails(form) {
-  console.log('Address decorator initialized');
-  
+  if (form.dataset.addressDecoratorInitialized) return;
+  form.dataset.addressDecoratorInitialized = 'true';
+
+  let formObserver;
+
   function wire() {
     const addressPanel = form.querySelector('.field-address-details');
-    console.log('Address panel found:', !!addressPanel);
-    
+
     if (!addressPanel || addressPanel.dataset.addressWired) return;
 
     const displayWrapper = addressPanel.querySelector('.field-aadhaar-address-display');
     const radioGroup = addressPanel.querySelector('.field-aadhaar-address-type');
-    
-    console.log('Display wrapper found:', !!displayWrapper);
-    console.log('Radio group found:', !!radioGroup);
-    
+
     if (!displayWrapper || !radioGroup) return;
 
+    console.log('Address panel found and wiring initialized');
     addressPanel.dataset.addressWired = 'true';
+    if (formObserver) formObserver.disconnect();
 
     // Function to display address
     function displayAddress() {
@@ -127,6 +128,8 @@ export default function decorateAadhaarAddressDetails(form) {
   }
 
   wire();
-  const observer = new MutationObserver(() => wire());
-  observer.observe(form, { childList: true, subtree: true });
+  if (!form.querySelector('.field-address-details')?.dataset.addressWired) {
+    formObserver = new MutationObserver(() => wire());
+    formObserver.observe(form, { childList: true, subtree: true });
+  }
 }
