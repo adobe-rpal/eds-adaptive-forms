@@ -905,17 +905,30 @@ function decorateLoanEligibilityButton(form) {
 
   function isValid() {
     const phone = form.querySelector('.field-mobile-number input');
+    const incomeSource = form.querySelectorAll('.field-income-source input[type="radio"]');
+    const idMethod = form.querySelector('.field-identification-method input:checked');
+    const pan = form.querySelector('.field-pan-card input');
     const dob = form.querySelector('.field-date-of-birth input');
+
     const checkboxes = [
       ...form.querySelectorAll('.field-consent-communication input[type="checkbox"]'),
       ...form.querySelectorAll('.field-consent-marketing input[type="checkbox"]'),
     ];
+
     const phoneOk = (phone?.value || '').replace(/\D/g, '').length >= 10;
-    const dobRaw = (dob?.getAttribute('edit-value') || dob?.value || '').trim();
-    const age = getAge(dobRaw);
-    const dobOk = dobRaw.length > 0 && age >= 21 && age <= 60;
+    const incomeOk = [...incomeSource].some((r) => r.checked);
+
+    let idOk = false;
+    if (idMethod?.value === 'pan_card') {
+      idOk = (pan?.value || '').trim().length === 10;
+    } else {
+      const dobRaw = (dob?.getAttribute('edit-value') || dob?.value || '').trim();
+      const age = getAge(dobRaw);
+      idOk = dobRaw.length > 0 && age >= 21 && age <= 60;
+    }
+
     const checkboxesOk = checkboxes.length > 0 && checkboxes.every((cb) => cb.checked);
-    return phoneOk && dobOk && checkboxesOk;
+    return phoneOk && incomeOk && idOk && checkboxesOk;
   }
 
   function updateButton() {
@@ -951,6 +964,9 @@ function decorateLoanEligibilityButton(form) {
   function attachListeners() {
     const phone = form.querySelector('.field-mobile-number input');
     const dob = form.querySelector('.field-date-of-birth input');
+    const pan = form.querySelector('.field-pan-card input');
+    const idRadios = form.querySelectorAll('.field-identification-method input[type="radio"]');
+    const incomeRadios = form.querySelectorAll('.field-income-source input[type="radio"]');
     const checkboxes = [
       ...form.querySelectorAll('.field-consent-communication input[type="checkbox"]'),
       ...form.querySelectorAll('.field-consent-marketing input[type="checkbox"]'),
@@ -974,6 +990,21 @@ function decorateLoanEligibilityButton(form) {
       dob.addEventListener('change', captureDob);
       dob.dataset.eligibilityWired = 'true';
     }
+
+    if (pan && !pan.dataset.eligibilityWired) {
+      pan.addEventListener('input', updateButton);
+      pan.dataset.eligibilityWired = 'true';
+    }
+
+    [...idRadios, ...incomeRadios].forEach((r) => {
+      if (!r.dataset.eligibilityWired) {
+        r.addEventListener('change', () => {
+          updateDobError();
+          updateButton();
+        });
+        r.dataset.eligibilityWired = 'true';
+      }
+    });
 
     checkboxes.forEach((cb) => {
       if (!cb.dataset.eligibilityWired) {
