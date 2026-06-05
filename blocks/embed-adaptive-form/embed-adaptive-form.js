@@ -168,6 +168,7 @@ export default async function decorate(block) {
       '.field-full-name',
       '.field-mobile-number',
       '.field-date-of-birth',
+      '.field-pan-card',
       '.field-pan',
       '.field-current-address',
       '.field-residence-type',
@@ -191,6 +192,7 @@ export default async function decorate(block) {
     const col4Selectors = [
       '.field-income-source',
       '.field-date-of-birth',
+      '.field-pan-card',
       '.field-mobile-number',
       '.field-salary-bank-dropdown',
       '.field-salary-ac-number',
