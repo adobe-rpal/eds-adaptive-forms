@@ -205,7 +205,7 @@ main .form .field-description {
   main .section.form-container.active-step,
   main .section.embed-adaptive-form-container.active-step {
     margin-top: 16px !important;
-    margin-bottom: 16px !important;
+    margin-bottom: 90px !important;
   }
   
 }
