@@ -1042,7 +1042,7 @@ main .form form .field-personal-loan-offer-panel .date-wrapper input {
     height: 52px;
     border-radius: 8px;
     border: 1.5px solid #d0d5dd;
-    font-size: 0.95rem;
+    font-size: 0.90rem;
     color: #333;
     margin-top: 0;
     margin-bottom: 0;
@@ -2607,6 +2607,13 @@ main .form form .field-loan-offer-declared-income {
     column-gap: 20px;
 }
 
+/* Reposition navigation buttons in the Loan Offer panel for desktop */
+main .form form .field-loan-offer-declared-income .field-back,
+main .form form .field-loan-offer-declared-income .field-proceed-button {
+  position: relative;
+  bottom: 80px;
+}
+
 main .form form .field-loan-offer-declared-income > legend {
     font-size: 1.1rem;
     font-weight: 700;
@@ -2762,6 +2769,7 @@ main .form form .loan-range-slider input[type="range"]::after {
     background: #e0e0e0;
     border-radius: 0 4px 4px 0;
     pointer-events: none;
+    z-index: -1;
 }
 
 main .form form .loan-range-slider input[type="range"]::-webkit-slider-thumb {
