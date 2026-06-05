@@ -2751,7 +2751,7 @@ main .form form .loan-range-slider input[type="range"]::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 0;
+    top: -2px;
     height: 4px;
     width: var(--range-pct, 100%);
     background: #f97316;
@@ -2763,7 +2763,7 @@ main .form form .loan-range-slider input[type="range"]::after {
     content: '';
     position: absolute;
     right: 0;
-    top: 0;
+    top: -2px;
     height: 4px;
     width: calc(100% - var(--range-pct, 100%));
     background: #e0e0e0;
