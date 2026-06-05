@@ -1769,7 +1769,8 @@ main .form form .field-personal-details-panel .field-email-id {
     grid-column: span 12 !important;
     padding-top: 0 !important;
     display: flex !important;
-    align-items: stretch;
+    align-items: center;
+    padding-left: 10px;
     border: 1.5px solid #d0d5dd;
     border-radius: 8px;
     background: #fff;
@@ -4046,7 +4047,7 @@ main .form form .field-work-email-id-panel .field-work-email-id {
     grid-column: span 12 !important;
     padding-top: 0 !important;
     display: flex !important;
-    align-items: stretch;
+    align-items: center;
     border: 1.5px solid #d0d5dd;
     border-radius: 8px;
     background: #fff;
@@ -4054,16 +4055,46 @@ main .form form .field-work-email-id-panel .field-work-email-id {
     margin: 0;
 }
 
-main .form form .field-work-email-id-panel .field-work-email-id > label {
+main .form form  .field-work-email-id-panel .field-work-email-id { 
+    margin-top: 20px;
+}
+
+main .form form .field-work-email-id-panel .field-work-email-id > label{
     top: 0 !important;
     left: 14px !important;
     transform: translateY(-50%) !important;
     z-index: 2;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    transform: translateY(-50%);
+    background: #fff;
+    padding: 0 4px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #888;
+    z-index: 1;
+    line-height: 1;
+    pointer-events: none;
+    margin: 0;
 }
 
 main .form form .field-work-email-id-panel .field-work-email-id input[type="email"] {
     border: none;
     border-radius: 0;
+    height: 52px !important;
+    flex: 1;
+    padding: 0 14px !important;
+    margin: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    margin-left: 10px !important;
+}
+
+main .form form .field-work-email-id-panel .field-work-email-id input[type="email"] {
+    border: 1.5px solid #d0d5dd;
+    border-radius: 8px;
     height: 52px !important;
     flex: 1;
     padding: 0 14px !important;
