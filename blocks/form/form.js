@@ -1767,6 +1767,45 @@ function decorateRandomCustomerData(form) {
   observer.observe(form, { childList: true, subtree: true });
 }
 
+function decorateIdentificationMethod(form) {
+  function apply() {
+    const radioGroup = form.querySelector('.field-identification-method');
+    const panField = form.querySelector('.field-pan-card');
+    const dobField = form.querySelector('.field-date-of-birth');
+
+    if (!radioGroup || !panField || !dobField) return;
+
+    const radios = radioGroup.querySelectorAll('input[type="radio"]');
+    if (!radios.length) return;
+
+    const updateVisibility = () => {
+      const selectedValue = [...radios].find((r) => r.checked)?.value;
+      if (selectedValue === 'pan_card') {
+        panField.style.display = 'block';
+        panField.dataset.visible = 'true';
+        dobField.style.display = 'none';
+        dobField.dataset.visible = 'false';
+      } else if (selectedValue === 'dob') {
+        panField.style.display = 'none';
+        panField.dataset.visible = 'false';
+        dobField.style.display = 'block';
+        dobField.dataset.visible = 'true';
+      }
+    };
+
+    radios.forEach((radio) => {
+      if (!radio.dataset.identificationWired) {
+        radio.dataset.identificationWired = 'true';
+        radio.addEventListener('change', updateVisibility);
+      }
+    });
+    updateVisibility();
+  }
+  apply();
+  const observer = new MutationObserver(() => apply());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
 function prefillCustomerDetails(form) {
   if (form.dataset.prefillInitialized) return;
   form.dataset.prefillInitialized = 'true';
@@ -1826,7 +1865,14 @@ function prefillCustomerDetails(form) {
 
     const combined = { ...customer, ...aliases };
 
+    const fieldsToExcludeFromPrefill = [
+      'pan_number',
+      'mobile_number',
+      'date_of_birth',
+    ];
+
     Object.entries(combined).forEach(([name, value]) => {
+      if (fieldsToExcludeFromPrefill.includes(name)) return;
       // Use ends-with selector to handle Franklin's ID_name convention for radios/checkboxes
       const inputs = form.querySelectorAll(`[name="${name}"], [name$="_${name}"]`);
       const isSliderField = name.includes('loan_amount_inr') || name.includes('loan_tenure_months');
@@ -2874,6 +2920,7 @@ export default async function decorate(block) {
     decorateLoanSliders(form);
     decorateCollapsiblePanels(form);
     decorateLoanEligibilityButton(form);
+    decorateIdentificationMethod(form);
     decorateSubmitOtpButton(form);
     decorateMoveSubmitButton(form);
     decorateEmailVerifyJoined(form);

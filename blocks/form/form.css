@@ -1084,6 +1084,10 @@ main .form form .field-date-of-birth .dob-age-error {
 }
 
 /* Source of income radio group: col-4, legend as bold heading */
+main .form form .field-personal-loan-offer-panel .field-identification-method.radio-group-wrapper {
+    grid-column: span 12;
+}
+
 main .form form .field-personal-loan-offer-panel .radio-group-wrapper {
     grid-column: span 4;
 }
