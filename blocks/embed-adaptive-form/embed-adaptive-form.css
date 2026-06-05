@@ -99,6 +99,12 @@ main .form form .field-income-verification-method .radio-wrapper:has(.iv-recomme
   margin-bottom: 20px !important;
 }
 
+
+main .form .field-description {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 400;
+}
 /* Tablet adjustments */
 @media (width <=900px) {
   main .section>div {
