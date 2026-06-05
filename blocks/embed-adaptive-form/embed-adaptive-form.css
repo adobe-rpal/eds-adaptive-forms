@@ -76,7 +76,7 @@ main .section.embed-adaptive-form-container {
 main .section.form-container.active-step,
 main .section.embed-adaptive-form-container.active-step {
   margin-top: 32px !important;
-  margin-bottom: 32px !important;
+  margin-bottom: 90px !important;
 }
 
 main .form form .field-personal-details-panel .field-email-id {
