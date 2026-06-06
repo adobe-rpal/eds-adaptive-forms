@@ -111,6 +111,10 @@ main .form form .field-personal-loan-offer-panel .field-date-of-birth {
   padding-left: 20px;
 }
 
+main .form form .field-work-email-id-panel .field-work-email-id .email-domain-suggestions {
+  display: none;
+}
+
 /* Tablet adjustments */
 @media (width <=900px) {
   main .section>div {
