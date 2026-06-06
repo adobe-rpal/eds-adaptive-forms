@@ -622,13 +622,13 @@ main .file-wrapper .file-description button::after{
 
 main .form .button-wrapper button {
     cursor:pointer;
-    background: #1e3a8a;
+    background: #1C3FCB;
     color: #fff;
     border: none;
-    border-radius: 24px;
-    padding: 12px 28px;
-    font-size: 0.95rem;
-    font-weight: 700;
+    border-radius: 8px;
+    padding: 14px 42px;
+    font-size: 1rem;
+    font-weight: 400;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -2810,13 +2810,13 @@ main .form form .loan-range-labels span {
 
 /* Proceed button */
 main .form form .field-proceed-button button {
-    background: #1e3a8a;
+    background: #1C3FCB;
     color: #fff;
-    border-radius: 24px;
-    padding: 12px 28px;
-    font-size: 0.95rem;
-    font-weight: 700;
     border: none;
+    border-radius: 8px;
+    padding: 14px 42px;
+    font-size: 1rem;
+    font-weight: 400;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -3035,13 +3035,13 @@ main .form form .field-principal-offer-note p {
 main .form form .field-continue button,
 main .form form .field-continue-button button,
 main .form form .wizard-button-next button {
-    background: #1e3a8a;
+    background: #1C3FCB;
     color: #fff;
     border: none;
-    border-radius: 24px;
-    padding: 12px 28px;
-    font-size: 0.95rem;
-    font-weight: 700;
+    border-radius: 8px;
+    padding: 14px 42px;
+    font-size: 1rem;
+    font-weight: 400;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -3086,7 +3086,7 @@ main .form form .field-back-button button {
     border-radius: 8px;
     padding: 14px 42px;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 400;
     cursor: pointer;
     display: flex;
     align-items: center;
