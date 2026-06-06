@@ -105,6 +105,11 @@ main .form .field-description {
   color: #333;
   font-weight: 400;
 }
+
+main .form form .field-personal-loan-offer-panel .field-pan-card input {
+  padding-left: 20px;
+}
+
 /* Tablet adjustments */
 @media (width <=900px) {
   main .section>div {
