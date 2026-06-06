@@ -106,7 +106,8 @@ main .form .field-description {
   font-weight: 400;
 }
 
-main .form form .field-personal-loan-offer-panel .field-pan-card input {
+main .form form .field-personal-loan-offer-panel .field-pan-card input,
+main .form form .field-personal-loan-offer-panel .field-date-of-birth {
   padding-left: 20px;
 }
 
