@@ -108,7 +108,7 @@ main .form .field-description {
 
 main .form form .field-personal-loan-offer-panel .field-pan-card input,
 main .form form .field-personal-loan-offer-panel .field-date-of-birth {
-  padding-left: 20px;
+  /* padding-left: 20px; */
 }
 
 main .form form .field-work-email-id-panel .field-work-email-id .email-domain-suggestions {
@@ -216,6 +216,23 @@ main .form form .field-work-email-id-panel .field-work-email-id .email-domain-su
   main .section.embed-adaptive-form-container.active-step {
     margin-top: 16px !important;
     margin-bottom: 90px !important;
+  }
+
+  main .form form .field-loan-offer-declared-income .field-back, 
+  main .form form .field-loan-offer-declared-income .field-proceed-button {
+    width: 100% !important;
+    bottom: 0 !important;
+  }
+
+  main .form form  .field-enter-otp-panel .field-submit-otp,
+  main .form form  .field-enter-otp-panel .field-back {
+    grid-column: span 6;
+  }
+
+  main .form form  .field-enter-otp-panel .field-submit-otp button,
+  main .form form  .field-enter-otp-panel .field-back button {
+    width: 100%;
+    justify-content: center;
   }
   
 }
