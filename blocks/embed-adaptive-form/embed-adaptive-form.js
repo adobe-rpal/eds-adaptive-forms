@@ -1,5 +1,65 @@
 import { loadFragment } from '../fragment/fragment.js';
 
+/**
+ * Synchronizes field values from a section back to the global window.selectedCustomer object.
+ * @param {HTMLElement} section The section containing the inputs to sync.
+ */
+function syncSectionDataToGlobal(section) {
+  if (!window.selectedCustomer) return;
+
+  const syncMapping = {
+    full_name: 'full_name',
+    full_name_as_per_aadhaar: 'full_name',
+    first_name: 'customerFirstName',
+    middle_name: 'customerMiddleName',
+    last_name: 'customerLastName',
+    mobile_number: 'customerMobileNo',
+    email_id: 'emailAddress',
+    primary_email_id: 'emailAddress',
+    work_email_id: 'emailAddress',
+    pan_number: 'customerID',
+    pan: 'customerID',
+    loan_amount_inr: 'offerAmount',
+    loan_tenure_months: 'tenure',
+    residence_type: 'residenceType',
+    monthly_net_income_salary: 'monthlyIncome',
+    date_of_birth: 'dateOfBirth',
+  };
+
+  section.querySelectorAll('input, select, textarea').forEach((input) => {
+    const name = Object.keys(syncMapping).find((k) => input.name === k || input.name.endsWith(`_${k}`));
+    if (name) {
+      const key = syncMapping[name];
+      let val = input.value;
+
+      if ((input.type === 'radio' || input.type === 'checkbox') && !input.checked) return;
+
+      if (name === 'date_of_birth' && val.includes('-')) {
+        const [y, m, d] = val.split('-');
+        val = `${d}-${m}-${y}`;
+      }
+
+      if (key === 'full_name') {
+        const parts = val.trim().split(/\s+/);
+        window.selectedCustomer.customerFirstName = parts[0] || '';
+        if (parts.length > 2) {
+          window.selectedCustomer.customerMiddleName = parts[1];
+          window.selectedCustomer.customerLastName = parts.slice(2).join(' ');
+        } else {
+          window.selectedCustomer.customerMiddleName = '';
+          window.selectedCustomer.customerLastName = parts.slice(1).join(' ') || '';
+        }
+      } else {
+        window.selectedCustomer[key] = val;
+      }
+    }
+  });
+
+  document.querySelectorAll('form[data-selected-customer]').forEach((f) => {
+    f.dataset.selectedCustomer = JSON.stringify(window.selectedCustomer);
+  });
+}
+
 function initializeStepper() {
   const getSections = () => [...document.querySelectorAll('main > .embed-adaptive-form-container, main > .form-container')];
   const sections = getSections();
@@ -22,24 +82,23 @@ function initializeStepper() {
         const currentSections = getSections();
         const currentIndex = currentSections.indexOf(section);
 
+        const syncButtons = ['view_loan_eligibility', 'submit_otp', 'submit_otp_button', 'confirm_button', 'Continue', 'continue', 'proceed_button', 'Confirm'];
+
+        if (syncButtons.includes(button.name)) {
+          e.preventDefault();
+          syncSectionDataToGlobal(section);
+        }
+
         // Handle Requirement 1: view_loan_eligibility internal panel switch
         if (button.name === 'view_loan_eligibility') {
-          e.preventDefault();
-          try {
-            const response = await fetch('https://mocki.io/v1/52531fa2-1899-4761-9e96-58fda44733c8');
-            if (!response.ok) throw new Error('Eligibility check failed');
-
-            const personalPanel = section.querySelector('.field-personal-loan-offer-panel');
-            const otpPanel = section.querySelector('.field-enter-otp-panel');
-            if (personalPanel && otpPanel) {
-              personalPanel.dataset.visible = 'false';
-              personalPanel.style.display = 'none';
-              otpPanel.dataset.visible = 'true';
-              otpPanel.style.display = 'grid';
-              return; // Prevent top-level section transition
-            }
-          } catch (error) {
-            return;
+          const personalPanel = section.querySelector('.field-personal-loan-offer-panel');
+          const otpPanel = section.querySelector('.field-enter-otp-panel');
+          if (personalPanel && otpPanel) {
+            personalPanel.dataset.visible = 'false';
+            personalPanel.style.display = 'none';
+            otpPanel.dataset.visible = 'true';
+            otpPanel.style.display = 'grid';
+            return; // Prevent top-level section transition
           }
         }
 

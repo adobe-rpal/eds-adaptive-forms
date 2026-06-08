@@ -1617,149 +1617,44 @@ function decorateOtpInput(form) {
   observer.observe(form, { childList: true, subtree: true });
 }
 
-const CUSTOMER_DATA = [
-  {
-    full_name_as_per_aadhaar: 'Ankit Shah',
-    first_name: 'Ankit',
-    last_name: 'Shah',
-    email_id: 'ankit.shah@gmail.com',
-    mobile_number: '9876543210',
-    pan_number: 'ABCDE1234F',
-    gender: 'male',
-    monthly_net_income_salary: '50000',
-    type_of_loan: 'personal_loan',
-    date_of_birth: '1995-01-01',
-    loan_amount_inr: '1500000',
-    loan_tenure_months: '84',
-    current_address: 'Mumbai, Maharashtra',
-    residence_type: 'Owned',
-    employer_name: 'Infosys',
-    salary_bank_quick_select: 'hdfc',
-    income_verification_method: 'account_aggregator',
-    employer_company_name_dropdown: 'Adobe',
-    employer_company_name_text: 'Adobe Systems',
-    industry_type: 'IT',
-    ongoing_emis_if_any: '0',
-    current_employer_address: 'B6-1, M30 Diatex, Naveen Nagar, P&C Tirahe, Muzaffarpur, Uttar Pradesh 200972',
-    work_email_id: 'ankit@adobe.com',
-  },
-  {
-    full_name_as_per_aadhaar: 'Rahul Mehta',
-    first_name: 'Rahul',
-    last_name: 'Mehta',
-    email_id: 'rahul.mehta@gmail.com',
-    mobile_number: '9812345678',
-    pan_number: 'PQRSX5678K',
-    gender: 'male',
-    monthly_net_income_salary: '75000',
-    type_of_loan: 'business_loan',
-    date_of_birth: '1990-05-15',
-    loan_amount_inr: '1000000',
-    loan_tenure_months: '60',
-    current_address: 'Pune, Maharashtra',
-    residence_type: 'Rented',
-    employer_name: 'Self Employed',
-    salary_bank_quick_select: 'icici_bank',
-    income_verification_method: 'salary_account_login',
-    employer_company_name_dropdown: 'others',
-    employer_company_name_text: 'Self Employed',
-    industry_type: 'Business',
-    ongoing_emis_if_any: '5000',
-    current_employer_address: '123 Business Hub, Senapati Bapat Road, Pune, Maharashtra 411016',
-    work_email_id: 'rahul@mehtabiz.com',
-  },
-  {
-    full_name_as_per_aadhaar: 'Priya Sharma',
-    first_name: 'Priya',
-    last_name: 'Sharma',
-    email_id: 'priya.sharma@gmail.com',
-    mobile_number: '9765432109',
-    pan_number: 'LMNOP4321Q',
-    gender: 'female',
-    monthly_net_income_salary: '60000',
-    type_of_loan: 'personal_loan',
-    date_of_birth: '1998-08-20',
-    loan_amount_inr: '500000',
-    loan_tenure_months: '36',
-    current_address: 'Delhi, India',
-    residence_type: 'Owned',
-    employer_name: 'TCS',
-    salary_bank_quick_select: 'axis',
-    income_verification_method: 'upload_bank_statement',
-    employer_company_name_dropdown: 'Adobe',
-    employer_company_name_text: 'Adobe',
-    industry_type: 'IT',
-    ongoing_emis_if_any: '2000',
-    current_employer_address: 'Tower A, DLF Cyber City, Phase III, Gurgaon, Haryana 122002',
-    work_email_id: 'priya@adobe.com',
-  },
-  {
-    full_name_as_per_aadhaar: 'Sneha Reddy',
-    first_name: 'Sneha',
-    last_name: 'Reddy',
-    email_id: 'sneha.reddy@gmail.com',
-    mobile_number: '9123456789',
-    pan_number: 'ZXCVB1234L',
-    gender: 'female',
-    monthly_net_income_salary: '90000',
-    type_of_loan: 'home_loan',
-    date_of_birth: '1992-11-30',
-    loan_amount_inr: '1200000',
-    loan_tenure_months: '48',
-    current_address: 'Hyderabad, Telangana',
-    residence_type: 'Rented',
-    employer_name: 'Wipro',
-    salary_bank_quick_select: 'kotak',
-    income_verification_method: 'account_aggregator',
-    employer_company_name_dropdown: 'Google',
-    employer_company_name_text: 'Google',
-    industry_type: 'IT',
-    ongoing_emis_if_any: '0',
-    current_employer_address: 'Survey No. 13, Google Office, Kondapur, Hyderabad, Telangana 500084',
-    work_email_id: 'sneha@google.com',
-  },
-  {
-    full_name_as_per_aadhaar: 'Arjun Kumar',
-    first_name: 'Arjun',
-    last_name: 'Kumar',
-    email_id: 'arjun.kumar@gmail.com',
-    mobile_number: '9001234567',
-    pan_number: 'QWERT5678P',
-    gender: 'male',
-    monthly_net_income_salary: '120000',
-    type_of_loan: 'car_loan',
-    date_of_birth: '1988-03-10',
-    loan_amount_inr: '800000',
-    loan_tenure_months: '72',
-    current_address: 'Bangalore, Karnataka',
-    residence_type: 'Owned',
-    employer_name: 'Accenture',
-    salary_bank_quick_select: 'sbi',
-    income_verification_method: 'salary_account_login',
-    employer_company_name_dropdown: 'Adobe',
-    employer_company_name_text: 'Adobe',
-    industry_type: 'IT',
-    ongoing_emis_if_any: '10000',
-    current_employer_address: 'Bagmane World Technology Center, Mahadevapura, Bangalore, Karnataka 560048',
-    work_email_id: 'arjun@adobe.com',
-  },
-];
+let customerDataPromise = null;
 
-function decorateRandomCustomerData(form) {
+async function getCustomerData() {
+  if (!customerDataPromise) {
+    customerDataPromise = (async () => {
+      try {
+        const response = await fetch('https://mocki.io/v1/284e9f8f-23fc-4958-b84b-242348b91190');
+        if (!response.ok) throw new Error('Failed to fetch customer data from API');
+        return await response.json();
+      } catch (error) {
+        console.error('Customer Data Fetch Error:', error);
+        return null;
+      }
+    })();
+  }
+  return customerDataPromise;
+}
+
+async function decorateRandomCustomerData(form) {
   if (!window.selectedCustomer) {
-    const customer = CUSTOMER_DATA[Math.floor(Math.random() * CUSTOMER_DATA.length)];
-    window.selectedCustomer = customer;
+    const data = await getCustomerData();
+    if (data?.responseString?.OfferDemogDetails) {
+      const details = data.responseString.OfferDemogDetails;
+      window.selectedCustomer = details[Math.floor(Math.random() * details.length)];
+    }
   }
   const customer = window.selectedCustomer;
+  if (!customer) return;
   form.dataset.selectedCustomer = JSON.stringify(customer);
 
+  const fullName = `${customer.customerFirstName} ${customer.customerLastName}`.trim();
   const LABEL_MAP = [
-    { match: 'full name', value: customer.full_name_as_per_aadhaar },
+    { match: 'full name', value: fullName },
     // PAN number excluded from pre-fill - user must enter manually
-    { match: 'current address', value: customer.current_address },
-    { match: 'residence type', value: customer.residence_type },
+    { match: 'current address', value: `${customer.customerCity}, ${customer.customerState}` },
+    { match: 'residence type', value: customer.residenceType },
     // Employer/Company name excluded from pre-fill - user must enter manually
-    { match: 'type of loan', value: customer.type_of_loan },
+    { match: 'type of loan', value: customer.offerType },
   ];
 
   function fillField(wrapper) {
@@ -1837,27 +1732,54 @@ function decorateIdentificationMethod(form) {
   observer.observe(form, { childList: true, subtree: true });
 }
 
-function prefillCustomerDetails(form) {
+async function prefillCustomerDetails(form) {
   if (form.dataset.prefillInitialized) return;
   form.dataset.prefillInitialized = 'true';
 
-  function apply() {
+  async function apply() {
     // Ensure fragments inherit the same customer identity as the host form
-    if (!form.dataset.selectedCustomer && window.selectedCustomer) {
-      form.dataset.selectedCustomer = JSON.stringify(window.selectedCustomer);
+    if (!form.dataset.selectedCustomer) {
+      if (!window.selectedCustomer) {
+        await decorateRandomCustomerData(form);
+      }
+      if (window.selectedCustomer) {
+        form.dataset.selectedCustomer = JSON.stringify(window.selectedCustomer);
+      }
     }
 
     if (!form.dataset.selectedCustomer) return;
     const customer = JSON.parse(form.dataset.selectedCustomer);
     const lastCustomer = form.dataset.lastPrefilledCustomer;
+    
+    // Convert DD-MM-YYYY to YYYY-MM-DD for date inputs
+    let isoDob = '';
+    if (customer.dateOfBirth?.includes('-')) {
+      const [d, m, y] = customer.dateOfBirth.split('-');
+      isoDob = `${y}-${m}-${d}`;
+    }
 
     // Map customer object keys to various field names used across fragments (Preview, etc.)
+    const fullNameValue = [customer.customerFirstName, customer.customerMiddleName, customer.customerLastName].filter(Boolean).join(' ');
     const aliases = {
-      full_name: customer.full_name_as_per_aadhaar,
-      pan: customer.pan_number,
-      loan_amount: customer.loan_amount_inr ? `₹${Number(customer.loan_amount_inr).toLocaleString('en-IN')}` : '',
-      tenure: customer.loan_tenure_months ? `${customer.loan_tenure_months} months` : '',
-      primary_email_id: customer.email_id,
+      full_name: fullNameValue,
+      full_name_as_per_aadhaar: fullNameValue,
+      first_name: customer.customerFirstName,
+      last_name: customer.customerLastName,
+      mobile_number: customer.customerMobileNo,
+      email_id: customer.emailAddress,
+      pan_number: customer.customerID,
+      pan: customer.customerID,
+      gender: customer.customerGender === 'M' ? 'male' : 'female',
+      date_of_birth: isoDob,
+      loan_amount_inr: customer.offerAmount,
+      loan_tenure_months: customer.tenure,
+      current_address: `${customer.customerAddress1}, ${customer.customerAddress2}, ${customer.customerCity}, ${customer.customerState} ${customer.zipCode}`,
+      residence_type: customer.residenceType,
+      loan_amount: customer.offerAmount ? `₹${Number(customer.offerAmount).toLocaleString('en-IN')}` : '',
+      tenure: customer.tenure ? `${customer.tenure} months` : '',
+      primary_email_id: customer.emailAddress,
+      monthly_net_income_salary: customer.monthlyIncome,
+      type_of_loan: 'personal_loan',
     };
 
     // Add bank details if bank selection is present
@@ -1878,9 +1800,9 @@ function prefillCustomerDetails(form) {
     }
 
     // Calculate loan offer details for Preview if not provided
-    if (customer.loan_amount_inr && !customer.emi_amount) {
-      const P = Number(customer.loan_amount_inr);
-      const n = Number(customer.loan_tenure_months || 84);
+    if (customer.offerAmount && !customer.emi_amount) {
+      const P = Number(customer.offerAmount);
+      const n = Number(customer.tenure || 84);
       const RATE_TIERS = [{ upTo: 200000, rate: 14.50 }, { upTo: 400000, rate: 13.50 }, { upTo: 600000, rate: 12.75 }, { upTo: 900000, rate: 12.00 }, { upTo: 1200000, rate: 11.25 }, { upTo: 1500000, rate: 10.97 }];
       const annualRate = (RATE_TIERS.find((t) => P <= t.upTo) || RATE_TIERS[5]).rate;
       const r = annualRate / (12 * 100);
@@ -1902,32 +1824,85 @@ function prefillCustomerDetails(form) {
       'date_of_birth',
     ];
 
+    const syncMapping = {
+      full_name: 'full_name',
+      full_name_as_per_aadhaar: 'full_name',
+      first_name: 'customerFirstName',
+      middle_name: 'customerMiddleName',
+      last_name: 'customerLastName',
+      mobile_number: 'customerMobileNo',
+      email_id: 'emailAddress',
+      primary_email_id: 'emailAddress',
+      work_email_id: 'emailAddress',
+      pan_number: 'customerID',
+      pan: 'customerID',
+      loan_amount_inr: 'offerAmount',
+      loan_tenure_months: 'tenure',
+      residence_type: 'residenceType',
+      monthly_net_income_salary: 'monthlyIncome',
+    };
+
     Object.entries(combined).forEach(([name, value]) => {
-      if (fieldsToExcludeFromPrefill.includes(name)) return;
       // Use ends-with selector to handle Franklin's ID_name convention for radios/checkboxes
       const inputs = form.querySelectorAll(`[name="${name}"], [name$="_${name}"]`);
       const isSliderField = name.includes('loan_amount_inr') || name.includes('loan_tenure_months');
 
       inputs.forEach((input) => {
-        if (input.type === 'radio' || input.type === 'checkbox') {
-          if (input.value === value && !input.checked) {
-            input.checked = true;
+        if (!fieldsToExcludeFromPrefill.includes(name)) {
+          if (input.type === 'radio' || input.type === 'checkbox') {
+            if (input.value === value && !input.checked) {
+              input.checked = true;
+              input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          } else if ((!input.value || input.value === '' || (isSliderField && aliases.full_name !== lastCustomer)) && input.value !== String(value)) {
+            input.value = value;
+            if (input.type === 'date' || name === 'date_of_birth') {
+              input.setAttribute('edit-value', value);
+            }
+            if (isSliderField) {
+              const wrapper = input.closest('.field-loan-amount-inr, .field-loan-tenure-months');
+              const slider = wrapper?.nextElementSibling?.querySelector('input[type="range"]');
+              if (slider) {
+                slider.value = value;
+                slider.dispatchEvent(new Event('input', { bubbles: true }));
+              }
+            }
             input.dispatchEvent(new Event('change', { bubbles: true }));
           }
-        } else if ((!input.value || input.value === '' || (isSliderField && customer.full_name_as_per_aadhaar !== lastCustomer)) && input.value !== String(value)) {
-          input.value = value;
-          if (input.type === 'date' || name === 'date_of_birth') {
-            input.setAttribute('edit-value', value);
-          }
-          if (isSliderField) {
-            const wrapper = input.closest('.field-loan-amount-inr, .field-loan-tenure-months');
-            const slider = wrapper?.nextElementSibling?.querySelector('input[type="range"]');
-            if (slider) {
-              slider.value = value;
-              slider.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        // Wire listener to update window.selectedCustomer when field changes
+        if (!input.dataset.prefillSyncWired) {
+          input.dataset.prefillSyncWired = 'true';
+          input.addEventListener('change', () => {
+            if (!window.selectedCustomer || (input.type === 'radio' && !input.checked)) return;
+            const key = syncMapping[name] || (window.selectedCustomer.hasOwnProperty(name) ? name : null);
+            if (key) {
+              let customerVal = input.value;
+              if (name === 'date_of_birth' && customerVal.includes('-')) {
+                const [y, m, d] = customerVal.split('-');
+                customerVal = `${d}-${m}-${y}`;
+              }
+
+              if (key === 'full_name') {
+                const parts = customerVal.trim().split(/\s+/);
+                window.selectedCustomer.customerFirstName = parts[0] || '';
+                if (parts.length > 2) {
+                  window.selectedCustomer.customerMiddleName = parts[1];
+                  window.selectedCustomer.customerLastName = parts.slice(2).join(' ');
+                } else {
+                  window.selectedCustomer.customerMiddleName = '';
+                  window.selectedCustomer.customerLastName = parts.slice(1).join(' ') || '';
+                }
+              } else {
+                window.selectedCustomer[key] = customerVal;
+              }
+              // Sync the change to all forms currently on the page
+              document.querySelectorAll('form[data-selected-customer]').forEach((f) => {
+                f.dataset.selectedCustomer = JSON.stringify(window.selectedCustomer);
+              });
             }
-          }
-          input.dispatchEvent(new Event('change', { bubbles: true }));
+          });
         }
       });
 
@@ -1948,7 +1923,7 @@ function prefillCustomerDetails(form) {
       }
     });
 
-    form.dataset.lastPrefilledCustomer = customer.full_name_as_per_aadhaar;
+    form.dataset.lastPrefilledCustomer = aliases.full_name;
 
     // Fallback: select random bank only if none provided in customer data and none selected
     const bankRadios = form.querySelectorAll('[name$="_salary_bank_quick_select"]');
@@ -1967,7 +1942,7 @@ function prefillCustomerDetails(form) {
   }
   apply();
   const observer = new MutationObserver(() => apply());
-  observer.observe(form, { childList: true, subtree: true });
+  observer.observe(form, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-selected-customer'] });
 }
 
 function decorateLoanApplicationNumber(form) {
@@ -2958,8 +2933,8 @@ export default async function decorate(block) {
     decorateBankSelector(form);
     decorateIncomeVerification(form);
     decorateLoanApplicationNumber(form);
-    decorateRandomCustomerData(form);
-    prefillCustomerDetails(form);
+    await decorateRandomCustomerData(form);
+    await prefillCustomerDetails(form);
     decoratePanNumberSync(form);
     decoratePanValidation(form);
     decorateEmailVerification(form);

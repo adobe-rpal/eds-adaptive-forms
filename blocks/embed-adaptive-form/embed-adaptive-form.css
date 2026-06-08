@@ -107,8 +107,8 @@ main .form .field-description {
 }
 
 main .form form .field-personal-loan-offer-panel .field-pan-card input,
-main .form form .field-personal-loan-offer-panel .field-date-of-birth {
-  /* padding-left: 20px; */
+main .form form .field-personal-loan-offer-panel .field-date-of-birth input {
+  padding-left: 20px;
 }
 
 main .form form .field-work-email-id-panel .field-work-email-id .email-domain-suggestions {
