@@ -96,7 +96,7 @@ main .form form .field-salary-bank-quick-select .radio-wrapper label {
 }
 
 main .form form .field-income-verification-method .radio-wrapper:has(.iv-recommended) .iv-card-desc {
-  margin-bottom: 20px !important;
+  /* margin-bottom: 20px !important; */
 }
 
 
