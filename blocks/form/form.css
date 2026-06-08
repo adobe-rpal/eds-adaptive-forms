@@ -229,12 +229,12 @@ main .form form fieldset fieldset {
 
 main .form .field-description {
     color: var(--form-label-color);
-    font-size: var(--form-font-size-xs);
+    font-size: 14px;
 }
 
 main .form form .field-invalid .field-description {
     color: var(--form-error-color);
-    font-weight: 700;
+    font-weight: 100;
 }
 
 
