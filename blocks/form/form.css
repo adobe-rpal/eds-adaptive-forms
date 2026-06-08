@@ -1400,7 +1400,7 @@ main .form form .field-otp-attempts-info p {
 
 /* Submit OTP button */
 main .form form .field-submit-otp button {
-    background-color: rgb(165 180 252 / 30%);
+    /* background-color: rgb(165 180 252 / 30%);
     color: #3730a3;
     border: 1.5px solid #a5b4fc;
     border-radius: 8px;
@@ -1413,7 +1413,7 @@ main .form form .field-submit-otp button {
     gap: 10px;
     width: 100%;
     transition: background-color 0.2s;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
 main .form form .field-submit-otp button::after {
