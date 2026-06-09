@@ -1,8 +1,10 @@
 {
   "mappings": [
-    "/content/eds-adaptive-forms/:/"
+    "/content/eds-adaptive-forms/:/",
+    "/content/forms/af/rajesh/capstone/fragments/:/fragments/"
   ],
   "includes": [
-    "/content/eds-adaptive-forms/**"
+    "/content/eds-adaptive-forms/**",
+    "/content/forms/af/rajesh/capstone/fragments/**"
   ]
 }
