@@ -2,8 +2,8 @@
 Your project's description...
 
 ## Environments
-- Preview: https://main--aem-boilerplate-forms--adobe-rnd.aem.page/
-- Live: https://main--aem-boilerplate-forms--adobe-rnd.aem.live/
+- Preview: https://main--eds-adaptive-forms--adobe-rpal.aem.page/
+- Live: https://main--eds-adaptive-forms--adobe-rpal.aem.live/
 
 ## Documentation
 Before using the aem-boilerplate, we recommand you to go through the documentation on [www.aem.live](https://www.aem.live/docs/) and [experienceleague.adobe.com](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/edge-delivery/wysiwyg-authoring/authoring), more specifically:
