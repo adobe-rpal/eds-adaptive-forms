@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: https://author-p96753-e1523920.adobeaemcloud.com/bin/franklin.delivery/adobe-rpal/eds-adaptive-forms/main
+    url: https://author-p96753-e1523920.adobeaemcloud.com/bin/franklin.delivery/adobe-rpal/eds-adaptive-forms/main/
     type: markup
     suffix: .html
