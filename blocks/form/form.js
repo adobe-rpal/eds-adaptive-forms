@@ -1099,46 +1099,62 @@ function decorateSubmitOtpButton(form) {
 
 function decorateIncomeVerification(form) {
   function decorate() {
-    const radioGroup = form.querySelector('.field-income-verification-method');
-    if (!radioGroup || radioGroup.dataset.incomeDecorated) return;
-    radioGroup.dataset.incomeDecorated = 'true';
+    form.querySelectorAll('.field-income-verification-method').forEach((radioGroup) => {
+      if (radioGroup.dataset.incomeDecorated) return;
+      radioGroup.dataset.incomeDecorated = 'true';
 
-    const descs = (radioGroup.dataset.description || '').split(' | ');
-    const wrappers = radioGroup.querySelectorAll('.radio-wrapper');
+      const descs = (radioGroup.dataset.description || '').split(/\s*\|\s*/);
+      const wrappers = radioGroup.querySelectorAll('.radio-wrapper');
 
-    wrappers.forEach((wrapper, i) => {
-      const radio = wrapper.querySelector('input[type="radio"]');
-      const label = wrapper.querySelector('label');
-      if (!radio || !label) return;
+      wrappers.forEach((wrapper, i) => {
+        const radio = wrapper.querySelector('input[type="radio"]');
+        const label = wrapper.querySelector('label');
+        if (!radio || !label) return;
 
-      const headerRow = document.createElement('div');
-      headerRow.className = 'iv-card-header';
-      headerRow.append(radio, label);
-      wrapper.appendChild(headerRow);
+        // Normalize name to ensure proper grouping within the form instance
+        radio.name = `${radioGroup.dataset.id || 'iv'}_income_verification_method`;
 
-      if (descs[i]) {
-        const desc = document.createElement('p');
-        desc.className = 'iv-card-desc';
-        desc.textContent = descs[i].trim();
-        wrapper.appendChild(desc);
-      }
+        const headerRow = document.createElement('div');
+        headerRow.className = 'iv-card-header';
+        headerRow.append(radio, label);
 
-      if (i === 0) {
-        const badge = document.createElement('span');
-        badge.className = 'iv-recommended';
-        badge.textContent = 'Recommended';
-        wrapper.appendChild(badge);
-      }
+        const content = [headerRow];
 
-      if (radio.checked) wrapper.classList.add('iv-checked');
-      radio.addEventListener('change', () => {
-        wrappers.forEach((w) => w.classList.remove('iv-checked'));
-        wrapper.classList.add('iv-checked');
+        if (descs[i]) {
+          const desc = document.createElement('p');
+          desc.className = 'iv-card-desc';
+          desc.textContent = descs[i].trim();
+          content.push(desc);
+        }
+
+        if (i === 0) {
+          const badge = document.createElement('span');
+          badge.className = 'iv-recommended';
+          badge.textContent = 'Recommended';
+          content.push(badge);
+        }
+
+        wrapper.replaceChildren(...content);
+
+        if (radio.checked) wrapper.classList.add('iv-checked');
+        
+        // radio.addEventListener('change', () => {
+        //   wrappers.forEach((w) => w.classList.remove('iv-checked'));
+        //   if (radio.checked) wrapper.classList.add('iv-checked');
+        // });
+
+        // Proxy click from card wrapper to radio button
+        wrapper.addEventListener('click', (e) => {
+          if (e.target !== radio && e.target !== label) {
+            radio.checked = true;
+            // radio.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        });
       });
-    });
 
-    const descDiv = radioGroup.querySelector('.field-description');
-    if (descDiv) descDiv.style.display = 'none';
+      const descDiv = radioGroup.querySelector('.field-description');
+      if (descDiv) descDiv.style.display = 'none';
+    });
   }
 
   decorate();
@@ -1922,23 +1938,7 @@ async function prefillCustomerDetails(form) {
         });
       }
     });
-
     form.dataset.lastPrefilledCustomer = aliases.full_name;
-
-    // Fallback: select random bank only if none provided in customer data and none selected
-    const bankRadios = form.querySelectorAll('[name$="_salary_bank_quick_select"]');
-    if (bankRadios.length > 0 && !customer.salary_bank_quick_select && ![...bankRadios].some((r) => r.checked)) {
-      const randomIndex = Math.floor(Math.random() * bankRadios.length);
-      bankRadios[randomIndex].checked = true;
-      bankRadios[randomIndex].dispatchEvent(new Event('change', { bubbles: true }));
-    }
-
-    // Fallback: select first income method only if none provided in customer data and none selected
-    const ivRadios = form.querySelectorAll('[name$="_income_verification_method"]');
-    if (ivRadios.length > 0 && !customer.income_verification_method && ![...ivRadios].some((r) => r.checked)) {
-      ivRadios[0].checked = true; // Select first one
-      ivRadios[0].dispatchEvent(new Event('change', { bubbles: true }));
-    }
   }
   apply();
   const observer = new MutationObserver(() => apply());
@@ -2154,11 +2154,11 @@ function decorateSalaryBankSelection(form) {
     radioButtons.forEach((radio) => {
       if (!radio.dataset.bankSelectionWired) {
         radio.dataset.bankSelectionWired = 'true';
-        radio.addEventListener('change', () => {
-          if (radio.checked) {
-            prefillSalaryAccountDetails(radio.value);
-          }
-        });
+        // radio.addEventListener('change', () => {
+        //   if (radio.checked) {
+        //     prefillSalaryAccountDetails(radio.value);
+        //   }
+        // });
       }
     });
 
@@ -2166,11 +2166,11 @@ function decorateSalaryBankSelection(form) {
     const dropdown = form.querySelector('.field-salary-bank-dropdown select[name="salary_bank_dropdown"]');
     if (dropdown && !dropdown.dataset.bankSelectionWired) {
       dropdown.dataset.bankSelectionWired = 'true';
-      dropdown.addEventListener('change', () => {
-        if (dropdown.value) {
-          prefillSalaryAccountDetails(dropdown.value);
-        }
-      });
+      // dropdown.addEventListener('change', () => {
+      //   if (dropdown.value) {
+      //     prefillSalaryAccountDetails(dropdown.value);
+      //   }
+      // });
     }
   }
 
@@ -2862,6 +2862,42 @@ function decoratePanValidation(form) {
   observer.observe(form, { childList: true, subtree: true });
 }
 
+function decorateBureauContinueButton(form) {
+  function isValid() {
+    const bankRadios = form.querySelectorAll('[name$="_salary_bank_quick_select"]');
+    const bankDropdown = form.querySelector('[name$="_salary_bank_dropdown"]');
+    const incomeRadios = form.querySelectorAll('[name$="_income_verification_method"]');
+
+    const bankOk = [...bankRadios].some((r) => r.checked) || (bankDropdown?.value && bankDropdown.value !== '');
+    const incomeOk = [...incomeRadios].some((r) => r.checked);
+
+    return bankOk && incomeOk;
+  }
+
+  function updateButton() {
+    const btn = form.querySelector('button[name="Continue"]');
+    if (!btn) return;
+    btn.disabled = !isValid();
+  }
+
+  function attachListeners() {
+    const btn = form.querySelector('button[name="Continue"]');
+    if (!btn) return;
+
+    form.querySelectorAll('.field-salary-bank-selection input, .field-salary-bank-selection select, .field-income-verification-panel input').forEach(el => {
+      if (!el.dataset.bureauValidationWired) {
+        el.dataset.bureauValidationWired = 'true';
+        el.addEventListener('change', updateButton);
+      }
+    });
+    updateButton();
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
 export default async function decorate(block) {
   let container = block.querySelector('a[href]');
   let formDef;
@@ -2926,6 +2962,7 @@ export default async function decorate(block) {
     decorateLoanSliders(form);
     decorateCollapsiblePanels(form);
     decorateLoanEligibilityButton(form);
+    decorateBureauContinueButton(form);
     decorateIdentificationMethod(form);
     decorateSubmitOtpButton(form);
     decorateMoveSubmitButton(form);
