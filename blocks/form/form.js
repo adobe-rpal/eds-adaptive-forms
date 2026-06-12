@@ -1720,27 +1720,12 @@ function wirePanelOtpTimer(panel, form) {
 
 function wireEligibilityOtpClick(form) {
   function wire() {
+    
     const eligibilityBtn = form.querySelector('.field-view-loan-eligibility button');
     if (!eligibilityBtn || eligibilityBtn.dataset.timerWired) return;
     eligibilityBtn.dataset.timerWired = 'true';
 
     eligibilityBtn.addEventListener('click', async () => {
-      // Check the 'offer_available' field value set by the eligibility check
-      const offerAvailableField = form.querySelector('input[name="offer_available"]');
-      if (offerAvailableField?.value !== 'Y') return;
-
-      // Hide personal loan offer panel and show OTP panel
-      setPanelVisibility(form, '.field-personal-loan-offer-panel', false);
-      setPanelVisibility(form, '.field-enter-otp-panel', true);
-
-      const mobile = form.querySelector('.field-mobile-number input')?.value?.trim();
-      const dobInput = form.querySelector('.field-date-of-birth input');
-      const dob = (dobInput?.getAttribute('edit-value') || dobInput?.value || '').trim();
-
-      // Generate a local fallback OTP immediately so the UI is populated even if the API fails
-      const localOtp = String(Math.floor(100000 + Math.random() * 900000));
-      form.dataset.generatedOtp = localOtp;
-
       const fillOtp = () => {
         const otpInput = form.querySelector('.field-otp input');
         if (!otpInput) return;
@@ -1751,24 +1736,33 @@ function wireEligibilityOtpClick(form) {
         if (submitBtn) submitBtn.removeAttribute('disabled');
       };
 
-      // Populate the field with the local fallback OTP first
-      fillOtp();
+      const triggerOtpLogic = () => {
+        // Hide personal loan offer panel and show OTP panel
+        setPanelVisibility(form, '.field-personal-loan-offer-panel', false);
+        setPanelVisibility(form, '.field-enter-otp-panel', true);
 
-      // try {
-      //   const res = await fetch('https://mocki.io/v1/4da7ba64-e592-4af9-8dc4-5ee6c6dce0db', {
-      //     method: 'GET',
-      //     headers: { 'Content-Type': 'application/json' },
-      //   });
-      //   if (res.ok) {
-      //     const data = await res.json();
-      //     if (data && data.otp) {
-      //       form.dataset.generatedOtp = String(data.otp);
-      //       fillOtp(); // Update with the API value if successful
-      //     }
-      //   }
-      // } catch (error) {
-      //   console.error('Failed to generate OTP via API', error);
-      // }
+        // Generate a local fallback OTP
+        const localOtp = String(Math.floor(100000 + Math.random() * 900000));
+        form.dataset.generatedOtp = localOtp;
+        fillOtp();
+      };
+
+      // Check the 'offer_available' field value set by the eligibility check (Rule Editor API)
+      const offerAvailableField = form.querySelector('input[name="offer_available"]');
+      
+      if (offerAvailableField?.value === 'Y') {
+        triggerOtpLogic();
+      } else if (offerAvailableField) {
+        // The eligibility check might be in progress. 
+        // Wait for the field to be updated to 'Y' before triggering the OTP logic.
+        const checkStatus = () => {
+          if (offerAvailableField.value === 'Y') {
+            triggerOtpLogic();
+            offerAvailableField.removeEventListener('change', checkStatus);
+          }
+        };
+        offerAvailableField.addEventListener('change', checkStatus);
+      }
     });
   }
 

@@ -89,19 +89,6 @@ function initializeStepper() {
           syncSectionDataToGlobal(section);
         }
 
-        // Handle Requirement 1: view_loan_eligibility internal panel switch
-        if (button.name === 'view_loan_eligibility') {
-          const personalPanel = section.querySelector('.field-personal-loan-offer-panel');
-          const otpPanel = section.querySelector('.field-enter-otp-panel');
-          if (personalPanel && otpPanel) {
-            personalPanel.dataset.visible = 'false';
-            personalPanel.style.display = 'none';
-            otpPanel.dataset.visible = 'true';
-            otpPanel.style.display = 'grid';
-            return; // Prevent top-level section transition
-          }
-        }
-
         // Handle Requirement: Back button inside field-loan-application-summary (internal switch)
         if (button.name === 'Back' && button.closest('.field-loan-application-summary')) {
           e.preventDefault();
