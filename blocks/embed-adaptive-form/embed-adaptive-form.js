@@ -102,6 +102,96 @@ function initializeStepper() {
           }
         }
 
+        // Handle Requirement: Back button inside field-loan-application-summary (internal switch)
+        if (button.name === 'Back' && button.closest('.field-loan-application-summary')) {
+          e.preventDefault();
+          const summaryPanel = section.querySelector('.field-loan-application-summary');
+          if (summaryPanel) {
+            summaryPanel.dataset.visible = 'false';
+            summaryPanel.style.display = 'none';
+            [
+              '.field-loan-details',
+              '.field-personal-details',
+              '.field-salary-account-details',
+              '.field-office-address-panel',
+            ].forEach((sel) => {
+              const panel = section.querySelector(sel);
+              if (panel) {
+                panel.dataset.visible = 'true';
+                panel.style.display = panel.tagName === 'FIELDSET' ? 'grid' : 'block';
+              }
+            });
+            section.querySelector('.field-loan-details')?.scrollIntoView({ behavior: 'smooth' });
+            return; // Prevent top-level section transition
+          }
+        }
+
+        // Handle Requirement: Back button inside field-income-verification-panel (internal switch)
+        if (button.name === 'Back' && button.closest('.field-income-verification-panel')) {
+          e.preventDefault();
+          const loanTypePanel = section.querySelector('.field-loan-type-selection');
+          if (loanTypePanel) {
+            loanTypePanel.dataset.visible = 'false';
+            loanTypePanel.style.display = 'none';
+            [
+              '.field-customer-details-panel',
+              '.field-full-name-as-per-pan',
+              '.field-personal-details-panel',
+              '.field-address-details',
+              '.field-employer-details-panel',
+              '.field-work-email-id-panel',
+              '.field-type-of-loan-panel',
+            ].forEach((sel) => {
+              const panel = section.querySelector(sel);
+              if (panel) {
+                panel.dataset.visible = 'true';
+                panel.style.display = panel.tagName === 'FIELDSET' ? 'grid' : 'block';
+              }
+            });
+            section.querySelector('.field-customer-details-panel')?.scrollIntoView({ behavior: 'smooth' });
+            return; // Prevent top-level section transition
+          }
+        }
+
+        // Handle Requirement: Back button inside field-office-address-panel (internal switch)
+        if (button.name === 'Back' && button.closest('.field-office-address-panel')) {
+          e.preventDefault();
+          const offerPanel = section.querySelector('.field-loan-offer-declared-income');
+          if (offerPanel) {
+            [
+              '.field-loan-details',
+              '.field-personal-details',
+              '.field-salary-account-details',
+              '.field-office-address-panel',
+            ].forEach((sel) => {
+              const panel = section.querySelector(sel);
+              if (panel) {
+                panel.dataset.visible = 'false';
+                panel.style.display = 'none';
+              }
+            });
+            offerPanel.dataset.visible = 'true';
+            offerPanel.style.display = 'grid';
+            offerPanel.scrollIntoView({ behavior: 'smooth' });
+            return; // Prevent top-level section transition
+          }
+        }
+
+        // Handle Requirement: Back button inside field-loan-offer-declared-income (internal switch)
+        if (button.name === 'Back' && button.closest('.field-loan-offer-declared-income')) {
+          e.preventDefault();
+          const offerPanel = section.querySelector('.field-loan-offer-declared-income');
+          const loanTypePanel = section.querySelector('.field-loan-type-selection');
+          if (offerPanel && loanTypePanel) {
+            offerPanel.dataset.visible = 'false';
+            offerPanel.style.display = 'none';
+            loanTypePanel.dataset.visible = 'true';
+            loanTypePanel.style.display = 'grid';
+            loanTypePanel.scrollIntoView({ behavior: 'smooth' });
+            return; // Prevent top-level section transition
+          }
+        }
+
         // Handle Requirement 2: Back button inside OTP panel (internal switch)
         if (button.name === 'Back' && button.closest('.field-enter-otp-panel')) {
           e.preventDefault();
@@ -112,6 +202,33 @@ function initializeStepper() {
             otpPanel.style.display = 'none';
             personalPanel.dataset.visible = 'true';
             personalPanel.style.display = 'grid';
+            return; // Prevent top-level section transition
+          }
+        }
+
+        // Handle Requirement: back_button inside field-type-of-loan-panel (internal switch)
+        if (button.name === 'back_button' && button.closest('.field-type-of-loan-panel')) {
+          e.preventDefault();
+          const otpPanel = section.querySelector('.field-enter-otp-panel');
+          if (otpPanel) {
+            [
+              '.field-customer-details-panel',
+              '.field-full-name-as-per-pan',
+              '.field-personal-details-panel',
+              '.field-address-details',
+              '.field-employer-details-panel',
+              '.field-work-email-id-panel',
+              '.field-type-of-loan-panel',
+            ].forEach((sel) => {
+              const panel = section.querySelector(sel);
+              if (panel) {
+                panel.dataset.visible = 'false';
+                panel.style.display = 'none';
+              }
+            });
+            otpPanel.dataset.visible = 'true';
+            otpPanel.style.display = 'grid';
+            otpPanel.scrollIntoView({ behavior: 'smooth' });
             return; // Prevent top-level section transition
           }
         }

@@ -24,6 +24,24 @@ import {
   createInput,
 } from './util.js';
 
+/**
+ * Sets the visibility of a panel or fieldset based on data-visible attribute.
+ * @param {HTMLFormElement} form The form element.
+ * @param {string|HTMLElement} target CSS selector or the element itself.
+ * @param {boolean} visible Whether the element should be visible.
+ */
+function setPanelVisibility(form, target, visible) {
+  const element = typeof target === 'string' ? form.querySelector(target) : target;
+  if (element) {
+    const panel = element.closest('.panel-wrapper, fieldset') || (element.classList.contains('panel-wrapper') || element.tagName === 'FIELDSET' ? element : null);
+    if (panel) {
+      panel.dataset.visible = visible ? 'true' : 'false';
+      panel.style.display = visible ? (panel.tagName === 'FIELDSET' ? 'grid' : 'block') : 'none';
+      panel.setAttribute('aria-hidden', !visible);
+    }
+  }
+}
+
 export const DELAY_MS = 0;
 let captchaField;
 let afModule;
@@ -1053,16 +1071,31 @@ function decorateSubmitOtpButton(form) {
     btn.addEventListener('click', (e) => {
       const otpPanel = form.querySelector('.field-enter-otp-panel');
 
-      // When attempts exhausted, skip OTP validation and go straight to next step
-      if (otpPanel?.dataset.attemptsExhausted === 'true') {
-        if (otpPanel) {
-          for (let el = otpPanel.nextElementSibling; el; el = el.nextElementSibling) {
-            if (el.tagName === 'FIELDSET') {
-              navigateWizardToStep(form, el);
-              break;
-            }
+      const finalizeVerification = () => {
+        if (form.dataset.customerDemographics) {
+          const demographics = JSON.parse(form.dataset.customerDemographics);
+          if (demographics && demographics.length > 0) {
+            window.selectedCustomer = demographics[0];
+            form.dataset.selectedCustomer = JSON.stringify(window.selectedCustomer);
           }
         }
+        setPanelVisibility(form, '.field-enter-otp-panel', false);
+        setPanelVisibility(form, '.field-personal-loan-offer-panel', false);
+        [
+          '.field-customer-details-panel',
+          '.field-full-name-as-per-pan',
+          '.field-personal-details-panel',
+          '.field-address-details',
+          '.field-employer-details-panel',
+          '.field-work-email-id-panel',
+          '.field-type-of-loan-panel',
+        ].forEach((selector) => setPanelVisibility(form, selector, true));
+      };
+
+      // When attempts exhausted, skip OTP validation and go straight to next step
+      if (otpPanel?.dataset.attemptsExhausted === 'true') {
+        e.preventDefault();
+        finalizeVerification();
         return;
       }
 
@@ -1078,14 +1111,8 @@ function decorateSubmitOtpButton(form) {
       }
 
       // Valid — navigate to next wizard step
-      if (otpPanel) {
-        for (let el = otpPanel.nextElementSibling; el; el = el.nextElementSibling) {
-          if (el.tagName === 'FIELDSET') {
-            navigateWizardToStep(form, el);
-            break;
-          }
-        }
-      }
+      e.preventDefault();
+      finalizeVerification();
     });
 
     input.dataset.submitWired = 'true';
@@ -1095,7 +1122,254 @@ function decorateSubmitOtpButton(form) {
   const observer = new MutationObserver(() => attachListeners());
   observer.observe(form, { childList: true, subtree: true });
 }
+function decorateConfirmButton(form) {
+  function attachListeners() {
+    const confirmButton = form.querySelector('.field-type-of-loan-panel .field-confirm-button button[name="confirm_button"]');
+    if (!confirmButton || confirmButton.dataset.confirmWired) return;
 
+    confirmButton.dataset.confirmWired = 'true';
+    confirmButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      [
+        '.field-customer-details-panel',
+        '.field-full-name-as-per-pan',
+        '.field-personal-details-panel',
+        '.field-address-details',
+        '.field-employer-details-panel',
+        '.field-work-email-id-panel',
+        '.field-type-of-loan-panel',
+      ].forEach((selector) => setPanelVisibility(form, selector, false));
+
+      setPanelVisibility(form, '.field-loan-type-selection', true);
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+
+function decorateProceedButton(form) {
+  function attachListeners() {
+    const proceedBtn = form.querySelector('.field-loan-offer-declared-income .field-proceed-button button[name="proceed_button"]');
+    if (!proceedBtn || proceedBtn.dataset.proceedWired) return;
+
+    proceedBtn.dataset.proceedWired = 'true';
+    proceedBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setPanelVisibility(form, '.field-loan-offer-declared-income', false);
+      [
+        '.field-loan-details',
+        '.field-personal-details',
+        '.field-salary-account-details',
+        '.field-office-address-panel',
+      ].forEach((selector) => setPanelVisibility(form, selector, true));
+
+      const firstShown = form.querySelector('.field-loan-details');
+      if (firstShown) {
+        firstShown.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+function decorateIncomeBackButton(form) {
+  function attachListeners() {
+    const backBtn = form.querySelector('.field-income-verification-panel .field-back button[name="Back"]');
+    if (!backBtn || backBtn.dataset.incomeBackWired) return;
+
+    backBtn.dataset.incomeBackWired = 'true';
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setPanelVisibility(form, '.field-loan-type-selection', false);
+      [
+        '.field-customer-details-panel',
+        '.field-full-name-as-per-pan',
+        '.field-personal-details-panel',
+        '.field-address-details',
+        '.field-employer-details-panel',
+        '.field-work-email-id-panel',
+        '.field-type-of-loan-panel',
+      ].forEach((selector) => setPanelVisibility(form, selector, true));
+
+      const firstShown = form.querySelector('.field-customer-details-panel');
+      if (firstShown) {
+        firstShown.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+function decorateLoanOfferBackButton(form) {
+  function attachListeners() {
+    const backBtn = form.querySelector('.field-loan-offer-declared-income .field-back button[name="Back"]');
+    if (!backBtn || backBtn.dataset.loanOfferBackWired) return;
+
+    backBtn.dataset.loanOfferBackWired = 'true';
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setPanelVisibility(form, '.field-loan-offer-declared-income', false);
+      setPanelVisibility(form, '.field-loan-type-selection', true);
+      const target = form.querySelector('.field-loan-type-selection');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+function decorateSummaryBackButton(form) {
+  function attachListeners() {
+    const backBtn = form.querySelector('.field-loan-application-summary .field-back button[name="Back"]');
+    if (!backBtn || backBtn.dataset.summaryBackWired) return;
+
+    backBtn.dataset.summaryBackWired = 'true';
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setPanelVisibility(form, '.field-loan-application-summary', false);
+      [
+        '.field-loan-details',
+        '.field-personal-details',
+        '.field-salary-account-details',
+        '.field-office-address-panel',
+      ].forEach((selector) => setPanelVisibility(form, selector, true));
+
+      const firstShown = form.querySelector('.field-loan-details');
+      if (firstShown) {
+        firstShown.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+function decorateFinalBackButton(form) {
+  function attachListeners() {
+    const backBtn = form.querySelector('.field-office-address-panel .field-back button[name="Back"]');
+    if (!backBtn || backBtn.dataset.finalBackWired) return;
+
+    backBtn.dataset.finalBackWired = 'true';
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      [
+        '.field-loan-details',
+        '.field-personal-details',
+        '.field-salary-account-details',
+        '.field-office-address-panel',
+      ].forEach((selector) => setPanelVisibility(form, selector, false));
+
+      setPanelVisibility(form, '.field-loan-offer-declared-income', true);
+      const target = form.querySelector('.field-loan-offer-declared-income');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+function decorateOtpBackButton(form) {
+  function attachListeners() {
+    const backBtn = form.querySelector('.field-enter-otp-panel .field-back button[name="Back"]');
+    if (!backBtn || backBtn.dataset.backWired) return;
+
+    backBtn.dataset.backWired = 'true';
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setPanelVisibility(form, '.field-enter-otp-panel', false);
+      setPanelVisibility(form, '.field-personal-loan-offer-panel', true);
+      const offerPanel = form.querySelector('.field-personal-loan-offer-panel');
+      if (offerPanel) {
+        offerPanel.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+
+function decorateLoanTypeBackButton(form) {
+  function attachListeners() {
+    const backBtn = form.querySelector('.field-type-of-loan-panel .field-back-button button[name="back_button"]');
+    if (!backBtn || backBtn.dataset.loanTypeBackWired) return;
+
+    backBtn.dataset.loanTypeBackWired = 'true';
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      [
+        '.field-customer-details-panel',
+        '.field-full-name-as-per-pan',
+        '.field-personal-details-panel',
+        '.field-address-details',
+        '.field-employer-details-panel',
+        '.field-work-email-id-panel',
+        '.field-type-of-loan-panel',
+      ].forEach((selector) => setPanelVisibility(form, selector, false));
+
+      setPanelVisibility(form, '.field-enter-otp-panel', true);
+      const otpPanel = form.querySelector('.field-enter-otp-panel');
+      if (otpPanel) {
+        otpPanel.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
+
+function decorateFinalConfirmButton(form) {
+  function attachListeners() {
+    const confirmBtn = form.querySelector('.field-office-address-panel button[name="Confirm"]');
+    if (!confirmBtn || confirmBtn.dataset.finalConfirmWired) return;
+
+    confirmBtn.dataset.finalConfirmWired = 'true';
+    confirmBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      [
+        '.field-loan-details',
+        '.field-personal-details',
+        '.field-salary-account-details',
+        '.field-office-address-panel',
+      ].forEach((selector) => setPanelVisibility(form, selector, false));
+
+      setPanelVisibility(form, '.field-loan-application-summary', true);
+
+      const summaryPanel = form.querySelector('.field-loan-application-summary');
+      if (summaryPanel) {
+        summaryPanel.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
 
 function decorateIncomeVerification(form) {
   function decorate() {
@@ -1550,6 +1824,30 @@ function navigateWizardToStep(form, targetFieldset) {
   }));
 }
 
+/**
+ * Initializes the form state by hiding specific fieldsets on page load.
+ * @param {HTMLFormElement} form
+ */
+function initializeFieldsetStepper(form) {
+  const panelsToHide = [
+    '.field-customer-details-panel',
+    '.field-full-name-as-per-pan',
+    '.field-personal-details-panel',
+    '.field-address-details',
+    '.field-employer-details-panel',
+    '.field-work-email-id-panel',
+    '.field-type-of-loan-panel',
+    '.field-loan-type-selection',
+    '.field-loan-offer-declared-income',
+    '.field-loan-details',
+    '.field-personal-details',
+    '.field-salary-account-details',
+    '.field-office-address-panel',
+    '.field-loan-application-summary',
+  ];
+  panelsToHide.forEach((selector) => setPanelVisibility(form, selector, false));
+}
+
 function decorateEditMobileNumber(form) {
   function getMobileStep() {
     const otpPanel = form.querySelector('.field-enter-otp-panel');
@@ -1633,82 +1931,6 @@ function decorateOtpInput(form) {
   observer.observe(form, { childList: true, subtree: true });
 }
 
-let customerDataPromise = null;
-
-async function getCustomerData() {
-  if (!customerDataPromise) {
-    customerDataPromise = (async () => {
-      try {
-        const response = await fetch('https://mocki.io/v1/284e9f8f-23fc-4958-b84b-242348b91190');
-        if (!response.ok) throw new Error('Failed to fetch customer data from API');
-        return await response.json();
-      } catch (error) {
-        console.error('Customer Data Fetch Error:', error);
-        return null;
-      }
-    })();
-  }
-  return customerDataPromise;
-}
-
-async function decorateRandomCustomerData(form) {
-  if (!window.selectedCustomer) {
-    const data = await getCustomerData();
-    if (data?.responseString?.OfferDemogDetails) {
-      const details = data.responseString.OfferDemogDetails;
-      window.selectedCustomer = details[Math.floor(Math.random() * details.length)];
-    }
-  }
-  const customer = window.selectedCustomer;
-  if (!customer) return;
-  form.dataset.selectedCustomer = JSON.stringify(customer);
-
-  const fullName = `${customer.customerFirstName} ${customer.customerLastName}`.trim();
-  const LABEL_MAP = [
-    { match: 'full name', value: fullName },
-    // PAN number excluded from pre-fill - user must enter manually
-    { match: 'current address', value: `${customer.customerCity}, ${customer.customerState}` },
-    { match: 'residence type', value: customer.residenceType },
-    // Employer/Company name excluded from pre-fill - user must enter manually
-    { match: 'type of loan', value: customer.offerType },
-  ];
-
-  function fillField(wrapper) {
-    if (wrapper.dataset.customerFilled) return;
-    const label = wrapper.querySelector('label');
-    const input = wrapper.querySelector('input[type="text"], input[type="email"], textarea, select');
-    if (!label || !input) return;
-
-    // Never overwrite a field that already has a value
-    if (input.value && input.value.trim()) return;
-
-    const labelText = label.textContent.trim().toLowerCase();
-    const match = LABEL_MAP.find((m) => labelText.includes(m.match));
-    if (!match) return;
-
-    wrapper.dataset.customerFilled = 'true';
-
-    if (input.tagName === 'SELECT') {
-      const option = [...input.options].find(
-        (o) => o.value.toLowerCase() === match.value.toLowerCase()
-          || o.text.toLowerCase() === match.value.toLowerCase(),
-      );
-      if (option) input.value = option.value;
-    } else {
-      input.value = match.value;
-    }
-    input.dispatchEvent(new Event('change', { bubbles: true }));
-  }
-
-  function apply() {
-    form.querySelectorAll('.text-wrapper, .drop-down-wrapper, .multiline-wrapper').forEach(fillField);
-  }
-
-  apply();
-  const observer = new MutationObserver(() => apply());
-  observer.observe(form, { childList: true, subtree: true });
-}
-
 function decorateIdentificationMethod(form) {
   function apply() {
     const radioGroup = form.querySelector('.field-identification-method');
@@ -1754,13 +1976,8 @@ async function prefillCustomerDetails(form) {
 
   async function apply() {
     // Ensure fragments inherit the same customer identity as the host form
-    if (!form.dataset.selectedCustomer) {
-      if (!window.selectedCustomer) {
-        await decorateRandomCustomerData(form);
-      }
-      if (window.selectedCustomer) {
-        form.dataset.selectedCustomer = JSON.stringify(window.selectedCustomer);
-      }
+    if (window.selectedCustomer && !form.dataset.selectedCustomer) {
+      form.dataset.selectedCustomer = JSON.stringify(window.selectedCustomer);
     }
 
     if (!form.dataset.selectedCustomer) return;
@@ -2884,6 +3101,19 @@ function decorateBureauContinueButton(form) {
     const btn = form.querySelector('button[name="Continue"]');
     if (!btn) return;
 
+    if (!btn.dataset.bureauClickWired) {
+      btn.dataset.bureauClickWired = 'true';
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        setPanelVisibility(form, '.field-loan-type-selection', false);
+        setPanelVisibility(form, '.field-loan-offer-declared-income', true);
+        const nextPanel = form.querySelector('.field-loan-offer-declared-income');
+        if (nextPanel) {
+          nextPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
     form.querySelectorAll('.field-salary-bank-selection input, .field-salary-bank-selection select, .field-income-verification-panel input').forEach(el => {
       if (!el.dataset.bureauValidationWired) {
         el.dataset.bureauValidationWired = 'true';
@@ -2968,9 +3198,17 @@ export default async function decorate(block) {
     decorateMoveSubmitButton(form);
     decorateEmailVerifyJoined(form);
     decorateBankSelector(form);
+    decorateConfirmButton(form);
+    decorateProceedButton(form);
+    decorateOtpBackButton(form);
+    decorateSummaryBackButton(form);
+    decorateFinalBackButton(form);
+    decorateLoanOfferBackButton(form);
+    decorateIncomeBackButton(form);
+    decorateLoanTypeBackButton(form);
+    decorateFinalConfirmButton(form);
     decorateIncomeVerification(form);
     decorateLoanApplicationNumber(form);
-    await decorateRandomCustomerData(form);
     await prefillCustomerDetails(form);
     decoratePanNumberSync(form);
     decoratePanValidation(form);
@@ -2979,6 +3217,9 @@ export default async function decorate(block) {
     decorateOfficeAddressPrefill(form);
     decorateVerifyEmailIdSection(form);
     decorateAadhaarAddressDetails(form);
+
+    // Initialize panel visibility (hide specific panels on load)
+    initializeFieldsetStepper(form);
 
     // Wrap "here" in consent labels so it can be styled blue
     form.querySelectorAll('.field-consent-communication label, .field-consent-marketing label').forEach((label) => {
