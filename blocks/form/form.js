@@ -39,7 +39,7 @@ function setPanelVisibility(form, target, visible) {
       panel.dataset.visible = visible ? 'true' : 'false';
       if (visible) {
         if (panel.classList.contains('field-loan-offer-declared-income')) {
-          panel.style.display = 'flex';
+          panel.style.display = window.matchMedia('(min-width: 901px)').matches ? 'grid' : 'flex';
         } else {
           panel.style.display = panel.tagName === 'FIELDSET' ? 'grid' : 'block';
         }

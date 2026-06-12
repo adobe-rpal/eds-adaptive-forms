@@ -131,7 +131,7 @@ function initializeStepper() {
               }
             });
             loanOfferPanel.dataset.visible = 'true';
-            loanOfferPanel.style.display = 'flex'; // As per the request
+            loanOfferPanel.style.display = window.matchMedia('(min-width: 901px)').matches ? 'grid' : 'flex';
             loanOfferPanel.scrollIntoView({ behavior: 'smooth' });
             return; // Prevent top-level section transition
           }
@@ -182,7 +182,7 @@ function initializeStepper() {
               }
             });
             offerPanel.dataset.visible = 'true';
-            offerPanel.style.display = 'grid';
+            offerPanel.style.display = window.matchMedia('(min-width: 901px)').matches ? 'grid' : 'flex';
             offerPanel.scrollIntoView({ behavior: 'smooth' });
             return; // Prevent top-level section transition
           }
