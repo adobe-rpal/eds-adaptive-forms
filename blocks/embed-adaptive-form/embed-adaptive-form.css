@@ -115,6 +115,10 @@ main .form form .field-work-email-id-panel .field-work-email-id .email-domain-su
   display: none;
 }
 
+main .form form .field-personal-loan-offer-panel .field-offer-available {
+  display: none;
+}
+
 /* Tablet adjustments */
 @media (width <=900px) {
   main .section>div {
