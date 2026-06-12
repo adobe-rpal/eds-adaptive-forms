@@ -6,6 +6,7 @@ import componentDecorator from './mappings.js';
 import { handleSubmit } from './submit.js';
 import DocBasedFormToAF from './transform.js';
 import decorateAadhaarAddressDetails from './address-decorator.js';
+import { OTP_API_BASE } from './functions.js';
 import {
   checkValidation,
   createButton,
@@ -1724,53 +1725,50 @@ function wireEligibilityOtpClick(form) {
     eligibilityBtn.dataset.timerWired = 'true';
 
     eligibilityBtn.addEventListener('click', async () => {
+      // Check the 'offer_available' field value set by the eligibility check
+      const offerAvailableField = form.querySelector('input[name="offer_available"]');
+      if (offerAvailableField?.value !== 'Y') return;
+
+      // Hide personal loan offer panel and show OTP panel
+      setPanelVisibility(form, '.field-personal-loan-offer-panel', false);
+      setPanelVisibility(form, '.field-enter-otp-panel', true);
+
       const mobile = form.querySelector('.field-mobile-number input')?.value?.trim();
       const dobInput = form.querySelector('.field-date-of-birth input');
       const dob = (dobInput?.getAttribute('edit-value') || dobInput?.value || '').trim();
 
-      let otpString = String(Math.floor(100000 + Math.random() * 900000));
-      form.dataset.generatedOtp = otpString;
-      const otpPanel = form.querySelector('.field-enter-otp-panel');
+      // Generate a local fallback OTP immediately so the UI is populated even if the API fails
+      const localOtp = String(Math.floor(100000 + Math.random() * 900000));
+      form.dataset.generatedOtp = localOtp;
 
       const fillOtp = () => {
         const otpInput = form.querySelector('.field-otp input');
         if (!otpInput) return;
-        otpInput.value = otpString;
+        otpInput.value = form.dataset.generatedOtp;
         otpInput.dispatchEvent(new Event('input', { bubbles: true }));
         otpInput.dispatchEvent(new Event('change', { bubbles: true }));
         const submitBtn = form.querySelector('.field-submit-otp button');
         if (submitBtn) submitBtn.removeAttribute('disabled');
       };
 
+      // Populate the field with the local fallback OTP first
       fillOtp();
 
-      if (otpPanel) {
-        let navObserver = new MutationObserver(() => {
-          fillOtp();
-          setTimeout(fillOtp, 150);
-          setTimeout(fillOtp, 450);
-          navObserver.disconnect();
-          navObserver = null;
-        });
-        navObserver.observe(otpPanel, { attributes: true, attributeFilter: ['class', 'style'] });
-        setTimeout(() => { if (navObserver) { navObserver.disconnect(); navObserver = null; } }, 500);
-      }
-
       // try {
-      //   const res = await fetch('http://localhost:3000/api/generate-otp', {
-      //     method: 'POST',
+      //   const res = await fetch('https://mocki.io/v1/4da7ba64-e592-4af9-8dc4-5ee6c6dce0db', {
+      //     method: 'GET',
       //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify({ mobile, dob }),
       //   });
       //   if (res.ok) {
       //     const data = await res.json();
-      //     if (data.otp) {
-      //       otpString = String(data.otp);
-      //       form.dataset.generatedOtp = otpString;
-      //       fillOtp();
+      //     if (data && data.otp) {
+      //       form.dataset.generatedOtp = String(data.otp);
+      //       fillOtp(); // Update with the API value if successful
       //     }
       //   }
-      // } catch { /* API unavailable — local OTP stays */ }
+      // } catch (error) {
+      //   console.error('Failed to generate OTP via API', error);
+      // }
     });
   }
 

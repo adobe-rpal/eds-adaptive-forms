@@ -56,7 +56,7 @@ function maskMobileNumber(mobileNumber) {
   return ` ${'*'.repeat(5)}${value.substring(5)}`;
 }
 
-const OTP_API_BASE = 'http://localhost:3000';
+export const OTP_API_BASE = 'http://localhost:3000';
 
 /**
  * Calls the backend to generate an OTP for the given mobile + DOB.
