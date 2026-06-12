@@ -1753,24 +1753,24 @@ function wireEligibilityOtpClick(form) {
           navObserver = null;
         });
         navObserver.observe(otpPanel, { attributes: true, attributeFilter: ['class', 'style'] });
-        setTimeout(() => { if (navObserver) { navObserver.disconnect(); navObserver = null; } }, 10000);
+        setTimeout(() => { if (navObserver) { navObserver.disconnect(); navObserver = null; } }, 500);
       }
 
-      try {
-        const res = await fetch('http://localhost:3000/api/generate-otp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mobile, dob }),
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.otp) {
-            otpString = String(data.otp);
-            form.dataset.generatedOtp = otpString;
-            fillOtp();
-          }
-        }
-      } catch { /* API unavailable — local OTP stays */ }
+      // try {
+      //   const res = await fetch('http://localhost:3000/api/generate-otp', {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify({ mobile, dob }),
+      //   });
+      //   if (res.ok) {
+      //     const data = await res.json();
+      //     if (data.otp) {
+      //       otpString = String(data.otp);
+      //       form.dataset.generatedOtp = otpString;
+      //       fillOtp();
+      //     }
+      //   }
+      // } catch { /* API unavailable — local OTP stays */ }
     });
   }
 
@@ -2002,7 +2002,7 @@ async function prefillCustomerDetails(form) {
       email_id: customer.emailAddress,
       pan_number: customer.customerID,
       pan: customer.customerID,
-      gender: customer.customerGender === 'M' ? 'male' : 'female',
+      gender: customer.customerGender == 'Male' ? 'male' : 'female',
       date_of_birth: isoDob,
       loan_amount_inr: customer.offerAmount,
       loan_tenure_months: customer.tenure,
@@ -2088,7 +2088,17 @@ async function prefillCustomerDetails(form) {
               input.dispatchEvent(new Event('change', { bubbles: true }));
             }
           } else if ((!input.value || input.value === '' || (isSliderField && aliases.full_name !== lastCustomer)) && input.value !== String(value)) {
-            input.value = value;
+            if (input.tagName === 'SELECT') {
+              const val = String(value).toLowerCase();
+              const option = [...input.options].find(
+                (o) => o.value.toLowerCase() === val || o.text.toLowerCase() === val,
+              );
+              if (option) {
+                input.value = option.value;
+              }
+            } else {
+              input.value = value;
+            }
             if (input.type === 'date' || name === 'date_of_birth') {
               input.setAttribute('edit-value', value);
             }
