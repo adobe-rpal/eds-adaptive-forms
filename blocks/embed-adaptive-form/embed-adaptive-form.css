@@ -208,7 +208,7 @@ main .form form .field-personal-loan-offer-panel .field-offer-available {
   }
 
   main .form form .field-loan-offer-declared-income {
-    display: flex !important;
+    display: flex;
   }
 
   main .form form {
