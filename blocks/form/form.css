@@ -1055,6 +1055,12 @@ main .form form .field-personal-loan-offer-panel .date-wrapper input:focus {
     box-shadow: 0 0 0 3px rgb(61 82 213 / 10%);
 }
 
+main .form form .field-personal-loan-offer-panel .field-mobile-number label,
+main .form form .field-personal-loan-offer-panel .field-pan-card label,
+main .form form .field-personal-loan-offer-panel .field-date-of-birth label {
+    font-size: 0.9rem;
+}
+
 /* Mobile number: col-4, Indian flag + +91 prefix */
 main .form form .field-mobile-number {
     grid-column: span 4;
@@ -1334,11 +1340,6 @@ main .form form .field-resend-otp button:hover {
     background: #1e40af;
 }
 
-/* Resend timer row — label injected via ::before on the countdown wrapper */
-main .form form .field-resend-otp-timer {
-    display: none;
-}
-
 main .form form .field-resend-otp-in {
     grid-column: 1 / 7;
     display: flex;
@@ -1384,7 +1385,7 @@ main .form form input[name="Resend OTP in:"] {
 /* Attempts info — right side of same row */
 main .form form .field-otp-attempts-info {
     /* grid-column: 7 / -1; */
-    display: flex;
+    /* display: flex; */
     justify-content: flex-start;
     align-items: center;
     margin: 0;
@@ -1396,6 +1397,12 @@ main .form form .field-otp-attempts-info p {
     color: #888;
     margin: 0;
     text-align: right;
+}
+
+main .form form .field-resend-otp-timer p {
+    font-size: 0.82rem;
+    color: #888;
+    margin: 0;
 }
 
 /* Submit OTP button */
