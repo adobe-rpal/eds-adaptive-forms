@@ -37,7 +37,15 @@ function setPanelVisibility(form, target, visible) {
     const panel = element.closest('.panel-wrapper, fieldset') || (element.classList.contains('panel-wrapper') || element.tagName === 'FIELDSET' ? element : null);
     if (panel) {
       panel.dataset.visible = visible ? 'true' : 'false';
-      panel.style.display = visible ? (panel.tagName === 'FIELDSET' ? 'grid' : 'block') : 'none';
+      if (visible) {
+        if (panel.classList.contains('field-loan-offer-declared-income')) {
+          panel.style.display = 'flex';
+        } else {
+          panel.style.display = panel.tagName === 'FIELDSET' ? 'grid' : 'block';
+        }
+      } else {
+        panel.style.display = 'none';
+      }
       panel.setAttribute('aria-hidden', !visible);
     }
   }
