@@ -1627,7 +1627,7 @@ function startOtpTimer(panel) {
   const timerWrapper = panel.querySelector('.field-resend-otp-in') || panel.querySelector('.field-resend-otp-timer');
   const resendWrapper = panel.querySelector('.field-resend-otp') || panel.querySelector('.field-resend');
 
-  let timeLeft = 45;
+  let timeLeft = 20;
 
   if (timerWrapper) timerWrapper.style.display = '';
   if (resendWrapper) resendWrapper.style.display = 'none';
