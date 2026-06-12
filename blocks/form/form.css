@@ -4627,6 +4627,11 @@ main .form form .field-verify-email-id.collapsed > legend::after {
     transform: rotate(180deg);
 }
 
+main .form form .field-verify-email-id .field-confirm,
+main .form form .field-income-verification-panel .field-continue,
+main .form form .field-type-of-loan-panel .field-confirm-button {
+    grid-column: span 12;
+}
 /* Sub-panels layout */
 main .form form .field-primary-email-panel,
 main .form form .field-work-email-panel {
