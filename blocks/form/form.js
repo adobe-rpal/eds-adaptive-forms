@@ -1268,6 +1268,34 @@ function decorateSummaryBackButton(form) {
   observer.observe(form, { childList: true, subtree: true });
 }
 
+function decorateVerifyEmailIdBackButton(form) {
+  function attachListeners() {
+    const backBtn = form.querySelector('.field-verify-email-id .field-back button[name="Back"]');
+    if (!backBtn || backBtn.dataset.verifyEmailBackWired) return;
+
+    backBtn.dataset.verifyEmailBackWired = 'true';
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      [
+        '.field-loan-details',
+        '.field-personal-details',
+        '.field-salary-account-details',
+        '.field-office-address-panel',
+      ].forEach((selector) => setPanelVisibility(form, selector, false));
+
+      setPanelVisibility(form, '.field-loan-offer-declared-income', true);
+      const target = form.querySelector('.field-loan-offer-declared-income');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  attachListeners();
+  const observer = new MutationObserver(() => attachListeners());
+  observer.observe(form, { childList: true, subtree: true });
+}
+
 function decorateFinalBackButton(form) {
   function attachListeners() {
     const backBtn = form.querySelector('.field-office-address-panel .field-back button[name="Back"]');
@@ -3211,6 +3239,7 @@ export default async function decorate(block) {
     decorateConfirmButton(form);
     decorateProceedButton(form);
     decorateOtpBackButton(form);
+    decorateVerifyEmailIdBackButton(form);
     decorateSummaryBackButton(form);
     decorateFinalBackButton(form);
     decorateLoanOfferBackButton(form);

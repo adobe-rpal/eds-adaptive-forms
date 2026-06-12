@@ -113,6 +113,30 @@ function initializeStepper() {
           }
         }
 
+        // Handle Requirement: Back button inside field-verify-email-id (internal switch)
+        if (button.name === 'Back' && button.closest('.field-verify-email-id')) {
+          e.preventDefault();
+          const loanOfferPanel = section.querySelector('.field-loan-offer-declared-income');
+          if (loanOfferPanel) {
+            [
+              '.field-loan-details',
+              '.field-personal-details',
+              '.field-salary-account-details',
+              '.field-office-address-panel',
+            ].forEach((sel) => {
+              const panel = section.querySelector(sel);
+              if (panel) {
+                panel.dataset.visible = 'false';
+                panel.style.display = 'none';
+              }
+            });
+            loanOfferPanel.dataset.visible = 'true';
+            loanOfferPanel.style.display = 'flex'; // As per the request
+            loanOfferPanel.scrollIntoView({ behavior: 'smooth' });
+            return; // Prevent top-level section transition
+          }
+        }
+
         // Handle Requirement: Back button inside field-income-verification-panel (internal switch)
         if (button.name === 'Back' && button.closest('.field-income-verification-panel')) {
           e.preventDefault();
