@@ -1765,7 +1765,10 @@ function wirePanelOtpTimer(panel, form) {
 
   attemptsLeft = MAX_ATTEMPTS;
   updateAttemptsDisplay();
-  startOtpTimer(panel);
+  const resendWrapper = panel.querySelector('.field-resend-otp') || panel.querySelector('.field-resend');
+  if (resendWrapper) resendWrapper.style.display = 'none';
+  const timerWrapper = panel.querySelector('.field-resend-otp-in') || panel.querySelector('.field-resend-otp-timer');
+  if (timerWrapper) timerWrapper.style.display = 'none';
 }
 
 function wireEligibilityOtpClick(form) {
@@ -1778,6 +1781,7 @@ function wireEligibilityOtpClick(form) {
     eligibilityBtn.addEventListener('click', async () => {
       const fillOtp = () => {
         const otpInput = form.querySelector('.field-otp input');
+        const otpPanel = form.querySelector('.field-enter-otp-panel');
         if (!otpInput) return;
         otpInput.value = form.dataset.generatedOtp;
         otpInput.dispatchEvent(new Event('input', { bubbles: true }));
@@ -1794,6 +1798,8 @@ function wireEligibilityOtpClick(form) {
         // Generate a local fallback OTP
         const localOtp = String(Math.floor(100000 + Math.random() * 900000));
         form.dataset.generatedOtp = localOtp;
+        const otpPanel = form.querySelector('.field-enter-otp-panel');
+        if (otpPanel) startOtpTimer(otpPanel);
         fillOtp();
       };
 
