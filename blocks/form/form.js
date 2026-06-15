@@ -1798,8 +1798,6 @@ function wireEligibilityOtpClick(form) {
         // Generate a local fallback OTP
         const localOtp = String(Math.floor(100000 + Math.random() * 900000));
         form.dataset.generatedOtp = localOtp;
-        const otpPanel = form.querySelector('.field-enter-otp-panel');
-        if (otpPanel) startOtpTimer(otpPanel);
         fillOtp();
       };
 
@@ -1828,18 +1826,19 @@ function wireEligibilityOtpClick(form) {
 }
 
 function decorateOtpTimer(form) {
-  const seenPanels = new WeakSet();
-
   function wire() {
     form.querySelectorAll('.field-enter-otp-panel').forEach((panel) => {
-      const isVisible = panel.dataset.visible !== 'false'
-        && getComputedStyle(panel).display !== 'none';
-      if (isVisible && !seenPanels.has(panel)) {
-        seenPanels.add(panel);
+      const display = getComputedStyle(panel).display;
+      const isVisible = panel.dataset.visible !== 'false' && display === 'grid';
+
+      if (isVisible && !panel.dataset.timerRunning) {
+        panel.dataset.timerRunning = 'true';
         wirePanelOtpTimer(panel, form);
-      } else if (!isVisible && panel.dataset.otpTimerWired) {
-        // Reset wired flag when panel hides so it re-inits on next show
+        startOtpTimer(panel);
+      } else if (!isVisible && (panel.dataset.timerRunning || panel.dataset.otpTimerWired)) {
+        delete panel.dataset.timerRunning;
         delete panel.dataset.otpTimerWired;
+        stopOtpTimer(panel);
       }
     });
   }
