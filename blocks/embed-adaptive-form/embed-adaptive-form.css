@@ -31,10 +31,10 @@ main .section.embed-adaptive-form-container.active-step {
 }
 
 /* Hidden forms - only hide if it's a step that isn't active */
-main .section.form-container:not(.active-step),
+/* main .section.form-container:not(.active-step),
 main .section.embed-adaptive-form-container:not(.active-step) {
   display: none;
-}
+} */
 
 /* Remove redundant internal padding for nested sections */
 main .section .section>div {
