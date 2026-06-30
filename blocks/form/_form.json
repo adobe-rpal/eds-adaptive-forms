@@ -18,8 +18,23 @@
     {
       "...": "./models/form-components/_*.json#/definitions"
     },
-    {
-      "...": "./components/*/_*.json#/definitions"
+    { 
+      "...": "./components/accordion/_accordion.json#/definitions" 
+    },
+    { 
+      "...": "./components/modal/_modal.json#/definitions" 
+    },
+    { 
+      "...": "./components/password/_password.json#/definitions" 
+    },
+    { 
+      "...": "./components/rating/_rating.json#/definitions" 
+    },
+    { 
+      "...": "./components/tnc/_tnc.json#/definitions" 
+    },
+    { 
+      "...": "./components/wizard/_wizard.json#/definitions" 
     }
   ],
   "models": [
@@ -27,199 +42,23 @@
       "id": "form",
       "fields": [
         {
-          "component": "select",
-          "name": "thankYouOption",
-          "label": "On Submit",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "Show message",
-              "value": "message"
-            }
-          ]
-        },
-        {
-          "component": "richtext",
-          "name": "thankYouMessage",
-          "label": "Message Content",
-          "valueType": "string",
-          "condition": {
-            "==": [
-              {
-                "var": "thankYouOption"
-              },
-              "message"
-            ]
-          }
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "actionType",
-          "label": "Submit Action",
-          "options": [
-            {
-              "name": "Submit to REST endpoint",
-              "value": "fd/af/components/guidesubmittype/restendpoint"
-            },
-            {
-              "name": "Send email",
-              "value": "fd/af/components/guidesubmittype/email"
-            },
-            {
-              "name": "Persist to Spreadsheet",
-              "value": "spreadsheet"
-            }
-          ],
-          "value": ""
-        },
-        {
-          "component": "text",
-          "name": "customFunctionsPath",
-          "label": "Custom Functions Path",
-          "valueType": "string"
-        },
-        {
-          "component": "boolean",
-          "name": "enableRestEndpointPost",
-          "label": "Enable POST request",
-          "valueType": "string",
-          "condition": {
-            "==": [
-              {
-                "var": "actionType"
-              },
-              "fd/af/components/guidesubmittype/restendpoint"
-            ]
-          }
-        },
-        {
-          "component": "text",
-          "name": "restEndpointPostUrl",
-          "label": "URL For POST request",
-          "valueType": "string",
-          "condition": {
-            "==": [
-              {
-                "var": "actionType"
-              },
-              "fd/af/components/guidesubmittype/restendpoint"
-            ]
-          }
-        },
-        {
-          "condition": {
-            "==": [
-              {
-                "var": "actionType"
-              },
-              "spreadsheet"
-            ]
-          },
-          "component": "text",
-          "name": "spreadsheetUrl",
-          "label": "Spreadsheet Url",
-          "valueType": "string"
-        },
-        {
           "component": "container",
-          "name": "email",
-          "label": "Email Configuration",
+          "name": "basic",
+          "label": "Use the Edit Form Properties extension to configure Adaptive Form properties, including Submit Action, Prefill, and Thank-You options.",
+          "description": "Visit https://www.adobe.com/go/learn_aemforms_cs_properties_ext for more details.",
           "collapsible": false,
-          "condition": {
-            "==": [
-              {
-                "var": "actionType"
-              },
-              "fd/af/components/guidesubmittype/email"
-            ]
-          },
           "fields": [
             {
               "component": "text",
-              "name": "from",
-              "label": "From",
+              "name": "customFunctionsPath",
+              "label": "Form Specific Custom Functions Path",
               "valueType": "string"
             },
             {
               "component": "text",
-              "name": "mailto",
-              "label": "To",
-              "valueType": "string",
-              "multi": true,
-              "required": true
-            },
-            {
-              "component": "text",
-              "name": "cc",
-              "label": "CC",
-              "valueType": "string",
-              "multi": true
-            },
-            {
-              "component": "text",
-              "name": "bcc",
-              "label": "BCC",
-              "valueType": "string",
-              "multi": true
-            },
-            {
-              "component": "text",
-              "name": "subject",
-              "label": "Subject",
+              "name": "style",
+              "label": "Form Specific styles path",
               "valueType": "string"
-            },
-            {
-              "component": "boolean",
-              "name": "useExternalEmailTemplate",
-              "label": "Use external template",
-              "valueType": "boolean"
-            },
-            {
-              "component": "aem-content",
-              "name": "templatePath",
-              "label": "External template path",
-              "valueType": "string",
-              "condition": {
-                "==": [
-                  {
-                    "var": "useExternalEmailTemplate"
-                  },
-                  true
-                ]
-              }
-            },
-            {
-              "component": "richtext",
-              "name": "template",
-              "label": "Email template",
-              "valueType": "string",
-              "condition": {
-                "!=": [
-                  {
-                    "var": "useExternalEmailTemplate"
-                  },
-                  true
-                ]
-              }
-            },
-            {
-              "component": "boolean",
-              "name": "includeAttachments",
-              "label": "Include attachments",
-              "valueType": "boolean"
-            }
-          ]
-        },
-        {
-          "component": "container",
-          "name": "hdfc-fields",
-          "label": "HDFC Fields",
-          "description": "Fields specific to HDFC Bank forms",
-          "collapsible": true,
-          "fields": [
-            {
-              "...": "../../common/_hdfc-form-fields.json#/fields"
             }
           ]
         }
@@ -236,18 +75,13 @@
     {
       "id": "form",
       "components": [
-        "analytics",
         "captcha",
         "checkbox",
         "checkbox-group",
-        "countdown-timer",
         "date-input",
         "drop-down",
-        "dynamic-dropdown",
         "email",
         "file-input",
-        "file-input-v2",
-        "regex-text-input",
         "form-accordion",
         "form-button",
         "form-fragment",
@@ -255,37 +89,17 @@
         "form-modal",
         "form-reset-button",
         "form-submit-button",
-        "hdfc-card-digit",
-        "analytics",
-        "hdfc-mobile-input",
         "number-input",
         "panel",
         "password",
         "plain-text",
         "radio-group",
-        "review",
         "rating",
-        "skip-button",
-        "state-button",
         "telephone-input",
         "text-input",
         "tnc",
         "wizard",
-        "kyc-consent",
-        "dob-input",
-        "consent-popup",
-        "card-choice",
-        "single-account-card",
-        "regex-text-input",
-        "pan-input",
-        "circular-timer",
-        "custom-text",
-        "qr-image",
-        "custom-date-picker",
-        "offer-card",
-        "dynamic-sum-insured",
-        "health-member-selector",
-        "credit-card-selector"
+        "range"
       ]
     }
   ]
