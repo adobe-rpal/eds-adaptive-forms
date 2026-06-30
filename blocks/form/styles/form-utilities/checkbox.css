@@ -1,0 +1,67 @@
+.checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    column-gap: 12px;
+}
+
+body main .form form .checkbox-wrapper[data-active="true"] label {
+    transform: none;
+    overflow: initial;
+    text-overflow: initial;
+    display: initial;
+}
+
+
+.checkbox-wrapper input[type="checkbox"] {
+    border-radius: 5px;
+    border: 1.5px solid var(--color-interface-border-secondary);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex: 0 0 20px;
+
+    &:checked {
+        background: var(--color-interface-icon-highlight) url("../../../../icons/checkbox-checked-arrow.png") no-repeat center center;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+.checkbox-wrapper label,
+.checkbox-wrapper label p {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: var(--body-sm-font-size);
+    line-height: 16px;
+    font-weight: var(--font-weight-regular);
+    color: var(--color-input-text-primary);
+    flex: 0 0 calc(100% - 32px);
+
+    @media (max-width: 767px) {
+        flex: 0 0 90%;
+    }
+
+    @media (max-width: 480px) {
+        font-size: var(--body-x-sm-font-size);
+        flex: 0 0 88%;
+    }
+}
+
+.checkbox-wrapper label a {
+    text-decoration: none;
+    font-weight: normal;
+
+    &:hover {
+        color: var(--color-interface-icon-highlight);
+        text-decoration: underline;
+    }
+}
+
+.checkbox-wrapper .field-description {
+    flex: 0 0 100%;
+}

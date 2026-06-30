@@ -1,0 +1,42 @@
+.card-choice-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 24px; /* space between cards */
+  scroll-snap-type: x mandatory;
+  padding-bottom: 16px;
+}
+
+.card-choice-card {
+  min-width: 320px; /* or whatever width fits your design */
+  max-width: 340px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  padding: 24px 16px;
+  margin-bottom: 0;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+
+.card-choice-card.recommended {
+  border: 2px solid #1a4cff;
+}
+
+.card-choice-features {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+}
+
+.card-choice-feature {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.field-accountchoicefield {
+  overflow: hidden;
+  width: 100%;
+}

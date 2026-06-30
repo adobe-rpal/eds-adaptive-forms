@@ -1,0 +1,89 @@
+{
+  "definitions": [
+    {
+      "title": "Date of Birth",
+      "id": "dob-input",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/fd/components/form/datepicker/v1/datepicker",
+            "template": {
+              "jcr:title": "Date of Birth",
+              "fieldType": "date-input",
+              "fd:viewType": "dob-input",
+              "displayFormat": "dd/MM/yyyy",
+              "maxAge": 125
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "dob-input",
+      "fields": [
+        {
+          "component": "container",
+          "name": "basic",
+          "label": "Basic",
+          "collapsible": false,
+          "fields": [
+            {
+              "...": "../../models/form-common/_basic-input-placeholder-fields.json#/fields"
+            },
+            {
+              "component": "date-time",
+              "name": "default",
+              "label": "Default Value",
+              "valueType": "date"
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "name": "validation",
+          "label": "Validation",
+          "collapsible": true,
+          "fields": [
+            {
+              "...": "../../models/form-common/_basic-validation-fields.json#/fields"
+            },
+            {
+              "component": "number",
+              "name": "minAge",
+              "label": "Minimum Age",
+              "valueType": "number",
+              "description": "Minimum age allowed for date of birth.",
+              "value": 0
+            },
+            {
+              "component": "number",
+              "name": "maxAge",
+              "label": "Maximum Age",
+              "valueType": "number",
+              "description": "Maximum age allowed for date of birth."
+            },
+            {
+              "component": "text",
+              "name": "minimumMessage",
+              "label": "Minimum age error message",
+              "valueType": "string",
+              "description": "Error message shown when the age is below the minimum allowed."
+            },
+            {
+              "component": "text",
+              "name": "maximumMessage",
+              "label": "Maximum age error message",
+              "valueType": "string",
+              "description": "Error message shown when the age is above the maximum allowed."
+            }
+          ]
+        },
+        {
+          "...": "../../models/form-common/_help-container.json"
+        }
+      ]
+    }
+  ]
+}

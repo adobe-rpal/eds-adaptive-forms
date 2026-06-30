@@ -1,0 +1,63 @@
+{
+    "definitions": [
+      {
+        "title": "Single Account Card",
+        "id": "single-account-card",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/fd/components/form/radiobutton/v1/radiobutton",
+              "template": {
+                "jcr:title": "Single Account Card",
+                "fieldType": "radio-group",
+                "enum": ["0"],
+                "type": "object",
+                "fd:viewType": "single-account-card"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "single-account-card",
+        "fields": [
+          {
+            "component": "container",
+            "name": "basic",
+            "label": "Basic",
+            "collapsible": false,
+            "fields": [
+              {
+                "...": "../../models/form-common/_basic-select-fields.json#/fields"
+              },
+              {
+                "component": "text",
+                "name": "expandButtonLabel",
+                "label": "Expand Button Label",
+                "valueType": "string"
+              },
+              {
+                "component": "text",
+                "name": "collapseButtonLabel",
+                "label": "collapse Button Label",
+                "valueType": "string"
+              }
+            ]
+          },
+          {
+            "...": "../../models/form-common/_help-container.json"
+          },
+          {
+            "component": "container",
+            "name": "validation",
+            "label": "Validation",
+            "collapsible": true,
+            "...": "../../models/form-common/_basic-validation-fields.json"
+          }
+        ]
+      }
+    ]
+  }
+  

@@ -1,0 +1,89 @@
+/* Switch styling for checkboxes */
+main .form form .checkbox-wrapper.switch {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  main .form form .checkbox-wrapper.switch input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
+  }
+  
+  main .form form .checkbox-wrapper.switch label {
+    position: relative;
+    cursor: pointer;
+    padding-left: 50px; /* Space for the switch */
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+  
+  main .form form .checkbox-wrapper.switch label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 45px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 20px;
+    transition: 0.3s;
+  }
+  
+  main .form form .checkbox-wrapper.switch label::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: white;
+    transition: 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  main .form form .checkbox-wrapper.switch input:checked + label::before {
+    background-color: var(--color-interface-icon-highlight);
+  }
+  
+  main .form form .checkbox-wrapper.switch:not(.right) input:checked + label::after {
+    left: 23px;
+  }
+  
+  main .form form .checkbox-wrapper.switch input:focus + label::before {
+    box-shadow: 0 0 0 2px rgba(95, 141, 218, 0.3);
+  }
+  
+  /* Alignment variants for switch */
+  main .form form .checkbox-wrapper.switch.left {
+    justify-content: flex-start;
+  }
+  
+  main .form form .checkbox-wrapper.switch.right {
+    justify-content: flex-end;
+  }
+  
+  main .form form .checkbox-wrapper.switch.right label {
+    padding-left: 0;
+    padding-right: 50px;
+  }
+  
+  main .form form .checkbox-wrapper.switch.right label::before {
+    left: auto;
+    right: 0;
+  }
+  
+  main .form form .checkbox-wrapper.switch.right label::after {
+    left: auto;
+    right: 23px;
+  }
+  
+  main .form form .checkbox-wrapper.switch.right input:checked + label::after {
+    right: 3px;
+  }
+  
+  main .form form label > p {
+      margin-bottom: 0;
+  }

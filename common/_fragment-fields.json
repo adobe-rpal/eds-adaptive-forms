@@ -1,0 +1,64 @@
+{
+    "fields": [
+        {
+            "component": "select",
+            "valueType": "string",
+            "name": "fragmentType",
+            "label": "Select fragment type",
+            "options": [
+                {
+                    "name": "Login",
+                    "value": "login"
+                },
+                {
+                    "name": "Personal Details",
+                    "value": "personalDetails"
+                },
+                {
+                    "name": "Address",
+                    "value": "address"
+                },
+                {
+                    "name": "Thank you",
+                    "value": "thankyou"
+                },
+                {
+                    "name": "Custom",
+                    "value": "custom"
+                }
+            ]
+        },
+        {
+            "component": "select",
+            "valueType": "string",
+            "name": "loginVariant",
+            "label": "Select Login Variant",
+            "condition": {
+                        "===": [
+                            {
+                                "var": "fragmentType"
+                            },
+                            "login"
+                        ]
+                    },
+            "options": [
+                {
+                    "name": "Only DOB",
+                    "value": "dob"
+                },
+                {
+                    "name": "Pan and DOB selection",
+                    "value": "pandobselection"
+                },
+                {
+                    "name": "Pan and DOB basis dob UTM",
+                    "value": "pandobselectionutm"
+                },
+                {
+                    "name": "Custom",
+                    "value": "custom"
+                }
+            ]
+        }
+    ]
+}

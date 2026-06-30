@@ -1,0 +1,147 @@
+{
+    "definitions": [
+        {
+            "title": "KYC Consent",
+            "id": "kyc-consent",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer",
+                        "template": {
+                            "jcr:title": "Aadhar Terms and Conditions",
+                            "isDBTConsent": true,
+                            "hideTitle": true,
+                            "fieldType": "panel",
+                            "fd:viewType": "kyc-consent",
+                            "minOccur": 1,
+                            "title": {
+                                "name": "consentTitle",
+                                "fieldType": "plain-text",
+                                "sling:resourceType": "core/fd/components/form/text/v1/text",
+                                "value": "Aadhaar Terms and Conditions",
+                                "textIsRich": true
+                            },
+                            "dropdown": {
+                                "hideTitle": true,
+                                "fieldType": "drop-down",
+                                "enum": [
+                                    "English",
+                                    "Gujarati",
+                                    "Hindi",
+                                    "Kannada",
+                                    "Kashmiri",
+                                    "Malayalam",
+                                    "Manipuri",
+                                    "Marathi",
+                                    "Odia",
+                                    "Punjabi",
+                                    "Tamil",
+                                    "Urdu",
+                                    "Bengali",
+                                    "Konkani",
+                                    "Telugu",
+                                    "Assamese"
+                                ],
+                                "enumNames": [
+                                    "English",
+                                    "Gujarati",
+                                    "Hindi",
+                                    "Kannada",
+                                    "Kashmiri",
+                                    "Malayalam",
+                                    "Manipuri",
+                                    "Marathi",
+                                    "Odia",
+                                    "Punjabi",
+                                    "Tamil",
+                                    "Urdu",
+                                    "Bengali",
+                                    "Konkani",
+                                    "Telugu",
+                                    "Assamese"
+                                ], 
+                                "placeholder": "Select Language",
+                                "sling:resourceType": "core/fd/components/form/dropdown/v1/dropdown"
+                            },
+                            "consentTitle": {
+                                "name": "consentTitle",
+                                "fieldType": "plain-text",
+                                "sling:resourceType": "core/fd/components/form/text/v1/text",
+                                "value": "Aadhaar consent declaration",
+                                "textIsRich": true
+                            },
+                            "consentText": {
+                                "name": "consentText",
+                                "fieldType": "plain-text",
+                                "sling:resourceType": "core/fd/components/form/text/v1/text",
+                                "value": "consent text content",
+                                "textIsRich": true
+                            },
+                            "panel": {
+                                "fieldType": "panel",
+                                "name": "dbtConsentWrapper",
+                                "hideTitle": true,
+                                "sling:resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer",
+                                "checkbox1": {
+                                    "name": "dbtConsent1",
+                                    "fieldType": "checkbox",
+                                    "jcr:title": "<p>DBT consent 1</p>",
+                                    "sling:resourceType": "core/fd/components/form/checkbox/v1/checkbox"
+                                },
+                                "checkbox2": {
+                                    "name": "dbtConsent2",
+                                    "fieldType": "checkbox",
+                                    "jcr:title": "<p>DBT consent 2</p>",
+                                    "sling:resourceType": "core/fd/components/form/checkbox/v1/checkbox"
+                                },
+                                "additionalText": {
+                                    "name": "additionalText",
+                                    "fieldType": "plain-text",
+                                    "sling:resourceType": "core/fd/components/form/text/v1/text",
+                                    "value": "additional text content",
+                                    "textIsRich": true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "models": [
+        {
+            "id": "kyc-consent",
+            "fields": [
+                {
+                    "component": "container",
+                    "name": "basic",
+                    "label": "Basic",
+                    "collapsible": false,
+                    "...": "../../models/form-common/_basic-input-fields.json"
+                },
+                {
+                    "component": "boolean",
+                    "name": "wrapData",
+                    "label": "Group child components' data on form submission",
+                    "valueType": "boolean"
+                },
+                {
+                    "component": "boolean",
+                    "name": "isDBTConsent",
+                    "label": "Is DBT Consent",
+                    "valueType": "boolean",
+                    "value": true
+                },
+                {
+                    "component": "text",
+                    "name": "consentContentPath",
+                    "label": "Path to fetch consent content",
+                    "valueType": "string"
+                },
+                {
+                    "...": "../../models/form-common/_help-container.json"
+                }
+            ]
+        }
+    ]
+}

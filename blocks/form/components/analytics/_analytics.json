@@ -1,0 +1,62 @@
+{
+    "definitions": [
+      {
+        "title": "analytics",
+        "id": "analytics",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/fd/components/form/button/v1/button",
+              "template": {
+                "jcr:title": "analytics",
+                "fieldType": "button",
+                "fd:viewType": "analytics",
+                "enabled": false
+              }
+            }
+          }
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "analytics",
+        "fields": [
+          {
+            "component": "container",
+            "name": "basic",
+            "label": "Basic",
+            "collapsible": false,
+            "...": "../../models/form-common/_basic-fields.json"
+          },
+          {
+            "component": "text",
+            "name": "devLaunchScript",
+            "label": "development launch script",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "prodLaunchScript",
+            "label": "production launch script",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "stageLaunchScript",
+            "label": "stage launch script",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "analyticsFilePath",
+            "label": "analyticsfile folder path to load",
+            "valueType": "string"
+          },
+          {
+            "...": "../../models/form-common/_help-container.json"
+          }
+        ]
+      }
+    ]
+  }

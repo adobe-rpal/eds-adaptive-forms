@@ -1,0 +1,229 @@
+/* === ./typography.css === */
+:root {
+  --font-family-default: inter, inter-fallback;
+  --font-family-secondary: 'Open Sans', sans-serif;
+
+  /* form--btn */
+  --form-button-font-size: 16px;
+  --form-button-font-weight: 700;
+
+  /* body styles */
+  --form-max-width: 960px;
+  --form-max-semi-width: 1280px;
+  --form-border-radius: 24px;
+
+  /* text field styles */
+  --form-input-height: 48px;
+  --form-input-padding: 14px 12px 14px 16px;
+  --form-input-border-radius: 8px;
+
+  /* body text font styles */
+  --body-x-xs-font-size: 10px;
+  --body-x-sm-font-size: 12px;
+  --body-sm-font-size: 14px;
+  --body-md-font-size: 16px;
+  --body-lg-font-size: 18px;
+  --body-x-lg-font-size: 20px;
+  --body-xx-lg-font-size: 24px;
+  --body-xxx-lg-font-size: 28px;
+  --body-xxxx-lg-font-size: 32px;
+  --font-weight-small: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+  --font-weight-extra-bold: 700;
+  --font-linehight-sm: 16px;
+  --font-linehight-regular: 20px;
+  --font-linehight-medium: 24px;
+  --font-linehight-large: 28px;
+  --font-linehight-m-large: 32px;
+  --font-linehight-l-large: 36px;
+  --linehight-l-large: 40px;
+  --font-linehight-x-large: 44px;
+
+  /* FD lien typography */
+  --form-fd-max-width: 1280px;
+  --body-fd-sm-font-size: 14px;
+  --body-fd-md-font-size: 16px;
+  --body-fd-lg-font-size: 18px;
+  --body-fd-x-lg-font-size: 20px;
+  --body-fd-xx-lg-font-size: 24px;
+  --body-fd-xx-xlg-font-size: 28px;
+  --body-fd-xxx-lg-font-size: 36px;
+
+  /* === ./color-palette.css === */
+
+  --color-interface-background-primary: #fff;
+  --color-interface-background-secondary: #ebf1ff;
+  --color-interface-background-tertiary: #1d4a88;
+  --color-interface-background-quaternary: #111827;
+  --color-interface-background-quinary: #f3f6fd;
+  --color-interface-background-box-shadow-primary: #ccc;
+  --color-interface-background-box-shadow-secondary: #1c3fca24;
+  --color-interface-background-box-shadow-tertiary: rgb(0 0 0 / 20%);
+  --color-interface-background-infobox: #D0DDFC;
+  --color-interface-error-box-primary: #fdefed;
+  --color-interface-text-primary: #111827;
+  --color-interface-text-secondary: #6b7280;
+  --color-interface-text-tertiary: #fff;
+  --color-interface-text-quaternary: #374151;
+  --color-interface-border-primary: #ecedf3;
+  --color-interface-border-secondary: #d2d5db;
+  --color-interface-border-highlight: #4288d4;
+  --color-interface-icon-highlight: #1c3fca;
+  --color-action-text-primary-default: #fff;
+  --color-action-text-primary-hover: #fff;
+  --color-action-text-primary-disabled: #f5f6fb;
+  --color-action-border-primary-default: #1c3fca;
+  --color-action-border-primary-hover: #1c3fca;
+  --color-action-border-primary-disabled: #a3baf9;
+  --color-action-background-primary-default: #1c3fca;
+  --color-action-background-tertiary-default: #051060;
+  --color-action-background-primary-hover: #1c3fca;
+  --color-action-background-primary-disabled: #a3baf9;
+  --color-action-text-secondary-default: #1c3fca;
+  --color-action-text-secondary-hover: #1c3fca;
+  --color-action-text-secondary-disabled: #1c3fca;
+  --color-action-text-tertiary-default: #084b89;
+  --color-action-border-secondary-default: #1c3fca;
+  --color-action-border-secondary-hover: #1c3fca;
+  --color-action-border-secondary-disabled: #1c3fca;
+  --color-acc-varient-border-selected: #5B6EC2;
+  --color-action-background-secondary-default: #020202;
+  --color-action-background-secondary-hover: #ccccce;
+  --color-action-background-secondary-disabled: #fff;
+  --color-input-background-default: #fff;
+  --color-input-background-disabled: #f7f7f7;
+  --color-input-background-focus: #fff;
+  --color-input-text-default: #000;
+  --color-input-text-primary: #4b5563;
+  --color-input-text-disabled: #9ca3af;
+  --color-input-text-focus: #000;
+  --color-input-text-placeholder-default: #cfd1d4;
+  --color-input-text-placeholder-disabled: #6b7280;
+  --color-input-text-msg-error: #e22853;
+  --color-input-text-placeholder-focus: #6b7280;
+  --color-input-border-default: #9ca3af;
+  --color-input-border-focus: #1c3fca;
+  --color-input-border-active: #9ca3af;
+  --color-input-border-disabled: #9ca3af;
+  --color-input-border-error-default: #e30613;
+  --color-input-border-error: #e22853;
+  --color-input-box-shadow-error-default: #e2285324;
+  --color-action-stepper-style: linear-gradient(90deg,
+      rgb(211 214 220) 50%,
+      rgba(255 255 255 / 0%) 100%);
+  --color-interface-fd-background-primary: #08173a;
+  --color-interface-fd-background-secondary: #ddf2f8;
+  --color-interface-button-background: #1c3fca;
+  --color-interface-popup-background: #00000080;
+  --color-interface-fd-title-border: #525d75;
+  --color-action-scroll-primary: #4f6fdf;
+  --color-action-scroll-background-primary: #f5f6fb;
+  --color-interface-fileupload-border: #b9d7ca;
+  --color-interface-fileupload-background: #fafffd;
+  --color-interface-error-cta-background: #f4f0ff;
+  --color-interface-feedback-notlikelyrating: #ed5a6e;
+  --color-interface-feedback-mayberating: #f99f35;
+  --color-interface-feedback-verylikelyrating: #2db780;
+  --color-interface-promotion-background-primary: #fdedfa;
+  --color-interface-promotion-text-primary: #7454f2;
+  --color-interface-promotion-text-secondary: #ab47bc;
+  --color-interfave-errorpopup-text-primary: #222;
+  --color-interface-toaster-background-primary: #ebf9ef;
+  --color-interface-toaster-background-secondary: #fef8d7;
+  --color-interface-toaster-text-primary: #00875f;
+  --color-interface-toaster-text-secondary: #794F0B;
+
+  /* colors */
+  --background-color: white;
+  --light-color: #f8f8f8;
+  --dark-color: #505050;
+  --text-color: #131313;
+  --link-color: #3b63fb;
+  --link-hover-color: #1d3ecf;
+
+  /* fonts */
+  --body-font-family: roboto, roboto-fallback, sans-serif;
+  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+
+  /* body sizes */
+  --body-font-size-m: 22px;
+  --body-font-size-s: 19px;
+  --body-font-size-xs: 17px;
+
+  /* heading sizes */
+  --heading-font-size-xxl: 55px;
+  --heading-font-size-xl: 44px;
+  --heading-font-size-l: 34px;
+  --heading-font-size-m: 27px;
+  --heading-font-size-s: 24px;
+  --heading-font-size-xs: 22px;
+
+  /* nav height */
+  --nav-height: 64px;
+  --form-maxWidth: 1440px
+}
+
+/* links */
+a:any-link {
+  color: var(--color-action-text-secondary-default);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+a:hover {
+  color: var(--color-action-text-secondary-hover);
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: none;
+}
+
+main img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* Base style for labels */
+main .form :not(.checkbox-wrapper,
+  .radio-wrapper)>label {
+  margin: 20px;
+  position: absolute;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--body-sm-font-size);
+  color: var(--color-interface-text-secondary);
+  width: max-content;
+}
+
+/* 
+main .form :not(.checkbox-wrapper,
+  .radio-wrapper)>label:has(p) p {
+  margin: 1px 0;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--body-sm-font-size);
+  color: var(--label-color);
+} */
+
+/* Style for labels when input is active or not empty */
+main .form :is([data-active='true'], [data-empty='false']):not(.checkbox-wrapper,
+  .radio-wrapper)>label {
+  transform: translateY(-22px);
+  z-index: 1;
+  background-color: var(--color-interface-background-primary);
+  font-size: 14px;
+  line-height: 20px;
+
+  @media (width <=767px) {
+    font-size: 12px;
+  }
+}
+
+main div.form-wrapper {
+  @media (width <=768px) {
+    padding: 4rem 20px 4rem;
+  }
+}

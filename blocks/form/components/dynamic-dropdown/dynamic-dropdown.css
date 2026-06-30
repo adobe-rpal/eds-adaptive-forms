@@ -1,0 +1,61 @@
+.dynamic-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.dynamic-dropdown-input {
+  width: 100%;
+}
+
+/* Placeholder styling improvements */
+.dynamic-dropdown-wrapper.is-empty .dynamic-dropdown-input::placeholder {
+  color: var(--color-interface-text-secondary);
+  opacity: 1;
+}
+
+.dynamic-dropdown-wrapper.has-content .dynamic-dropdown-input::placeholder {
+  opacity: 0;
+}
+
+.dynamic-dropdown-wrapper.is-focused.is-empty .dynamic-dropdown-input::placeholder {
+  color: var(--color-interface-text-secondary);
+}
+
+/* State-based styling */
+.dynamic-dropdown-wrapper.has-content {
+  /* Styles when field has actual content */
+}
+
+.dynamic-dropdown-wrapper.is-empty {
+  /* Styles when field is empty */
+}
+
+.dynamic-dropdown-wrapper.is-focused {
+  /* Styles when field is focused */
+}
+
+.dynamic-dropdown-list {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 100;
+  display: none;
+}
+
+.dropdown-option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-no-results {
+  padding: 8px;
+  color: #666;
+  font-style: italic;
+}

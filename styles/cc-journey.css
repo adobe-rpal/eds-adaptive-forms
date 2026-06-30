@@ -1,0 +1,1576 @@
+/* @import url('../styles/critical.css');
+@import url('../styles/cc-journey-landing-screen.css');
+ */
+
+body main:has(.CC_Journey .field-thankyoupanel[data-visible="true"]) {
+    .hero-wrapper {
+        min-height: 144px;
+    }
+
+    .field-headertext {
+        text-align: center;
+        margin-top: -90px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            background: url('../icons/thankyou-success-tick-icon.svg') no-repeat top center;
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+body main:has(.CC_Journey .field-thankyoupanel[data-visible="true"] .field-videokyctimer[data-visible="true"]) {
+    .hero-wrapper {
+        min-height: 300px;
+    }
+
+    .field-headertext {
+        margin-top: -250px;
+    }
+
+    .field-videokyctimer {
+        margin-top: -200px;
+        z-index: 1;
+        color: var(--color-interface-text-tertiary);
+        font-size: var(--body-x-lg-font-size);
+        text-align: center;
+
+        @media (width <=768px) {
+            font-size: var(--body-lg-font-size);
+        }
+    }
+
+    .circular-timer-container {
+        margin: -50px auto 0 auto;
+        width: 80px;
+        height: 80px;
+    }
+
+    .circular-timer-text {
+        color: var(--color-interface-text-tertiary);
+        font-size: var(--body-lg-font-size);
+        font-weight: var(--font-weight-bold);
+    }
+}
+
+.CC_Journey .field-thankyoupanel .field-account-detail-fragment,
+.CC_Journey .field-thankyoupanel .field-card-details-panel {
+    background: var(--color-action-scroll-background-primary);
+    padding: 32px;
+    border-radius: 16px;
+    display: grid;
+
+    @media (width <=640px) {
+        padding: 16px;
+    }
+}
+
+.CC_Journey .cc-selector__title p,
+.CC_Journey .field-plain-text-14978739381778136263973 p,
+.CC_Journey .field-officeaddressheading p,
+.CC_Journey .field-creditcarddeliveryheading p,
+.CC_Journey .field-bankusesection label,
+.CC_Journey .field-thankyousubmitpanel p,
+.CC_Journey .field-card-details-heading p,
+.CC_Journey .field-cardselectortitle {
+    font-size: var(--body-x-lg-font-size);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-interface-text-primary);
+    margin: 0;
+
+    @media (width <=640px) {
+        font-size: var(--body-md-font-size);
+    }
+}
+
+.CC_Journey .field-creditcarddeliveryheading {
+    margin-top: 32px;
+}
+
+.CC_Journey .field-officeaddresspanel .field-communicationaddresspanel {
+    border-left: 3px solid var(--color-action-border-primary-disabled);
+    padding-left: 16px;
+    margin-top: 32px;
+    height: fit-content;
+
+    @media (width <=767px) {
+        margin-bottom: 20px;
+    }
+
+    label,
+    .field-communicationaddressheading {
+        font-size: var(--body-sm-font-size);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-input-text-primary);
+        position: initial;
+        margin: 0;
+        transform: translateY(0);
+        background-color: transparent;
+
+        @media (width <=640px) {
+            font-size: var(--body-x-sm-font-size);
+        }
+    }
+
+    input,
+    .field-communication-address {
+        font-size: var(--body-lg-font-size);
+        font-weight: var(--font-weight-medium);
+        border: none;
+        border-radius: 0;
+        height: auto;
+        line-height: normal;
+        padding: 0;
+        background: none;
+        margin-top: 5px;
+
+        @media (width <=640px) {
+            font-size: var(--body-sm-font-size);
+        }
+    }
+}
+
+.CC_Journey .cc-selector__title,
+.CC_Journey .field-plain-text-14978739381778136263973,
+.CC_Journey .field-officeaddressheading,
+.CC_Journey .field-creditcarddeliveryheading,
+.CC_Journey .field-bankusesectionpanel .field-bankusesection,
+.CC_Journey .field-card-details-heading {
+    position: relative;
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+
+    @media (width <=640px) {
+        padding-left: 45px;
+    }
+
+    &::before {
+        position: absolute;
+        content: '';
+        width: 30px;
+        height: 30px;
+        left: 0;
+
+        @media (width <=640px) {
+            width: 28px;
+            height: 28px;
+            background-size: contain;
+        }
+    }
+}
+
+.CC_Journey .cc-selector__title::before,
+.CC_Journey .field-card-details-heading::before {
+    background: url('../icons/card_select_icon.svg') no-repeat left center;
+}
+
+.CC_Journey .field-plain-text-14978739381778136263973::before,
+.CC_Journey .field-bankusesectionpanel .field-bankusesection::before {
+    background: url('../icons/additional_details_icon.svg') no-repeat left center;
+}
+
+.CC_Journey .field-officeaddressheading::before,
+.CC_Journey .field-creditcarddeliveryheading::before {
+    background: url('../icons/office_address_icon.svg') no-repeat left center;
+}
+
+.CC_Journey .field-addrdeclarationcheckbox {
+    margin-top: 24px;
+}
+
+
+.CC_Journey .field-thankyoupanel .field-account-details-container,
+.CC_Journey .field-thankyoupanel .field-card-details-panel {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* gap: 24px; */
+
+    .text-wrapper.field-wrapper {
+        border-left: 3px solid var(--color-action-border-primary-disabled);
+        padding-left: 16px;
+        margin-top: 32px;
+        /* grid-column: span 4; */
+
+        @media (width <=767px) {
+            grid-column: span 12;
+            /* margin-bottom: 20px; */
+        }
+
+        label {
+            font-size: var(--body-sm-font-size);
+            font-weight: var(--font-weight-regular);
+            color: var(--color-input-text-primary);
+            position: initial;
+            margin: 0;
+            transform: translateY(0);
+            background-color: transparent;
+
+            @media (width <=640px) {
+                font-size: var(--body-x-sm-font-size);
+            }
+        }
+
+        input {
+            font-size: var(--body-lg-font-size);
+            font-weight: var(--font-weight-medium);
+            border: none;
+            border-radius: 0;
+            height: auto;
+            line-height: normal;
+            padding: 0;
+            background: none;
+            margin-top: 5px;
+
+            @media (width <=640px) {
+                font-size: var(--body-sm-font-size);
+            }
+        }
+
+        &.field-branchifsc,
+        &.field-customerid {
+            @media (width <=640px) {
+                grid-column: span 6;
+            }
+        }
+    }
+}
+
+.CC_Journey .field-creditcardpanel .field-btn-wrapper {
+    display: flex;
+    flex-direction: initial;
+    gap: 24px;
+    margin-top: 60px;
+
+    @media (width <=640px) {
+        margin-top: 40px;
+        gap: 20px;
+    }
+
+    .button-wrapper {
+        margin-top: 0;
+
+        @media (max-width: 640px) {
+            position: initial;
+        }
+    }
+
+    .field-vidokycbtn,
+    .field-ccskipbtn {
+        button {
+            background-color: transparent;
+            color: var(--color-action-text-secondary-default);
+        }
+    }
+}
+
+.CC_Journey .field-additionaldetailspanel,
+.CC_Journey .field-officeaddresspanel,
+.CC_Journey .field-bankusesectionpanel,
+.CC_Journey .field-thankyousubmitpanel {
+    border-top: 1px dashed var(--color-input-border-active);
+    margin-top: 60px;
+    padding-top: 60px;
+    display: grid;
+
+    @media (width <=640px) {
+        margin-top: 40px;
+        padding-top: 40px;
+    }
+}
+
+.CC_Journey .field-consent-panel {
+    margin-top: 32px;
+}
+
+.CC_Journey .field-additionaldetailspanel .field-namepanel[data-visible="false"]~.field-nameoncardfield {
+    border-left: 3px solid var(--color-action-border-primary-disabled);
+    padding-left: 16px;
+    margin-top: 32px;
+    height: fit-content;
+
+    @media (width <=767px) {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: var(--body-sm-font-size);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-input-text-primary);
+        position: initial;
+        margin: 0;
+        transform: translateY(0);
+        background-color: transparent;
+
+        @media (width <=640px) {
+            font-size: var(--body-x-sm-font-size);
+        }
+    }
+
+    input {
+        font-size: var(--body-lg-font-size);
+        font-weight: var(--font-weight-medium);
+        border: none;
+        border-radius: 0;
+        height: auto;
+        line-height: normal;
+        padding: 0;
+        background: none;
+        margin-top: 5px;
+
+        @media (width <=640px) {
+            font-size: var(--body-sm-font-size);
+        }
+    }
+}
+
+.CC_Journey .field-additionaldetailspanel .field-singlenamenote {
+    font-size: var(--body-md-font-size);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--font-linehight-medium);
+    color: var(--color-interface-text-secondary);
+    margin-top: 16px;
+}
+
+.CC_Journey .field-additionaldetailspanel .field-plain-text1779172957724 {
+    background: #E7EEFD url('../icons/info_blue_icon.svg') no-repeat 16px center;
+    padding: 10px 16px 10px 48px;
+    margin-top: 32px;
+    border-radius: 8px;
+    font-size: var(--body-x-sm-font-size);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-action-text-secondary-default);
+}
+
+.CC_Journey .field-creditcardpanel {
+    padding: 0;
+}
+
+.CC_Journey .field-cardselectortitle {
+    margin-bottom: 5px;
+
+    h2 {
+        margin: 0;
+    }
+}
+
+.CC_Journey .field-ccselectorsubtitle {
+    margin-bottom: 32px;
+
+    input {
+        border: none;
+        padding: 0;
+        font-size: var(--body-md-font-size);
+        height: auto;
+        line-height: normal;
+        color: var(--color-interface-text-secondary);
+
+        @media (width <=640px) {
+            font-size: var(--body-sm-font-size);
+        }
+    }
+}
+
+.CC_Journey .cc-selector__features {
+    @media (width >=640px) {
+        min-height: 110px;
+    }
+}
+
+.CC_Journey .field-corporateemailpanel {
+    position: relative;
+
+    &:has(.field-domainemailpanel .field-corporate input[disabled]) {
+        .field-domainemailpanel {
+            margin-bottom: 0;
+            grid-column: initial;
+            border-left: 3px solid var(--color-action-border-primary-disabled);
+            padding-left: 12px;
+
+            .field-corporate {
+                width: fit-content;
+            }
+
+            label {
+                transform: none;
+                position: inherit;
+                margin: 0;
+                font-size: var(--body-x-sm-font-size);
+                font-weight: var(--font-weight-regular);
+                line-height: var(--font-linehight-regular);
+                color: var(--color-input-text-primary);
+                transition: none;
+                display: block;
+                margin-bottom: 5px;
+
+                &::after {
+                    display: none;
+                }
+            }
+
+            input {
+                padding: 0;
+                border: none;
+                height: auto;
+                line-height: normal;
+                background-color: transparent;
+                font-size: var(--body-sm-font-size);
+                font-weight: var(--font-weight-medium);
+                width: fit-content;
+                border-radius: 0;
+                field-sizing: content;
+                color: var(--color-interface-text-primary);
+            }
+
+            .field-description span {
+                display: none;
+            }
+
+            .field-description p {
+                margin-top: 45px;
+            }
+        }
+
+        .field-corporateverifiedtext,
+        .field-editverifiedemailbutton{
+            display: block;
+        }
+        .field-verifycorporateemail{
+            display: none;
+        }
+    }
+}
+
+.CC_Journey .field-corporateemailpanel .field-editverifiedemailbutton {
+    top: 0;
+
+    button {
+        padding: 0 0 0 10px;
+        height: auto;
+    }
+}
+
+.CC_Journey .field-corporateemailpanel .field-editverifiedemailbutton {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    margin-top: 25px;
+    display: none;
+}
+
+.CC_Journey .field-corporateemailpanel .field-verifycorporateemail {
+    margin-top: 20px;
+    right: 20px;
+    position: absolute;
+    width: auto;
+    display: block;
+
+    @media (width <=640px) {
+        top: -5px;
+        right: 12px;
+        width: auto;
+    }
+
+    button {
+        color: var(--color-action-text-secondary-default);
+        font-weight: var(--font-weight-bold);
+        font-size: var(--body-fd-md-font-size);
+        background: none;
+        width: auto;
+        padding: 0;
+        height: auto;
+        background: transparent;
+        border-radius: 0;
+
+        &::after {
+            display: none;
+        }
+
+        &:hover {
+            background: none;
+            color: var(--color-action-text-secondary-default);
+        }
+
+        &:disabled {
+            background: none;
+            opacity: .5;
+        }
+
+        @media (width <=640px) {
+            font-size: var(--body-sm-font-size);
+        }
+    }
+}
+
+.CC_Journey .field-domainemailpanel .field-emailerror {
+    font-size: var(--body-sm-font-size);
+    line-height: var(--font-linehight-medium);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-input-text-msg-error);
+}
+
+.CC_Journey .field-corporateemailpanel .field-officeotpsenttext {
+    margin-top: 12px;
+
+    p {
+        font-size: var(--body-md-font-size);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-interface-text-secondary);
+
+        @media (width <=640px) {
+            font-size: var(--body-sm-font-size);
+        }
+    }
+}
+
+.CC_Journey .field-cardbenefitsmodal {
+    .modal-content {
+        padding-bottom: 0;
+    }
+
+    h3 {
+        margin: 0 0 20px 0;
+        font-size: var(--body-lg-font-size);
+        background: var(--color-interface-background-secondary);
+        padding: 10px;
+        border-radius: 5px;
+        position: relative;
+        padding-left: 30px;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: url('../icons/more_benifit_right_arrow_blue.svg') no-repeat left center;
+            transform: rotate(180deg);
+            height: 40px;
+            width: 20px;
+        }
+    }
+
+    p {
+        color: var(--color-interface-text-secondary);
+    }
+
+    ul {
+        margin: 10px 0 0 0;
+        padding: 0 0 0 20px;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    .close-button {
+        width: 90%;
+        top: 30px;
+        height: 40px;
+        border-radius: 5px;
+        right: 30px;
+        padding: 0;
+        background: none;
+
+        &:hover {
+            background: none !important;
+        }
+
+        @media (width <=600px) {
+            top: 17px;
+            right: 0;
+            left: 17px;
+            width: 91%;
+        }
+    }
+}
+
+.CC_Journey .field-ccuploadpanel .field-pan-title h2,
+.CC_Journey .field-ccuploadpanel .field-income-title h2 {
+    margin: 0;
+    font-size: var(--body-xx-lg-font-size);
+    font-weight: var(--font-weight-bold);
+}
+
+.CC_Journey .field-ccuploadpanel .field-pan-subtitle,
+.CC_Journey .field-ccuploadpanel .field-income-subtitle {
+    font-size: var(--body-md-font-size);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-input-text-primary);
+    margin-top: 8px;
+}
+
+.CC_Journey .field-ccuploadpanel .field-income-doc-type-label {
+    margin: 60px 0 24px 0;
+    font-size: var(--body-lg-font-size);
+    font-weight: var(--font-weight-bold);
+}
+
+.CC_Journey .field-ccuploadpanel .field-income-proof-type-salaried {
+    margin-bottom: 32px;
+}
+
+.CC_Journey .field-ccuploadpanel .field-income-proof-type-self-employed {
+    margin-top: 32px;
+}
+
+.CC_Journey .field-ccuploadpanel .radio-group-wrapper .radio-wrapper {
+    column-gap: 12px;
+}
+
+.CC_Journey .field-ccuploadpanel .radio-group-wrapper .radio-wrapper label {
+    font-size: var(--body-md-font-size);
+    font-weight: var(--font-weight-regular);
+}
+
+.CC_Journey .field-ccuploadpanel .file-input-v2-uploaded .file-input-v2-reupload-btn {
+    width: 100%;
+    text-align: center;
+}
+
+.CC_Journey .field-ccuploadpanel .field-income-info-banner,
+.CC_Journey .field-ccuploadpanel .field-pan-info-banner {
+    margin: 60px 0 24px 0;
+    background: var(--color-interface-background-infobox) url('../icons/i_icon.svg') no-repeat 16px center;
+    border-radius: 8px;
+    padding: 10px 10px 10px 48px;
+    font-size: var(--body-x-sm-font-size);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-action-text-secondary-default);
+}
+
+.CC_Journey .field-ccuploadpanel .field-errormessagepanel {
+    background: var(--color-interface-error-box-primary) url('../icons/info_error_icon.svg') no-repeat 16px center;
+    border-radius: 8px;
+    padding: 10px 48px;
+    font-size: var(--body-x-sm-font-size);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-input-text-msg-error);
+    max-width: 320px;
+    position: fixed;
+    margin-top: 0;
+    top: 10px;
+    z-index: 2;
+    line-height: var(--font-linehight-regular);
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 4;
+}
+
+/* .CC_Journey .field-ccuploadpanel .field-upload-joining-letter,
+.CC_Journey .field-ccuploadpanel .field-upload-pan-card{
+    margin-bottom: 60px;
+} */
+
+.CC_Journey .field-ccuploadpanel .file-input-v2-initial {
+    border: 1px dashed var(--color-input-border-default);
+}
+
+.CC_Journey .field-ccuploadpanel .file-input-v2-component label.field-label,
+.CC_Journey .field-ccuploadpanel .file-input-v2-component .field-description {
+    display: none;
+}
+
+.CC_Journey .field-ccuploadpanel .file-input-v2-component.field-invalid .field-description {
+    display: block;
+}
+
+.CC_Journey .field-notwantcreditcardmodal dialog {
+    text-align: center;
+    max-width: 640px;
+
+    @media (width <=640px) {
+        width: 93vw;
+        padding: 40px 20px 20px 20px;
+    }
+}
+
+.CC_Journey .field-notwantcreditcardmodal .modal-content {
+    padding-bottom: 0;
+}
+
+.CC_Journey .field-notwantcreditcardmodal .image-wrapper {
+    background: url('../icons/dont-want-cc-modal-icon.svg') no-repeat center center;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+
+    @media (width <=640px) {
+        width: 100px;
+        height: 100px;
+        background-size: contain;
+    }
+
+    picture {
+        display: none;
+    }
+}
+
+.CC_Journey .field-notwantcreditcardmodal .field-btn-wrapper {
+    justify-content: center;
+    margin-top: 40px;
+
+    @media (width >=640px) {
+        flex-wrap: nowrap;
+    }
+}
+
+.CC_Journey .field-notwantcreditcardmodal .modal .field-btn-wrapper .button-wrapper {
+    @media (width <=640px) {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+.CC_Journey .field-notwantcreditcardmodal .field-cc-modal-heading {
+    font-size: var(--body-xxx-lg-font-size);
+    font-weight: var(--font-weight-bold);
+    margin: 24px 0 8px 0;
+
+    @media (width <=640px) {
+        font-size: var(--body-lg-font-size);
+    }
+}
+
+.CC_Journey .field-notwantcreditcardmodal .field-cc-modal-text {
+    font-size: var(--body-md-font-size);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--font-linehight-medium);
+    color: var(--color-input-text-primary);
+
+    @media (width <=640px) {
+        font-size: var(--body-x-sm-font-size);
+        line-height: var(--font-linehight-regular);
+    }
+}
+
+/* rating component start */
+.CC_Journey .field-thankyoupanel .field-feedbackpanel {
+    border: 1px solid var(--color-interface-border-secondary);
+    border-radius: 20px;
+    padding: 32px;
+    margin-top: 60px;
+
+    @media (320px <=width <=767px) {
+        padding: 20px;
+        gap: 0;
+    }
+
+    .field-feedbacklabel {
+        margin-bottom: 16px;
+
+        p {
+            font-size: var(--body-xx-lg-font-size);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-interface-text-primary);
+            margin-bottom: 0;
+
+            @media (768px <=width <=991px) {
+                font-size: var(--body-x-lg-font-size);
+            }
+
+            @media (320px <=width <=767px) {
+                font-size: var(--body-md-font-size);
+            }
+        }
+    }
+
+    .field-ratingbuttonwrapper .field-numbergroup {
+        gap: initial;
+        border: 1px solid var(--color-interface-border-secondary);
+        border-radius: 7px;
+
+        .radio-wrapper {
+            border-right: 1px solid var(--color-interface-border-secondary);
+            flex: 1;
+            height: 44px;
+
+            @media (max-width: 640px) {
+                position: initial;
+                margin-top: 0;
+            }
+
+            label {
+                font-size: var(--body-sm-font-size);
+                font-weight: var(--font-weight-medium);
+                color: var(--color-input-text-primary);
+                background: none;
+                height: 100%;
+                width: 100%;
+                border-radius: 0;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            input[type="radio"] {
+                display: none;
+            }
+
+            &:last-child {
+                border-right: none;
+            }
+
+            &:has(:checked) {
+                position: relative;
+
+                label {
+                    color: var(--color-interface-background-primary);
+                    height: 52px;
+                    border-radius: 4px;
+                    font-weight: 700;
+                    position: absolute;
+                }
+            }
+
+            &[data-id="numbergroup"],
+            &[data-id="numbergroup-1"],
+            &[data-id="numbergroup-2"],
+            &[data-id="numbergroup-3"] {
+                &:has(:checked) {
+                    label {
+                        background-color: var(--color-interface-feedback-notlikelyrating);
+                    }
+                }
+            }
+
+            &[data-id="numbergroup-4"],
+            &[data-id="numbergroup-5"],
+            &[data-id="numbergroup-6"] {
+                &:has(:checked) {
+                    label {
+                        background-color: var(--color-interface-feedback-mayberating);
+                    }
+                }
+            }
+
+            &[data-id="numbergroup-7"],
+            &[data-id="numbergroup-8"],
+            &[data-id="numbergroup-9"] {
+                &:has(:checked) {
+                    label {
+                        background-color: var(--color-interface-feedback-verylikelyrating);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.CC_Journey .field-thankyoupanel .field-colorlabelwrapper {
+    display: flex;
+    grid-gap: initial;
+    transition: transform 0.3s;
+    flex-direction: row;
+    margin-top: 15px;
+
+    @media (320px <=width <=768px) {
+        display: flex;
+    }
+
+    @media (320px <=width <=767px) {
+        margin-top: 15px;
+    }
+
+    p {
+        margin-bottom: 0;
+        font-size: var(--body-sm-font-size);
+        color: var(--color-interface-text-secondary);
+        margin-top: 12px;
+
+        @media (320px <=width <=767px) {
+            font-size: 10px;
+        }
+    }
+
+    .field-notliketext,
+    .field-maybetext,
+    .field-verylikelytext {
+        position: relative;
+
+
+        &::before {
+            content: '';
+            height: 6px;
+            position: absolute;
+            width: 100%;
+            margin-top: -5px;
+        }
+    }
+
+
+    .field-notliketext {
+        width: 40%;
+
+        &::before {
+            background-color: var(--color-interface-feedback-notlikelyrating);
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+    }
+
+    .field-maybetext {
+        width: 30%;
+
+        &::before {
+            background-color: var(--color-interface-feedback-mayberating);
+            border-left: 2px solid var(--color-interface-background-primary);
+        }
+    }
+
+    .field-verylikelytext {
+        width: 30%;
+
+        &::before {
+            background-color: var(--color-interface-feedback-verylikelyrating);
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-left: 2px solid var(--color-interface-background-primary);
+        }
+    }
+}
+
+.CC_Journey .field-thankyoupanel .field-card-details-panel {
+    margin-top: 60px;
+}
+
+.CC_Journey .field-card-details-panel .field-card-details-col4 {
+    grid-column: span 12;
+
+    @media (width >=640px) {
+        grid-column: span 4;
+        gap: 0;
+    }
+}
+
+.CC_Journey .field-card-details-panel .field-card-facia {
+    max-width: 224px;
+
+
+    @media (width >=1024px) {
+        margin-left: auto;
+    }
+}
+
+.CC_Journey .field-card-details-panel .field-card-facia img {
+    border-radius: 8px;
+}
+
+.CC_Journey .field-thankyoupanel .field-feedbackreviewpanel {
+    .field-facinganyissueradiobutton {
+        display: flex;
+        margin: 40px 0;
+
+        @media (width <=767px) {
+            margin: 28px 0;
+        }
+
+        legend {
+            font-weight: var(--font-weight-bold);
+            color: var(--color-interface-text-primary);
+            font-size: var(--body-lg-font-size);
+            margin-bottom: 16px;
+
+            @media (width <=767px) {
+                font-size: var(--body-md-font-size);
+            }
+        }
+
+        .radio-wrapper {
+            label {
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .field-ratingreason {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .field-ratingreason label {
+        margin: 0;
+        font-weight: var(--font-weight-bold);
+        color: var(--color-interface-text-primary);
+        font-size: var(--body-lg-font-size);
+        transition: none;
+        line-height: normal;
+        position: initial;
+
+        @media (width <=767px) {
+            font-size: var(--body-md-font-size);
+        }
+
+        @media (width <=400px) {
+            display: initial;
+        }
+
+        &::after {
+            display: none;
+        }
+    }
+
+    .field-ratingreason input {
+        border: 1px solid var(--color-interface-border-secondary);
+        height: 60px;
+        line-height: 60px;
+        padding-left: 18px;
+        margin-top: 16px;
+
+        @media (width <=767px) {
+            height: 52px;
+            line-height: 52px;
+        }
+    }
+
+    @media (width <=767px) {
+        .field-ratingreason p {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.CC_Journey .field-thankyoupanel .field-feedback-popup p {
+    font-size: var(--body-x-lg-font-size);
+    font-weight: var(--font-weight-medium);
+    text-align: center;
+    margin-top: 30px;
+}
+
+.CC_Journey .field-title-videokyc {
+    flex: 0 0 100%;
+}
+
+.CC_Journey .field-thankyousubmitpanel {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.CC_Journey .field-thankyoupanel .field-videokycpanel {
+    background: #EBFCFE;
+    border-radius: 16px;
+    padding: 20px 16px;
+    margin-bottom: 60px;
+
+    @media (width <=768px) {
+        margin-bottom: 32px;
+    }
+
+    .field-videokyc-title {
+        margin: 16px 0;
+
+        p {
+            font-size: var(--body-md-font-size);
+            font-weight: var(--font-weight-bold);
+            line-height: var(--font-linehight-medium);
+            color: var(--color-interface-text-primary);
+        }
+    }
+
+    .field-videokyc-description {
+        ul {
+            padding: 0 0 0 20px;
+            margin: 0;
+
+            li {
+                font-size: var(--body-sm-font-size);
+                font-weight: var(--font-weight-regular);
+                line-height: var(--font-linehight-medium);
+                color: var(--color-interface-text-secondary);
+
+                &:not(:last-child) {
+                    margin-bottom: 12px;
+                }
+            }
+        }
+    }
+
+    .field-videokyc-button {
+        margin-top: 16px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Email verify modal */
+.CC_Journey .field-otpcorporatepanel {
+    .modal-content {
+        overflow-x: hidden;
+        padding-bottom: 0px;
+
+        legend {
+            display: block;
+            font-size: var(--body-xxx-lg-font-size);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 8px;
+
+            @media (width <=767px) {
+                font-size: var(--body-lg-font-size);
+            }
+
+            &::before {
+                display: none;
+            }
+        }
+    }
+
+    .field-officeotppopupinfotext {
+        text-align: center;
+        p {
+            font-size: var(--body-md-font-size);
+            font-weight: var(--font-weight-regular);
+            color: var(--color-input-text-primary);
+            text-align: center;
+            margin-bottom: 0;
+
+            @media (width <=767px) {
+                font-size: var(--body-x-sm-font-size);
+            }
+        }
+    }
+
+    .field-editofficeemailbutton {
+        margin-top: 8px;
+        margin-bottom: 40px;
+        text-align: center;
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media (width <=767px) {
+            margin-bottom: 28px;
+        }
+
+        button {
+            font-size: var(--body-sm-font-size);
+            margin-bottom: 0;
+            color: var(--color-action-text-secondary-default);
+            font-weight: var(--font-weight-bold);
+            font-size: var(--body-fd-md-font-size);
+            background: none;
+            width: auto;
+            padding: 0;
+            height: auto;
+            background: transparent;
+            border-radius: 0;
+        }
+    }
+
+    .text-wrapper.field-wrapper {
+        margin-bottom: 0;
+    }
+
+    .button-wrapper.field-wrapper.field-corporateotp {
+        margin: 40px auto 0;
+    }
+
+    .field-officeotpnotetext {
+        margin-top: 30px;
+
+        p {
+            font-size: var(--body-sm-font-size);
+        }
+    }
+
+    .countdown-timer-link {
+        color: var(--color-action-text-secondary-default);
+        font-weight: var(--font-weight-medium);
+    }
+
+    /* &:has(.field-verifyemailsubmit button:not([disabled])) {
+        .field-emailotp input {
+            caret-color: transparent;
+        }
+    }  */
+}
+
+.CC_Journey .field-otpcorporatepanel .field-officeemailpassword {
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 0;
+    width: 100%;
+
+    @media (width <=768px) {
+        width: 60%;
+    }
+
+    @media (width <=767px) {
+        margin-top: 1.5rem;
+    }
+
+    @media (width <=640px) {
+        width: 100%;
+    }
+
+    i {
+        position: absolute;
+        top: 33%;
+        right: 15px;
+    }
+}
+
+.CC_Journey .field-otpcorporatepanel .field-officeemailpassword input {
+    font-size: var(--body-xx-lg-font-size);
+    line-height: var(--font-linehight-regular);
+    letter-spacing: 70px;
+    color: var(--color-interface-text-primary);
+
+    &[type="password"] {
+        font-size: 30px;
+
+        @media (width >=992px) {
+            letter-spacing: 55px;
+        }
+
+        @media (width <=640px) {
+            letter-spacing: 50px;
+        }
+
+        @media (width <=480px) {
+            letter-spacing: 35px;
+        }
+
+        &::-ms-reveal {
+            display: none;
+        }
+
+        &::placeholder {
+            letter-spacing: 70px;
+            font-size: 30px;
+        }
+    }
+
+    &::placeholder {
+        color: var(--color-interface-border-primary);
+        font-size: 30px;
+        line-height: var(--font-linehight-large);
+        letter-spacing: 70px;
+        /* font-size: 30px; */
+
+        /*  @media (width >=992px) {
+            letter-spacing: 55px;
+        }
+
+        @media (width <=991px) {
+            letter-spacing: 35px;
+        }
+
+
+        @media (width <=640px) {
+            letter-spacing: 55px;
+        }
+
+        @media (width <=480px) {
+            letter-spacing: 35px;
+        } */
+    }
+}
+
+/* .CC_Journey .field-otpcorporatepanel .field-officeemailpassword input {
+    letter-spacing: 70px;
+    font-size: 30px;
+    color: var(--color-interface-text-primary);
+
+    &::placeholder {
+        font-size: inherit;
+    }
+
+    @media(width <=767px) {
+        letter-spacing: 40px;
+    }
+
+    @media(width <=480px) {
+        letter-spacing: 20px;
+    }
+} */
+
+/* .CC_Journey .field-otpcorporatepanel .field-officeemailpassword input[type="password"] {
+    font-size: 30px;
+    color: var(--color-interface-text-primary);
+
+    &::placeholder {
+        font-size: inherit;
+    }
+} */
+
+.CC_Journey .field-resendotpcorporatepanel .field-attemptsleftcorporatestandardtext {
+    margin: 0;
+
+    p {
+        font-size: var(--body-sm-font-size);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-interface-text-secondary);
+        background: none;
+        border: none;
+        height: auto;
+        width: auto;
+
+        @media (width <=767px) {
+            font-size: var(--body-sm-font-size);
+        }
+    }
+}
+
+/* .CC_Journey .field-resendotpcorporatepanel .field-maxattemptscorporatepanel input {
+    position: absolute;
+    line-height: normal;
+    letter-spacing: 0;
+    padding: 0;
+    top: 0;
+    font-size: var(--body-sm-font-size);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-interface-text-secondary);
+    background: none;
+    border: none;
+    height: auto;
+    width: auto;
+    max-width: 15px;
+    left: 5px;
+
+    @media (max-width:767px) {
+        font-size: var(--body-sm-font-size);
+    }
+
+    @media (max-width:640px) {
+        left: 12px;
+    }
+} */
+
+/* .CC_Journey .field-resendotpcorporatepanel .field-resendemailcounter {
+    text-align: left;
+    margin: 8px 0 0 0;
+    bottom: initial;
+
+    &:has(.countdown-timer-number) {
+        button {
+            color: var(--color-interface-text-secondary);
+            font-size: var(--body-sm-font-size);
+            font-weight: var(--font-weight-regular);
+        }
+
+    }
+}
+
+.CC_Journey .field-resendotpcorporatepanel .field-maxattemptspanel {
+    flex: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-flow: row;
+    margin-top: 8px;
+}
+
+ .CC_Journey .field-resendotpcorporatepanel .field-resendemailcounter {
+    position: relative;
+    grid-column: span 7;
+
+    @media (width <=580px) {
+        grid-column: span 12;
+    }
+}
+
+ .CC_Journey .field-resendotpcorporatepanel .field-maxattemptspanel {
+    position: relative;
+    grid-column: span 5;
+
+    @media (width <=580px) {
+        grid-column: span 12;
+    }
+} */
+
+.CC_Journey .field-resendotpcorporatepanel {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    flex-flow: row;
+
+    p {
+        font-size: var(--body-sm-font-size);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-interface-text-secondary);
+        background: none;
+        border: none;
+        height: auto;
+        width: auto;
+
+        @media (width <=767px) {
+            font-size: var(--body-sm-font-size);
+        }
+    }
+
+    .field-officeresendcounter {
+        margin-top: 8px;
+
+        button {
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    .field-maxattemptscorporatepanel {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        width: auto;
+        margin-left: auto;
+        margin-top: 8px;
+
+        label {
+            display: none;
+        }
+
+
+        input {
+            position: absolute;
+            line-height: normal;
+            letter-spacing: 0;
+            padding: 0;
+            top: 1.5px;
+            font-size: var(--body-sm-font-size);
+            font-weight: var(--font-weight-regular);
+            color: var(--color-interface-text-secondary);
+            background: none;
+            border: none;
+            height: auto;
+            width: auto;
+            max-width: 10px;
+            right: 103px;
+
+            @media (max-width:767px) {
+                font-size: var(--body-sm-font-size);
+                top: .5px;
+            }
+        }
+    }
+}
+
+.CC_Journey .field-resendotpcorporatepanel .field-emailcorporatevalattemptsleft input {
+    left: auto;
+    top: 1.5px;
+
+    @media (width <=767px) {
+        top: 0;
+    }
+}
+
+.CC_Journey .field-corporateverifiedtext {
+    padding-top: 12px;
+    flex: 0 0 100%;
+    display: none;
+
+    p {
+        color: var(--color-interface-toaster-text-primary);
+        font-size: var(--body-sm-font-size);
+        font-weight: var(--font-weight-medium);
+        line-height: var(--font-linehight-regular);
+        padding-left: 12px;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: url('../icons/verify_green_icon.svg') no-repeat left center;
+        margin-right: .5rem;
+    }
+}
+
+/* loader fragment */
+.CC_Journey .field-loader-fragment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 99;
+
+    .field-loaderpanel {
+        width: 90%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--color-interface-background-primary);
+        padding: 16px;
+        line-height: 28px;
+        border-radius: 12px;
+
+        @media (width >=640px) {
+            max-width: 50%;
+        }
+
+        &:has(.field-loadertextline1 p:empty):has(.field-loadertextline2 p:empty):has(.field-loadertextline3 p:empty) .field-loadertextparent {
+            display: none;
+        }
+    }
+
+    .field-loadertextparent {
+        line-height: 28px;
+        width: 90%;
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--color-interface-info-text-primary);
+        font-size: var(--body-md-font-size);
+        font-weight: var(--font-weight-bold);
+
+        .plain-text-wrapper {
+            margin-top: 10px;
+
+            p {
+                color: var(--color-interface-info-text-primary);
+                font-size: var(--body-md-font-size);
+                font-weight: var(--font-weight-bold);
+                line-height: var(--font-linehight-large);
+
+                @media (width <=640px) {
+                    font-size: var(--body-md-font-size);
+                }
+            }
+        }
+    }
+
+    .image-wrapper {
+        width: 100%;
+        text-align: center;
+
+        picture {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

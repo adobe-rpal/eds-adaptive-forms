@@ -1,0 +1,44 @@
+.countdown-timer-container {
+     margin: 8px 0 0 0;
+}
+
+.countdown-timer-container > button.countdown-timer-link,
+.countdown-timer-container > button.countdown-timer-link:disabled  {
+    all:unset;
+    background: none;
+    color: grey;
+    font-size: 18px;
+}
+
+.countdown-timer-link {
+    background: transparent;
+    padding: 0;
+    border: none;
+    text-align: left;
+    display: block;
+    color: var(--color-action-text-secondary-default);
+    font-size: var(--body-md-font-size);
+    font-weight: var(--font-weight-bold);
+    height: auto;
+    width: auto;
+
+    @media (width <=767px) {
+        font-size: var(--body-sm-font-size);
+    }
+
+    &:hover {
+        background: transparent;
+    }
+}
+
+.countdown-timer-number {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-interface-text-primary);
+}
+
+.countdown-complete > button.countdown-timer-link {
+    color: var(--color-action-text-primary-default);
+    cursor: pointer;
+    text-decoration: none;
+}
+ 

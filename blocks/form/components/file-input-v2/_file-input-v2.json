@@ -1,0 +1,142 @@
+{
+  "definitions": [
+    {
+      "title": "File Input V2",
+      "id": "file-input-v2",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/fd/components/form/fileinput/v2/fileinput",
+            "template": {
+              "jcr:title": "File Input V2",
+              "fieldType": "file-input",
+              "fd:viewType": "file-input-v2"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "file-input-v2",
+      "fields": [
+        {
+          "component": "container",
+          "name": "basic",
+          "label": "Basic",
+          "collapsible": false,
+          "...": "../../models/form-common/_basic-input-fields.json"
+        },
+        {
+          "component": "container",
+          "name": "fileConfig",
+          "label": "File Configuration",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "text",
+              "name": "documentType",
+              "label": "Document Type",
+              "valueType": "string",
+              "description": "Type of document being uploaded (e.g., passport, aadhaar)"
+            },
+            {
+              "component": "text",
+              "name": "documentSide",
+              "label": "Document Side",
+              "valueType": "string",
+              "description": "Side of the document (e.g., front, back)"
+            },
+            {
+              "component": "text",
+              "name": "description",
+              "label": "Upload Description",
+              "valueType": "string",
+              "description": "Description text shown below the upload button"
+            },
+            {
+              "component": "text",
+              "name": "buttonText",
+              "label": "Button Text",
+              "valueType": "string",
+              "description": "Text to display on the upload button"
+            },
+            {
+              "component": "boolean",
+              "name": "hideDefaultLabels",
+              "label": "Hide Default Labels",
+              "valueType": "boolean",
+              "description": "Hide the default file input labels"
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "name": "validation",
+          "label": "Validation",
+          "collapsible": true,
+          "fields": [
+            {
+              "...": "../../models/form-common/_basic-validation-fields.json#/fields"
+            },
+            {
+              "component": "text",
+              "name": "maxFileSize",
+              "label": "Maximum File Size",
+              "valueType": "string",
+              "description": "Maximum allowed file size (e.g., 5MB)"
+            },
+            {
+              "component": "text",
+              "name": "accept",
+              "label": "Accepted MIME Types",
+              "valueType": "string",
+              "description": "Comma-separated list of accepted MIME types"
+            },
+            {
+              "component": "text",
+              "name": "allowedExtensions",
+              "label": "Allowed Extensions",
+              "valueType": "string",
+              "multi": true,
+              "description": "List of allowed file extensions (e.g., .jpg, .png)"
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "name": "messages",
+          "label": "Error Messages",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "text",
+              "name": "constraintMessages.accept",
+              "label": "Invalid File Type Message",
+              "valueType": "string",
+              "description": "Error message for invalid file type"
+            },
+            {
+              "component": "text",
+              "name": "constraintMessages.maxFileSize",
+              "label": "File Size Error Message",
+              "valueType": "string",
+              "description": "Error message for file size exceeding limit"
+            },
+            {
+              "component": "text",
+              "name": "constraintMessages.required",
+              "label": "Required Field Message",
+              "valueType": "string",
+              "description": "Error message when file is required but not uploaded"
+            }
+          ]
+        },
+        {
+          "...": "../../models/form-common/_help-container.json"
+        }
+      ]
+    }
+  ]
+}

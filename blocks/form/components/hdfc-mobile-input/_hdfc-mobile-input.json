@@ -1,0 +1,48 @@
+{
+    "definitions": [
+        {
+            "title": "Mobile Input (HDFC)",
+            "id": "hdfc-mobile-input",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer",
+                        "template": {
+                            "jcr:title": "Mobile Number",
+                            "fieldType": "panel",
+                            "fd:viewType": "hdfc-mobile-input",
+                            "minOccur": 1,
+                            "countryCode": {
+                                "jcr:title": "countryCode",
+                                "fieldType": "drop-down",
+                                "sling:resourceType": "core/fd/components/form/dropdown/v1/dropdown"
+                            },
+                            "mobileInput": {
+                                "jcr:title": "Mobile Number",
+                                "fieldType": "number-input",
+                                "sling:resourceType": "core/fd/components/form/numberinput/v1/numberinput"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "models": [
+        {
+            "id": "hdfc-mobile-input",
+            "fields": [
+                {
+                    "component": "container",
+                    "name": "basic",
+                    "label": "Basic",
+                    "collapsible": false,
+                    "...": "../../models/form-common/_basic-input-fields.json"
+                },
+                {
+                    "...": "../../models/form-common/_help-container.json"
+                }
+            ]
+        }
+    ]
+}

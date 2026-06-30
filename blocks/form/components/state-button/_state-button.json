@@ -1,0 +1,38 @@
+{
+    "definitions": [
+      {
+        "title": "State Button",
+        "id": "state-button",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/fd/components/form/button/v1/button",
+              "template": {
+                "jcr:title": "State Button",
+                "fieldType": "button",
+                "fd:viewType": "state-button"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "state-button",
+        "fields": [
+          {
+            "component": "container",
+            "name": "basic",
+            "label": "Basic",
+            "collapsible": false,
+            "...": "../../models/form-common/_basic-fields.json"
+          },
+          
+          {
+            "...": "../../models/form-common/_help-container.json"
+          }
+        ]
+      }
+    ]
+  }

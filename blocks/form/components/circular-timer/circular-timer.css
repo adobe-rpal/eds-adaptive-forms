@@ -1,0 +1,58 @@
+.circular-timer-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-timer-svg {
+  transform: rotate(-90deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.circular-timer-circle {
+  fill: none;
+  stroke-width: 8;
+}
+
+.circular-timer-circle.background {
+  stroke: #e0e0e0;
+  fill: none;
+}
+
+.circular-timer-circle.progress {
+  stroke: #4CAF50;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.circular-timer-text {
+  position: relative;
+  z-index: 1;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1f2f;
+  font-family: var(--body-font-family, Arial);
+}
+
+/* Mobile responsive styles */
+@media (width <= 767px) {
+  .circular-timer-container {
+    width: 80px;
+    height: 80px;
+  }
+
+  .circular-timer-text {
+    font-size: 20px;
+  }
+
+  .circular-timer-circle {
+    stroke-width: 6;
+  }
+}

@@ -1,0 +1,56 @@
+.link-button,
+.button-wrapper.field-editmobilenumber.field-wrapper,
+.field-verifybutton,
+.field-editemailbutton,
+.field-button-6660433291744607576391,
+.field-hereconsent1.button-wrapper,
+.field-hereconsent2.button-wrapper,
+.field-back {
+    max-width: none;
+    width: fit-content;
+    margin-top: 0;
+
+    &.field-back {
+        background: url('../../../../icons/back-arrow-icon.svg') no-repeat left -2px;
+        width: 24px;
+        height: 24px;
+        padding-left: 30px;
+        margin-top: 0;
+    }
+
+    &.field-button-6660433291744607576391 {
+        text-align: center;
+    }
+
+    @media (max-width: 640px) {
+        position: initial;
+    }
+}
+
+.link-button button,
+.button-wrapper.field-editmobilenumber.field-wrapper button,
+.field-verifybutton button,
+.field-editemailbutton button,
+.field-button-6660433291744607576391 button,
+.field-hereconsent1.button-wrapper button,
+.field-hereconsent2.button-wrapper button,
+.field-back button {
+    color: var(--color-action-text-secondary-default);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--body-fd-md-font-size);
+    background: none;
+    width: auto;
+    padding: 0;
+    height: auto;
+    background: transparent;
+    border-radius: 0;
+
+    &::after {
+        display: none;
+    }
+
+    &:hover {
+        background: none;
+        color: var(--color-action-text-secondary-default);
+    }
+}

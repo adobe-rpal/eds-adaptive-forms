@@ -1,0 +1,52 @@
+.date-wrapper {
+    &[data-empty="false"] {
+        input {
+            color: var(--color-interface-text-primary);
+            background: url("../../../icons/date_picker_cal_icon_select.svg") no-repeat 98% center;
+        }
+    }
+
+    &[data-empty="false"],
+    &[data-active="true"] {
+        label {
+            left: 20px;
+            top: 20px;
+            opacity: 1;
+            font-size: var(--body-fd-sm-font-size);
+
+            @media (width <=640px) {
+                font-size: var(--body-x-sm-font-size);
+            }
+        }
+    }
+}
+
+.date-wrapper label {
+    top: 5px;
+    font-size: var(--body-fd-lg-font-size);
+    font-weight: var(--font-weight-regular);
+    line-height: 28px;
+    margin: 0;
+    color: var(--color-interface-text-secondary);
+    opacity: 0;
+}
+
+.date-wrapper input {
+    letter-spacing: .5rem;
+
+    &[type="text"] {
+        background: url("../../../../icons/date_picker_cal_icon_default.svg") no-repeat 98% center;
+    }
+
+    &[type="date"] {
+        background: url("../../../../icons/date_picker_cal_icon_select.svg") no-repeat 98% center;
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+
+    &::-webkit-calendar-picker-indicator {
+        background: none;
+    }
+}

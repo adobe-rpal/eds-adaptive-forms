@@ -1,0 +1,115 @@
+{
+  "definitions": [
+    {
+      "title": "Credit Card Selector",
+      "id": "credit-card-selector",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/fd/components/form/radiobutton/v1/radiobutton",
+            "template": {
+              "jcr:title": "Credit Card Selector",
+              "fieldType": "radio-group",
+              "enum": [
+                "0"
+              ],
+              "type": "object",
+              "fd:viewType": "credit-card-selector"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "credit-card-selector",
+      "fields": [
+        {
+          "component": "container",
+          "name": "basic",
+          "label": "Basic",
+          "collapsible": false,
+          "fields": [
+            {
+              "...": "../../models/form-common/_basic-select-fields.json#/fields"
+            },
+            {
+              "component": "text",
+              "name": "multiCardSectionTitle",
+              "label": "Section Title (multi-card)",
+              "valueType": "string",
+              "value": "Select Card"
+            },
+            {
+              "component": "text",
+              "name": "singleCardSectionTitle",
+              "label": "Section Title (single-card)",
+              "valueType": "string",
+              "value": "Your Pre-approved Credit Card"
+            },
+            {
+              "component": "text",
+              "name": "moreBenefitsLabel",
+              "label": "More Benefits Link Label",
+              "valueType": "string",
+              "value": "More Benefits"
+            },
+            {
+              "component": "text",
+              "name": "recommendedBadgeLabel",
+              "label": "Recommended Badge Label",
+              "valueType": "string",
+              "value": "Recommended"
+            },
+            {
+              "component": "text",
+              "name": "joiningRenewalFeesLabel",
+              "label": "Joining / Renewal Fees Label",
+              "valueType": "string",
+              "value": "Joining / Renewal Fees"
+            },
+            {
+              "component": "number",
+              "name": "tileFeatureCount",
+              "label": "Features per tile (multi-card mode)",
+              "valueType": "number",
+              "value": 3
+            },
+            {
+              "component": "number",
+              "name": "singleCardFeatureCount",
+              "label": "Features in single-card mode",
+              "valueType": "number",
+              "value": 6
+            },
+            {
+              "component": "text",
+              "name": "modalPanelName",
+              "label": "Benefits Modal Panel Name",
+              "valueType": "string",
+              "value": "cardBenefitsModal"
+            },
+            {
+              "component": "text",
+              "name": "contentFieldName",
+              "label": "Benefits Modal Content Field Name",
+              "valueType": "string",
+              "value": "cardBenefitsContent"
+            }
+          ]
+        },
+        {
+          "...": "../../models/form-common/_help-container.json"
+        },
+        {
+          "component": "container",
+          "name": "validation",
+          "label": "Validation",
+          "collapsible": true,
+          "...": "../../models/form-common/_basic-validation-fields.json"
+        }
+      ]
+    }
+  ]
+}

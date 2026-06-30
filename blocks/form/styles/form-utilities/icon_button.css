@@ -1,0 +1,23 @@
+.button-wrapper.field-emaileditbutton.field-wrapper {
+    max-width: none;
+    width: fit-content;
+}
+
+.button-wrapper.field-emaileditbutton.field-wrapper button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        background: url('../../../../icons/edit_pencil_icon.svg') no-repeat center center;
+        color: transparent;
+
+        &::after {
+            display: none;
+        }
+
+        &:hover {
+            filter: brightness(90%);
+        }
+    }

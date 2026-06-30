@@ -1,0 +1,109 @@
+{
+  "definitions": [
+    {
+      "title": "Offer Card",
+      "id": "offer-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer",
+            "template": {
+              "jcr:title": "Offer Card",
+              "fieldType": "panel",
+              "fd:viewType": "offer-card",
+              "properties": {
+                "variant": "offer-card"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "offer-card",
+      "fields": [
+        {
+          "component": "container",
+          "name": "basic",
+          "label": "Basic",
+          "collapsible": false,
+          "fields":[
+            {
+              "component": "text",
+              "name": "offerCardID",
+              "label": "Offer Card ID",
+              "value": "PL_NPA"
+            },
+            {
+              "component": "reference",
+              "name": "cardImage",
+              "label": "Card Image",
+              "value": "/content/dam/cross-sell/loan.png"
+            },
+            {
+              "component": "text",
+              "name": "preApprovedText",
+              "label": "Pre-Approved Text",
+              "value": "PRE-APPROVED"
+            },
+            {
+              "component": "text",
+              "name": "title",
+              "label": "Title",
+              "value": "Personal Loan"
+            },
+            {
+              "component": "reference",
+              "name": "iconOne",
+              "label": "Icon One",
+              "value": "/content/dam/cross-sell/cashback_icon.svg"
+            },
+            {
+              "component": "text",
+              "name": "iconOneText",
+              "label": "Icon One Text",
+              "value": "Budget-Friendly EMIs"
+            },
+            {
+              "component": "reference",
+              "name": "iconTwo",
+              "label": "Icon Two",
+              "value": "/content/dam/cross-sell/document_icon.svg"
+            },
+            {
+              "component": "text",
+              "name": "iconTwoText",
+              "label": "Icon Two Text",
+              "value": "Minimum Documentation"
+            },
+            {
+              "component": "text",
+              "name": "benefitsOneText",
+              "label": "Benefits One Text",
+              "value": "Attractive interest rates + "
+            },
+            {
+              "component": "text",
+              "name": "benefitsTwoText",
+              "label": "Benefits Two Text",
+              "value": "Tax Benefits"
+            },
+            {
+              "component": "text",
+              "name": "cardLinkText",
+              "label": "Card Link Text",
+              "value": "Check Eligibility"
+            },
+            {
+              "component": "text",
+              "name": "cardLink",
+              "label": "Card Link"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

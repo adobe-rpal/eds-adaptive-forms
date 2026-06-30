@@ -1,18 +1,167 @@
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- =========================
+     BASIC META
+========================= -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta
-  name="urn:adobe:aue:system:aemconnection"
-  content="aem:https://author-p96753-e1523920.adobeaemcloud.com">
+<title>{{title}}</title>
 
-<script
-  src="https://universal-editor-service.adobe.io/cors.js"
-  async></script>
+<!-- =========================
+     SEO
+========================= -->
+<meta name="robots"
+  content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
 
-<script src="/scripts/aem.js" type="module"></script>
-<script src="/scripts/scripts.js" type="module"></script>
+<meta name="description"
+  content="Apply online for HDFC Bank products with secure, mobile-friendly digital forms.">
 
-<link rel="stylesheet" href="/styles/styles.css"/>
-<link rel="stylesheet" href="/blocks/embed-adaptive-form/embed-adaptive-form.css"/>
-<link rel="stylesheet" href="/blocks/form/form.css"/>
-<link rel="stylesheet" href="/blocks/header/header.css"/>
-<link rel="stylesheet" href="/blocks/footer/footer.css"/>
+<!-- Critical: body in layout but invisible until .appear (opacity/visibility – reduces CLS); hide pre>code (raw snippet) -->
+<!--style>body{opacity:0;visibility:hidden}pre>code{display:none}</style-->
+
+<!-- Preconnect to key origins (RUM, form submit, CDNs) -->
+<link rel="preconnect" href="https://rum.hlx.page" crossorigin>
+<link rel="preconnect" href="https://forms.adobe.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://openfpcdn.io" crossorigin>
+
+<!-- Preload fonts -->
+<link rel="preload" href="/styles/fonts.css" as="style">
+<link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin> 
+
+<!-- =========================
+     MAIN STYLES
+========================= -->
+<script nonce="rAnd0mFd">
+(function () {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/styles/cc-journey-styles.css';
+  document.head.appendChild(link);
+})();
+</script>
+
+<script nonce="rAnd0mFd">
+(function () {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/styles/cc-journey-landing-screen.css';
+  document.head.appendChild(link);
+})();
+</script>
+
+<script nonce="rAnd0mFd">
+(function () {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/styles/critical.css';
+  document.head.appendChild(link);
+})();
+</script>
+
+<!-- =========================
+     MAIN SCRIPTS
+========================= -->
+<script nonce="rAnd0mFd" type="module" src="/scripts/aem.js"></script>
+<script nonce="rAnd0mFd" type="module" src="/scripts/scripts.js"></script>
+
+<!-- =========================
+     SEO + HEADER PRELOAD
+========================= -->
+<script nonce="rAnd0mFd">
+(function () {
+
+  const path = location.pathname;
+  const head = document.head;
+
+  /* ---------------- META DESCRIPTION ---------------- */
+
+  const seoMap = {
+    "savings-account":
+      "Open an HDFC Bank Savings Account online with a simple, secure digital application.",
+    "current-account":
+      "Apply for an HDFC Bank Current Account tailored for your business and banking needs.",
+    "fixed-deposit":
+      "Start an HDFC Bank Fixed Deposit online and grow your savings with assured returns."
+  };
+
+  const metaTag = head.querySelector('meta[name="description"]');
+
+  if (metaTag) {
+    for (const key in seoMap) {
+      if (path.includes(key)) {
+        metaTag.content = seoMap[key];
+        break;
+      }
+    }
+  }
+
+  /* ---------------- HEADER FRAGMENT (from nav meta) ---------------- */
+
+  const navMeta = head.querySelector('meta[name="nav"]')?.content;
+  let headerFragment = null;
+  if (navMeta) {
+    try {
+      const navPath = new URL(navMeta, location.origin).pathname;
+      headerFragment = navPath.endsWith(".plain.html")
+        ? navPath
+        : navPath.replace(/(\.plain)?\.html?$/, "") + ".plain.html";
+    } catch (e) { /* ignore */ }
+  }
+
+  if (!headerFragment) return;
+
+  /* ---------------- PRELOAD ALL HEADER IMAGES (from fragment) ---------------- */
+
+  const fragmentBase = new URL(".", new URL(headerFragment, location.origin));
+  const seen = new Set();
+
+  fetch(headerFragment, { credentials: "omit" })
+    .then((r) => (r.ok ? r.text() : null))
+    .then((html) => {
+      if (!html) return;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      let isFirst = true;
+      const addPreload = (url, isLogo) => {
+        try {
+          const resolved = new URL(url, fragmentBase).href;
+          if (seen.has(resolved)) return;
+          seen.add(resolved);
+          const ext = resolved.split(".").pop()?.split("?")[0] || "";
+          const params = ext === "svg" ? "?width=750&format=svg&optimize=medium" : "?width=750&format=" + ext + "&optimize=medium";
+          const preloadUrl = resolved.includes("?") ? resolved : resolved + params;
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.href = preloadUrl;
+          link.fetchPriority = (isLogo || isFirst) ? "high" : "low";
+          if (isLogo || isFirst) isFirst = false;
+          head.appendChild(link);
+        } catch (e) { /* ignore */ }
+      };
+
+      const mediaPath = (attr) => attr && (attr.startsWith("./media_") || attr.includes("media_"));
+      doc.querySelectorAll("img[src]").forEach((img) => {
+        const src = img.getAttribute("src");
+        if (mediaPath(src)) {
+          const alt = (img.getAttribute("alt") || "").toLowerCase();
+          addPreload(src, alt.includes("hdfc"));
+        }
+      });
+      doc.querySelectorAll("source[srcset]").forEach((source) => {
+        source.getAttribute("srcset").split(",").forEach((part) => {
+          const src = part.trim().split(/\s+/)[0];
+          if (src && mediaPath(src)) addPreload(src, false);
+        });
+      });
+    })
+    .catch(() => {});
+
+})();
+</script>
+
+
+
+
+

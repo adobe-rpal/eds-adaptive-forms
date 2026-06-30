@@ -1,0 +1,28 @@
+.field-videokycconsentpanel {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    legend.field-label {
+        margin-bottom: 1.5rem !important;
+        font-size: var(--body-x-lg-font-size) !important;
+        font-weight: var(--font-weight-bold) !important;
+        color: var(--color-interface-text-primary) !important;
+        line-height: var(--body-fd-xx-xlg-font-size) !important;
+        letter-spacing: -2% !important;
+    }
+
+    .field-vkycsubtext {
+        p {
+            font-size: var(--body-md-font-size) !important;
+            font-weight: var(--font-weight-regular) !important;
+            color: var(--color-input-text-primary) !important;
+            line-height: var(--font-linehight-medium) !important;
+            letter-spacing: -2% !important;
+        }
+    }
+}
+
+.field-yourdetailssubmitbutton {
+    display: block;
+    margin-left: 0;
+    text-align: left;
+}

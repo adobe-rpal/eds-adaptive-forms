@@ -1,0 +1,37 @@
+body main .form form {
+
+    .radio-group-wrapper[name="document_type"],
+    .radio-group-wrapper[name="accTypeSelection"],
+    .radio-group-wrapper[name="accountTypeSelection"] {
+        column-gap: 12px;
+        
+        .radio-wrapper {
+            border-radius: 20px;
+            border: 1px solid var(--color-interface-border-secondary);
+            padding: 8px 12px;
+            margin: 0;
+
+            input[type="radio"] {
+                display: none;
+            }
+
+            label {
+                font-size: var(--body-sm-font-size);
+                font-weight: var(--font-weight-regular);
+                color: var(--color-input-text-primary);
+                line-height: var(--font-linehight-regular);
+                flex-basis: auto;
+            }
+
+            &:has(:checked) {
+                background: var(--color-action-background-primary-default);
+                border: 1px solid var(--color-action-border-primary-default);
+
+                label {
+                    color: var(--color-interface-text-tertiary)
+                }
+
+            }
+        }
+    }
+}

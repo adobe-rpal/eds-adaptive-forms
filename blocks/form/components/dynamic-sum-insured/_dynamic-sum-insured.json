@@ -1,0 +1,104 @@
+{
+  "definitions": [
+    {
+      "title": "Dynamic Sum Insured",
+      "id": "dynamic-sum-insured",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/fd/components/form/radiobutton/v1/radiobutton",
+            "template": {
+              "jcr:title": "Dynamic Sum Insured",
+              "fieldType": "radio-group",
+              "fd:viewType": "dynamic-sum-insured",
+              "enum": [1000000, 1500000, 2000000],
+              "enumNames": ["10L", "15L", "20L"]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "dynamic-sum-insured",
+      "fields": [
+        {
+          "component": "container",
+          "name": "basic",
+          "label": "Basic",
+          "collapsible": false,
+          "fields": [
+            {
+              "...": "../../models/form-common/_basic-input-fields.json#/fields"
+            },
+            {
+              "component": "text",
+              "name": "variant",
+              "label": "Variant",
+              "valueType": "string",
+              "value": "dynamic-sum-insured",
+              "visible": false
+            },
+            {
+              "component": "text",
+              "name": "dataSourcePath",
+              "label": "Data Source Path",
+              "valueType": "string",
+              "description": "Path to lifeInsurancePlanCodes in form properties (e.g., 'lifeInsurancePlanCodes')",
+              "value": "lifeInsurancePlanCodes"
+            },
+            {
+              "component": "select",
+              "label": "Format Type",
+              "name": "formatType",
+              "valueType": "string",
+              "value": "indian",
+              "options": [
+                {
+                  "name": "Indian (L/Cr)",
+                  "value": "indian"
+                },
+                {
+                  "name": "International (K/M)",
+                  "value": "international"
+                }
+              ],
+              "description": "Number formatting style for display"
+            },
+            {
+              "component": "number",
+              "name": "columnsDesktop",
+              "label": "Columns (Desktop)",
+              "valueType": "number",
+              "value": 3,
+              "description": "Number of columns in grid layout on desktop"
+            },
+            {
+              "component": "number",
+              "name": "columnsMobile",
+              "label": "Columns (Mobile)",
+              "valueType": "number",
+              "value": 2,
+              "description": "Number of columns in grid layout on mobile"
+            }
+          ]
+        },
+        {
+          "...": "../../models/form-common/_help-container.json"
+        },
+        {
+          "component": "container",
+          "name": "validation",
+          "label": "Validation",
+          "collapsible": true,
+          "fields": [
+            {
+              "...": "../../models/form-common/_basic-validation-fields.json#/fields"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
