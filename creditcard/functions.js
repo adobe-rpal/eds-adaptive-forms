@@ -16,8 +16,8 @@
  * @property {string|null} encSymmetricKey
  * @property {CryptoKey|null} aSymmetricPublicKey
  */
-import { isEncryptionEnabled, getMockIpaResponse, getInsuranceUrl } from '../../eds-cc/blocks/form/constant.js';
-import { FingerprintJS } from '../../eds-cc/creditcard/credit-card-util/fingerprint.js'
+import { isEncryptionEnabled, getMockIpaResponse, getInsuranceUrl } from '../../blocks/form/constant.js';
+import { FingerprintJS } from '../../creditcard/credit-card-util/fingerprint.js'
 
 const restAPIDataSecurityServiceContext = {
   SEC_KEY_HEADER: 'X-ENCKEY',

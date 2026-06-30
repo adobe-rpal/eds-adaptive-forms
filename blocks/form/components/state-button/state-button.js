@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { subscribe } from '../../rules/index.js';
 import { getSubmitBaseUrl, isEncryptionEnabled } from '../../constant.js';
-import { encrypt, decrypt } from '../../../../../eds-cc/creditcard/functions.js';
+import { encrypt, decrypt } from '../../../../../creditcard/functions.js';
 
 let leadId;
 let globalStateTracker = [];
